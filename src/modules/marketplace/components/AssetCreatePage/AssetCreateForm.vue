@@ -38,7 +38,7 @@
             :loading="loading"
             type="submit"
           >
-            {{ $t('marketplace.createAsset.createNft') }}
+            Submit Creation
           </m-btn>
         </div>
       </ve-stack>

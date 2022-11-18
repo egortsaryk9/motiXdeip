@@ -11,13 +11,13 @@
             small
           >
             <!-- XXX: Put your logo here -->
-            Go to Queue
+            See creations in Queue
           </v-btn>
         </template>
       </vex-section-title>
       <div class="d-flex align-center justify-start">
         <div class="text-body-1">
-          Some description about the concept here ...
+          A creative movement celebrating our city through the eyes and lives of those who love it.
         </div>
       </div>
       <div class="d-flex align-center justify-center">
@@ -25,7 +25,7 @@
           kind="primary"
           :to="{ name: 'assetCreate' }"
         >
-          {{ $t('marketplace.createAsset.formTitle') }}
+          Submit Creation
         </m-btn>
       </div>
     </ve-stack>

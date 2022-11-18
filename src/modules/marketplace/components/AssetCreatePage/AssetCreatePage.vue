@@ -2,7 +2,7 @@
   <vex-section>
     <ve-stack>
       <vex-section-title
-        :title="$t('marketplace.createAsset.formTitle')"
+        title="Lisbon, I Love you"
       />
         <asset-create-form
           ref="createAssetForm"

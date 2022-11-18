@@ -5,16 +5,14 @@ export default {
     createNft: 'Submit asset',
     moderation: 'Moderation',
     moderationRequired: 'This is a required field.',
-    moderationMessage: `I understand that if my submission is declined, 
-    the NFT will not be created and the asset will be permanently deleted.`,
-    createSuccess: 'Asset successfully created!',
+    moderationMessage: `By clicking Submit Artwork, you accept Terms and Conditions of the Project. No creative rights will be delivered to Moti., Ltd`,
     errors: {
       duplicate: 'Such asset already exists',
       noNftCollection: 'User can\'t submit assets without the collection'
     }
   },
   conceptPage: {
-    pageTitle: 'Concept Page',
+    pageTitle: 'Lisbon I, love you',
   },
   assetList: {
     allNfts: 'Queue',
