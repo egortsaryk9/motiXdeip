@@ -6,6 +6,7 @@ const audioExtensions = require('audio-extensions');
 const imageExtensions = require('image-extensions');
 const videoExtensions = require('video-extensions');
 
+const supportedPreviews = ['webm', 'mp4', 'mpeg', 'mp3', 'jpg', 'jpeg', 'png', 'gif'];
 
 export default defineComponent({
   name: 'AssetFile',
@@ -61,7 +62,7 @@ export default defineComponent({
       const file = this.file;
       if (!file) return null;
       const ext = this.getExtension(file.value);
-      return videoExtensions.some((e) => e == ext) || ext.toLowerCase() == 'mov'
+      return videoExtensions.some((e) => e == ext) || ext.toLowerCase() == 'mov';
     },
 
     isUnsupportedVideo() {
@@ -78,8 +79,11 @@ export default defineComponent({
       return audioExtensions.some((e) => e == ext && ext != 'mp4');
     },
 
-    isPreviewUnavailable() {
-      return this.isUnsupportedVideo || (!this.isVideo && !this.isAudio && !this.isImg)
+    isPreviewAvailable() {
+      const file = this.file;
+      if (!file) return null;
+      const ext = this.getExtension(file.value);
+      return supportedPreviews.some((e) => e == ext);
     },
 
     contentClass() {
@@ -119,7 +123,7 @@ export default defineComponent({
       return <div class={this.contentClass} style={{ "text-align": this.textAlign, "height": this.height, "width": this.width }}>
         
         { 
-          this.isVideo && !this.isPreviewUnavailable
+          this.isVideo && this.isPreviewAvailable
             ? <video width={this.width} height={this.height} controls>
                 <source src={this.getFileUrl()} type="video/mp4" />
                 <source src={this.getFileUrl()} type="video/ogg" />
@@ -130,28 +134,18 @@ export default defineComponent({
         }
 
         { 
-          this.isImg && !this.isPreviewUnavailable
+          this.isImg && this.isPreviewAvailable
             ? <v-img width={this.width} height={this.height}
                 content-class={this.contentClass}
                 src={this.getFileUrl()} />
             : null
         }
 
-        { 
-          this.isAudio && !this.isPreviewUnavailable
-            ? <audio width={this.width} height={this.height} controls>
-                <source src={this.getFileUrl()} type="audio/ogg" />
-                <source src={this.getFileUrl()} type="audio/mpeg" />
-                Your browser does not support te audio element.
-              </audio>
-            : null
-        }
-
         {
-          this.isPreviewUnavailable 
+          !this.isPreviewAvailable 
             ? <div class="pt-8 pb-8" style={{ "height": this.height, "width": this.width }}>
                 <div>Preview is not available.</div> 
-                 { this.isDownloadShown ? <div><a href={this.getFileUrl(true)}>Download</a> the file to browse it locally.</div>: null }
+                 { this.isDownloadShown ? <div><a href={this.getFileUrl(true)}>Download</a> the file to browse it locally.</div> : null }
               </div>
            : null
         }

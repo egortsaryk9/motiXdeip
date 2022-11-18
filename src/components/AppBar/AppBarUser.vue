@@ -10,7 +10,7 @@
       {{ $t('auth.signIn') }}
     </m-btn>
 
-    <template v-if="isUser">
+    <!-- <template v-if="isUser">
       <v-menu
         bottom
         left
@@ -60,18 +60,18 @@
             </v-list-item>
           </template>
 
-          <!-- <v-divider />
+          <v-divider />
 
           <v-list-item @click="handleSignOut">
             <v-list-item-icon>
               <v-icon>mdi-logout-variant</v-icon>
             </v-list-item-icon>
             <v-list-item-title>{{ $t('auth.signOut') }}</v-list-item-title>
-          </v-list-item> -->
+          </v-list-item>
         </v-list>
       </v-menu>
 
-    </template>
+    </template> -->
   </ve-stack>
 </template>
 
