@@ -23,7 +23,15 @@ export default defineComponent({
     textAlign: {
       type: String,
       default: "center"
-    }
+    },
+    height: {
+      type: String,
+      default: "200px"
+    },
+    width: {
+      type: String,
+      default: "100%"
+    },
   },
 
   computed: {
@@ -74,7 +82,7 @@ export default defineComponent({
       const file = this.file;
       if (!file) return null;
       const ext = this.getExtension(file.value);
-      return audioExtensions.some((e) => e == ext);
+      return audioExtensions.some((e) => e == ext && ext != 'mp4');
     },
 
     contentClass() {
@@ -108,10 +116,10 @@ export default defineComponent({
     //     <object data={this.fileUrl} width="300" height="200"></object>
     //   </div>
 
-      return <div class={this.contentClass} style={{"text-align": this.textAlign }}>
+      return <div class={this.contentClass} style={{ "text-align": this.textAlign}}>
 
         { this.isVideo
-            ? <video width="100%" height="100%" controls>
+            ? <video width={this.width} height={this.height} controls>
                 <source src={this.fileUrl} type="video/mp4" />
                 <source src={this.fileUrl} type="video/ogg" />
                 Your browser does not support the video tag.
@@ -120,23 +128,20 @@ export default defineComponent({
         }
 
         { this.isImg
-            ? <v-img
-                width="100%"
-                height="100%"
+            ? <v-img width={this.width} height={this.height}
                 content-class={this.contentClass}
                 src={this.fileUrl} />
             : null
         }
 
         { this.isAudio
-            ? <audio width="100%" height="100%" controls>
+            ? <audio width={this.width} height={this.height} controls>
                 <source src={this.fileUrl} type="audio/ogg" />
                 <source src={this.fileUrl} type="audio/mpeg" />
                 Your browser does not support the audio element.
               </audio>
             : null
         }
-        
       </div>
   }
 });

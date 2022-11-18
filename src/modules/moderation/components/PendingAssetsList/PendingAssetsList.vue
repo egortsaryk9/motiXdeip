@@ -12,8 +12,6 @@
     >
       <ve-auto-grid
         cols="1"
-        cols-sm="2"
-        cols-lg="4"
       >
         <nft-item-draft-moderation-card
           v-for="asset in list"
