@@ -7,6 +7,7 @@
     <nft-items-infinite-scroll
       v-slot="{list}"
       :filter="filter"
+      :sort="sort"
       is-draft
       class="py-6"
     >
@@ -45,7 +46,8 @@
       return {
         filter: {
           status: NftItemMetadataDraftStatus.PROPOSED
-        }
+        },
+        sort: { queueNumber: 'asc' },
       };
     }
   };

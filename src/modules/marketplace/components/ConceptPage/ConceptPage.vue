@@ -5,13 +5,14 @@
         :title="$t('marketplace.conceptPage.pageTitle')"
       >
         <template #append>
-          <router-link
+          <v-btn
             :to="{ name: 'assetList' }"
-            class="link text--primary d-block"
+            kind="primary"
+            small
           >
             <!-- XXX: Put your logo here -->
-            See the Queue
-          </router-link>
+            Go to Queue
+          </v-btn>
         </template>
       </vex-section-title>
       <div class="d-flex align-center justify-start">

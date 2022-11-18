@@ -70,7 +70,7 @@
       return {
         statuses,
         status: statuses[0].value,
-        sort: { createdAt: 'desc' }
+        sort: { queueNumber: 'asc' }
       };
     },
 
