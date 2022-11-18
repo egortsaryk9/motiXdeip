@@ -70,11 +70,7 @@ const nftItemsModuleOptions = {
     { key: 'email', label: 'Email', allowedTypes: ['text'] },
     { key: 'name', label: 'Name', allowedTypes: ['text'] },
     { key: 'title', label: 'Title', allowedTypes: ['text'] },
-    {
-      key: 'image',
-      label: 'Image',
-      allowedTypes: ['image']
-    },
+    { key: 'file', label: 'File', allowedTypes: ['file'] }
   ]
 };
 

@@ -81,7 +81,10 @@
     "vue-template-compiler": "^2.6.14",
     "vuetify-loader": "^1.7.2",
     "v-clipboard": "^2.2.3",
-    "vue-deepset": "^0.6.3"
+    "vue-deepset": "^0.6.3",
+    "audio-extensions": "0.0.0",
+    "video-extensions": "1.2.0",
+    "image-extensions": "1.1.0"
   },
   "lint-staged": {
     "*.{js,vue}": "eslint --fix"
