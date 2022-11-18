@@ -116,7 +116,7 @@ export default defineComponent({
     //     <object data={this.fileUrl} width="300" height="200"></object>
     //   </div>
 
-      return <div class={this.contentClass} style={{ "text-align": this.textAlign}}>
+      return <div class={this.contentClass} style={{ "text-align": this.textAlign, "height": this.height, "width": this.width }}>
 
         { this.isVideo
             ? <video width={this.width} height={this.height} controls>
