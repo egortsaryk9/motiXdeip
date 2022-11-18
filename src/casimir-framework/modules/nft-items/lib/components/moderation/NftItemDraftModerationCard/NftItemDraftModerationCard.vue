@@ -1,11 +1,16 @@
 <template>
   <div>
     <v-card outlined>
-      <layout-renderer
-        :value="nftItem"
-        :schema="cardSchema"
-        :schema-data="cardSchemaData"
-      />
+      <router-link
+        :to="{ name: 'assetDetails', params: { assetId: nftItemDraft._id } }"
+        class="text-decoration-none"
+      >
+        <layout-renderer
+          :value="nftItem"
+          :schema="cardSchema"
+          :schema-data="cardSchemaData"
+        />
+      </router-link>
 
       <ve-stack :gap="8" flow="column" class="align-end justify-end ma-4">
         <v-btn
