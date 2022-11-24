@@ -59,7 +59,7 @@ export const AttributesModule = {
   deps: [
     'ValidationPlugin',
     'VuetifyExtended',
-    // 'EnvModule'
+    'EnvModule'
   ],
   install
 };
