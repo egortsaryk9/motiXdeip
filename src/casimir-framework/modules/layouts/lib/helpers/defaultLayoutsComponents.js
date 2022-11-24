@@ -12,7 +12,7 @@ import {
   VexTextExpand,
   VexScrollableText
 // eslint-disable-next-line import/extensions,import/no-unresolved
-} from '@/plugins/VuetifyExtended';
+} from '@/casimir-framework/plugins/VuetifyExtended';
 
 // eslint-disable-next-line import/no-unresolved
 import { VeStack, VeLineClamp } from '@/casimir-framework/vue-elements';

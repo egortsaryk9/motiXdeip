@@ -67,8 +67,8 @@
 
 <script>
   import { defineComponent } from '@/casimir-framework/all';
-  import { getBindableProps } from '@/plugins/VuetifyExtended/lib/composables/props';
-  import { VexTooltip } from '@/plugins/VuetifyExtended';
+  import { getBindableProps } from '@/casimir-framework/plugins/VuetifyExtended/lib/composables/props';
+  import { VexTooltip } from '@/casimir-framework/plugins/VuetifyExtended';
   import { NftItemMetadataDraftStatus } from '@/casimir-framework/vars';
   import NftItemDraftsDataProvider from '../DataProvider';
 

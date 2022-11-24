@@ -27,7 +27,7 @@
 
 <script>
   import { AttributeEdit } from '@/casimir-framework/modules/attributes';
-  import { VexSection, VexSectionTitle } from '@/plugins/VuetifyExtended';
+  import { VexSection, VexSectionTitle } from '@/casimir-framework/plugins/VuetifyExtended';
   import { VeStack } from '@/casimir-framework/vue-elements';
   import { ViewMode } from '@/casimir-framework/vars';
 

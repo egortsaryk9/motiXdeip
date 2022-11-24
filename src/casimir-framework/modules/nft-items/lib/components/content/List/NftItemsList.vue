@@ -23,7 +23,7 @@
 
 <script>
   import { defineComponent } from '@/casimir-framework/all';
-  import { getBindableProps } from '@/plugins/VuetifyExtended/lib/composables/props';
+  import { getBindableProps } from '@/casimir-framework/plugins/VuetifyExtended/lib/composables/props';
 
   import NftItemsDataProvider from '../DataProvider';
 

@@ -15,7 +15,7 @@ import {
   Ripple
 } from 'vuetify/lib/directives';
 
-import { VexExpand } from '@/plugins/VuetifyExtended';
+import { VexExpand } from '@/casimir-framework/plugins/VuetifyExtended';
 /* eslint-enable */
 
 import draggable from 'vuedraggable';

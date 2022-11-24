@@ -1,4 +1,4 @@
-import { VexImage } from '@/plugins/VuetifyExtended';
+import { VexImage } from '@/casimir-framework/plugins/VuetifyExtended';
 import { defineComponent } from '@/casimir-framework/all';
 import { AttributeReadMixin } from '../../mixins';
 

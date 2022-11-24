@@ -5,8 +5,8 @@ import '@mdi/font/css/materialdesignicons.css';
 import Vue from 'vue';
 
 import { CreateApp } from '@/casimir-framework/all';
-import { ValidationPlugin } from '@/plugins/Validation';
-import { VuetifyExtended } from '@/plugins/VuetifyExtended';
+import { ValidationPlugin } from '@/casimir-framework/plugins/Validation';
+import { VuetifyExtended } from '@/casimir-framework/plugins/VuetifyExtended';
 
 import { EnvModule } from '@/casimir-framework/modules/env';
 // import { PortalsModule } from '@casimir.one/portals-module';

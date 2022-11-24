@@ -11,7 +11,7 @@ import {
 // eslint-disable-next-line import/extensions,import/no-unresolved
 } from 'vuetify/lib/components';
 
-import { VexDateInput } from '@/plugins/VuetifyExtended';
+import { VexDateInput } from '@/casimir-framework/plugins/VuetifyExtended';
 
 import { cloneDeep } from 'lodash';
 import { camelCase, pascalCase } from 'change-case';

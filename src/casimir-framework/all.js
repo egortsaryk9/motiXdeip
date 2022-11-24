@@ -20,7 +20,7 @@ import {
   VDataTable
 } from 'vuetify/lib/components';
 import { pascalCase, camelCase } from 'change-case';
-import { VexSection, VexSectionTitle } from '@/plugins/VuetifyExtended';
+import { VexSection, VexSectionTitle } from '@/casimir-framework/plugins/VuetifyExtended';
 import crc32 from 'crc/crc32';
 import { find as deepFind } from 'find-keypath';
 import md5 from 'md5';

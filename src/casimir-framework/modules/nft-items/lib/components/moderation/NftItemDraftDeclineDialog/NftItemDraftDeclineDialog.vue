@@ -24,7 +24,7 @@
 
 <script>
   import { NftItemMetadataDraftStatus } from '@/casimir-framework/vars';
-  import { VexDialog } from '@/plugins/VuetifyExtended';
+  import { VexDialog } from '@/casimir-framework/plugins/VuetifyExtended';
   import { VeStack } from '@/casimir-framework/vue-elements';
 
   /** Decline NFT item draft on moderation dialog */

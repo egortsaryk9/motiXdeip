@@ -42,7 +42,7 @@
 <script>
   import { AttributesList } from '@/casimir-framework/modules/attributes';
   import { MBtn } from '@/components/MBtn';
-  import { VexSection, VexSectionTitle } from '@/plugins/VuetifyExtended';
+  import { VexSection, VexSectionTitle } from '@/casimir-framework/plugins/VuetifyExtended';
   import { VeStack } from '@/casimir-framework/vue-elements';
 
   export default {

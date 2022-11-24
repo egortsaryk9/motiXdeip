@@ -10,7 +10,7 @@
 </template>
 
 <script>
-  import { VexSection, VexSectionTitle } from '@/plugins/VuetifyExtended';
+  import { VexSection, VexSectionTitle } from '@/casimir-framework/plugins/VuetifyExtended';
   import { VeStack } from '@/casimir-framework/vue-elements';
   import { MBtn } from '@/components';
 

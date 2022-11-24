@@ -1,4 +1,4 @@
-import { VexVideoEmbed } from '@/plugins/VuetifyExtended';
+import { VexVideoEmbed } from '@/casimir-framework/plugins/VuetifyExtended';
 import { defineComponent } from '@/casimir-framework/all';
 import { AttributeReadMixin } from '../../mixins';
 

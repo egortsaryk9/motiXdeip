@@ -10,7 +10,7 @@
 
 <script>
   import { dateMixin } from '@/casimir-framework/all';
-  import { VexImage } from '@/plugins/VuetifyExtended';
+  import { VexImage } from '@/casimir-framework/plugins/VuetifyExtended';
   import { attributeMethodsFactory, expandAttributes } from '@/casimir-framework/modules/attributes';
   import { attributedDetailsFactory, LayoutRenderer } from '@/casimir-framework/modules/layouts';
 

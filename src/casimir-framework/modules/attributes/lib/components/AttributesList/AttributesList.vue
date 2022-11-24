@@ -132,7 +132,7 @@
 
   import {
     VexTooltip
-  } from '@/plugins/VuetifyExtended';
+  } from '@/casimir-framework/plugins/VuetifyExtended';
   import { VeStack } from '@/casimir-framework/vue-elements';
 
   /**

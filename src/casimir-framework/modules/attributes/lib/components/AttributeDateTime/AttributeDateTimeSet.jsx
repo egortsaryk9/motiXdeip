@@ -1,4 +1,4 @@
-import { VexDateTimeInput } from '@/plugins/VuetifyExtended';
+import { VexDateTimeInput } from '@/casimir-framework/plugins/VuetifyExtended';
 import { defineComponent } from '@/casimir-framework/all';
 import { AttributeSetMixin } from '../../mixins';
 

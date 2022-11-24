@@ -1,4 +1,4 @@
-import { VexPlacesAutocomplete } from '@/plugins/VuetifyExtended';
+import { VexPlacesAutocomplete } from '@/casimir-framework/plugins/VuetifyExtended';
 
 import { defineComponent } from '@/casimir-framework/all';
 import { AttributeSetMixin } from '../../mixins';

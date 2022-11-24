@@ -50,7 +50,7 @@
 <script>
   import { defineComponent } from '@/casimir-framework/all';
   import { AttributeScope } from '@/casimir-framework/vars';
-  import { VexBlock, contextMixin } from '@/plugins/VuetifyExtended';
+  import { VexBlock, contextMixin } from '@/casimir-framework/plugins/VuetifyExtended';
   import { attributedDetailsFactory, LayoutRenderer } from '@/casimir-framework/modules/layouts';
   import { attributeMethodsFactory, expandAttributes } from '@/casimir-framework/modules/attributes';
 

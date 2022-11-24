@@ -1,5 +1,5 @@
 import { defineComponent } from '@/casimir-framework/all';
-import { VexImage } from '@/plugins/VuetifyExtended';
+import { VexImage } from '@/casimir-framework/plugins/VuetifyExtended';
 import { VImg, } from 'vuetify/lib/components';
 
 const audioExtensions = require('audio-extensions');

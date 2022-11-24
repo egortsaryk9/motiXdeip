@@ -11,7 +11,7 @@
 <script>
   import { defineComponent } from '@/casimir-framework/all';
   import { AttributeScope } from '@/casimir-framework/vars';
-  import { VexBlock } from '@/plugins/VuetifyExtended';
+  import { VexBlock } from '@/casimir-framework/plugins/VuetifyExtended';
   import { attributedDetailsFactory, LayoutRenderer } from '@/casimir-framework/modules/layouts';
   import { attributeMethodsFactory, expandAttributes } from '@/casimir-framework/modules/attributes';
 

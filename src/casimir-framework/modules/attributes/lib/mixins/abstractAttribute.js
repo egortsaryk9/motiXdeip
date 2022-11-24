@@ -4,7 +4,7 @@ import {
   wrapInArray
 } from '@/casimir-framework/all';
 import { isEqual, cloneDeep } from 'lodash';
-import { ValidationProvider } from '@/plugins/Validation';
+import { ValidationProvider } from '@/casimir-framework/plugins/Validation';
 import { VeStack } from '@/casimir-framework/vue-elements';
 
 /**
