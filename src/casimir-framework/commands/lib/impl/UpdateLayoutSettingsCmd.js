@@ -13,10 +13,8 @@ class UpdateLayoutSettingsCmd extends AppCmd {
    * @param {Object} cmdPayload
    */
   constructor(cmdPayload) {
-    const layoutSettings = cmdPayload;
-
-    assert(!!layoutSettings, "'layoutSettings' is required");
-
+    const layoutMappings = cmdPayload;
+    assert(!!layoutMappings, "'layoutMappings' is required");
     super(APP_CMD.UPDATE_LAYOUT_SETTINGS, cmdPayload);
   }
 }

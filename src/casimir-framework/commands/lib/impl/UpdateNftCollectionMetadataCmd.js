@@ -11,7 +11,6 @@ class UpdateNftCollectionMetadataCmd extends AppCmd {
    * Create command for project update
    * @param {Object} cmdPayload
    * @param {string} cmdPayload._id
-   * @param {string} cmdPayload.issuer
    * @param {Array.<Object>} cmdPayload.attributes
    */
   constructor(cmdPayload) {

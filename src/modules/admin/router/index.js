@@ -1,9 +1,12 @@
 import { SYSTEM_ROLE, ViewMode } from '@/casimir-framework/vars';
 
+import { AdminNftCollections } from '@/modules/admin/components/collections/AdminNftCollections';
+import { AdminNftCollectionForm } from '@/modules/admin/components/collections/AdminNftCollectionForm';
+import { AdminNftCollectionDetails } from '@/modules/admin/components/collections/AdminNftCollectionDetails';
+
 import { AdminAttributes } from '@/modules/admin/components/attributes/AdminAttributes';
 import { AdminAttributesForm } from '@/modules/admin/components/attributes/AdminAttributesForm';
-import { AdminAttributesSettings } from
-  '@/modules/admin/components/attributes/AdminAttributesSettings';
+import { AdminAttributesSettings } from '@/modules/admin/components/attributes/AdminAttributesSettings';
 
 import { AdminLayouts } from '@/modules/admin/components/layouts/AdminLayouts';
 import { AdminLayoutsForm } from '@/modules/admin/components/layouts/AdminLayoutsForm';
@@ -29,8 +32,48 @@ export const adminRouter = [
       auth: [SYSTEM_ROLE.ADMIN],
       redirectTo: 'home'
     },
-    redirect: { name: 'admin.layouts' },
+    redirect: { name: 'admin.collections' },
     children: [
+      {
+        path: 'collections',
+        component: { template: '<router-view />' },
+        children: [
+          {
+            name: 'admin.collections',
+            path: '',
+            component: AdminNftCollections,
+            meta: { auth: [SYSTEM_ROLE.ANY] }
+          },
+          {
+            name: 'admin.collections.details',
+            path: ':nftCollectionId/details',
+            component: AdminNftCollectionDetails,
+            meta: { auth: [SYSTEM_ROLE.ANY], viewSetup: { sideBar: { isVisible: false } } },
+            props: (route) => ({
+              nftCollectionId: route.params.nftCollectionId
+            })
+          },
+          {
+            name: 'admin.collections.create',
+            path: 'create',
+            component: AdminNftCollectionForm,
+            meta: formViewMeta(),
+            props: (route) => ({
+              mode: ViewMode.CREATE
+            })
+          },
+          {
+            name: 'admin.collections.edit',
+            path: ':nftCollectionId/edit',
+            component: AdminNftCollectionForm,
+            meta: formViewMeta(),
+            props: (route) => ({
+              nftCollectionId: route.params.nftCollectionId,
+              mode: ViewMode.EDIT
+            })
+          },
+        ]
+      },
       {
         path: 'attributes',
         component: { template: '<router-view />' },

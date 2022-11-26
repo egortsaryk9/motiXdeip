@@ -68,18 +68,18 @@ const ACTIONS = {
       });
   },
 
-  getSettings({ commit }) {
-    // return layoutService.getSettings(this._vm.$env.TENANT)
-    return layoutService.getSettings(TENANT)
+  getMappings({ commit }) {
+    // return layoutService.getMappings(this._vm.$env.TENANT)
+    return layoutService.getMappings(TENANT)
       .then((res) => {
         commit('setSettings', res.data);
       });
   },
 
-  updateSettings({ dispatch }, payload) {
-    return layoutService.updateSettings(payload)
+  updateMappings({ dispatch }, payload) {
+    return layoutService.updateMappings(payload)
       .then(() => {
-        dispatch('getSettings');
+        dispatch('getMappings');
       });
   }
 };

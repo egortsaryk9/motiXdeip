@@ -1,4 +1,4 @@
-export * from './LayoutsSettings';
+export * from './LayoutsMappings';
 export * from './LayoutsDataProvider';
 export * from './LayoutBuilder';
 export * from './LayoutsManagement';

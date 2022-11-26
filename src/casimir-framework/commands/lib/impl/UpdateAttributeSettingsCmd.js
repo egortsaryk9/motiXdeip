@@ -13,10 +13,8 @@ class UpdateAttributeSettingsCmd extends AppCmd {
    * @param {Object} cmdPayload
    */
   constructor(cmdPayload) {
-    const attributeSettings = cmdPayload;
-
-    assert(!!attributeSettings, "'attributeSettings' is required");
-
+    const attributeMappings = cmdPayload;
+    assert(!!attributeMappings, "'attributeMappings' is required");
     super(APP_CMD.UPDATE_ATTRIBUTE_SETTINGS, cmdPayload);
   }
 }

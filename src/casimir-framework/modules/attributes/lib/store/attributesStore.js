@@ -42,12 +42,7 @@ const ACTIONS = {
     const res = await attributesService.getList();
     commit('setList', res.data.items);
   },
-
-  async getNetworkList({ commit }) {
-    const res = await attributesService.getNetworkAttributes();
-    commit('setList', res.data.items);
-  },
-
+  
   async getOne({ commit }, attributeId) {
     const res = await attributesService.getOne(attributeId);
     commit('setOne', res.data);
@@ -68,15 +63,15 @@ const ACTIONS = {
     commit('remove', attributeId);
   },
 
-  async getSettings({ commit }) {
-    // const res = await attributesService.getSettings(window.env.TENANT);
-    const res = await attributesService.getSettings(TENANT);
-    commit('setSettings', res.data);
+  async getMappings({ commit }) {
+    // const res = await attributesService.getMappings(window.env.TENANT);
+    const res = await attributesService.getMappings(TENANT);
+    commit('setMappings', res.data);
   },
 
-  async updateSettings({ dispatch }, payload) {
-    await attributesService.updateSettings(payload);
-    dispatch('getSettings');
+  async updateMappings({ dispatch }, payload) {
+    await attributesService.updateMappings(payload);
+    dispatch('getMappings');
   }
 };
 
@@ -85,7 +80,7 @@ const MUTATIONS = {
   setOne: setOneMutation,
   remove: removeFromListMutation,
 
-  setSettings(state, payload) {
+  setMappings(state, payload) {
     state.settings = state.settings === null
       ? payload
       : {

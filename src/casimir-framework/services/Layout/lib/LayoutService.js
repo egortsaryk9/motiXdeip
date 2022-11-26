@@ -83,8 +83,8 @@ export class LayoutService {
    * Get layouts settings
    * @returns {Promise<Object>}
    */
-  async getSettings() {
-    return this.layoutHttp.getSettings();
+  async getMappings() {
+    return this.layoutHttp.getMappings();
   }
 
   /**
@@ -93,10 +93,10 @@ export class LayoutService {
    * @param {Array.<Object>} data.mappedKeys
    * @returns {Promise<Object>}
    */
-  async updateSettings(data) {
+  async updateMappings(data) {
     const updateLayoutSettingsCmd = new UpdateLayoutSettingsCmd(data);
     const msg = new JsonDataMsg({ appCmds: [updateLayoutSettingsCmd] });
-    return this.layoutHttp.updateSettings(msg);
+    return this.layoutHttp.updateMappings(msg);
   }
 
   /** @type {() => LayoutService} */

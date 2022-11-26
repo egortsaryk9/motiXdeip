@@ -1,4 +1,4 @@
-// import { proxydi } from '@casimir.one/proxydi';
+import { proxydi } from '@/casimir-framework/proxydi';
 
 const GETTERS = {
 

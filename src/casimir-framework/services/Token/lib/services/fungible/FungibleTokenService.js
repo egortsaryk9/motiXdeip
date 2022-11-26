@@ -3,7 +3,7 @@ import { JsonDataMsg } from '@/casimir-framework/messages';
 import { TransferFTCmd, CreateFTClassCmd, IssueFTCmd } from '@/casimir-framework/commands';
 import { APP_PROPOSAL } from '@/casimir-framework/vars';
 // import { ChainService } from '@casimir.one/chain-service';
-// import { walletSignTx } from '@casimir.one/platform-util';
+// import { walletSignTx } from '@/casimir-framework/all';
 import { FungibleTokenHttp } from './FungibleTokenHttp';
 import { transferToken, updateProposalInfo } from '../../util';
 import { makeSingletonInstance } from '@/casimir-framework/all';

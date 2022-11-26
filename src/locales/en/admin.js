@@ -8,6 +8,24 @@ export default {
       email: 'Email'
     }
   },
+  collections: {
+    title: 'NFT Collections',
+    collection: {
+      name: 'Name',
+    },
+    form: {
+      new: 'New Collection',
+      create: 'Create NFT Collection',
+      update: 'Edit NFT Collection',
+      successCreate: 'NFT Collection has been created successfully',
+      successUpdate: 'NFT Collection has been updated successfully',
+      errorCreate: 'An error occurred while creating NFT Collection, please try again later',
+      errorUpdate: 'An error occurred while updated NFT Collection, please try again later'
+    },
+    details: {
+      title: 'NFT Collection details'
+    }
+  },
   attributes: {
     title: 'Attributes',
     settings: 'Settings',

@@ -105,7 +105,6 @@
       async createAsset() {
         const email = this.$attributes.getMappedData('nftItem.email', this.lazyFormData.attributes)?.value;
 
-        let createdAssetId;
         try {
           const draftPayload = {
             data: {
@@ -121,7 +120,7 @@
 
           const { data: { _id } } = await this.$store.dispatch('nftItemDrafts/create', draftPayload);
 
-          createdAssetId = _id;
+          let createdAssetId = _id;
 
           this.$notifier.showSuccess(this.$t('marketplace.createAsset.createSuccess'));
           this.$emit('success');
@@ -133,18 +132,11 @@
             params: { assetId: createdAssetId }
           });
 
-        } catch (error) {
-          if (createdAssetId) {
-            this.$store.dispatch('nftItemDrafts/remove', createdAssetId);
-          }
-          if (error && error?.message !== 'close'
-            && error?.error?.message !== 'close') {
-            console.error(error.error || error);
-            const errorText = error.statusCode === 409
-              ? this.$t('marketplace.createAsset.errors.duplicate') : error;
-            this.$notifier.showError(errorText);
-          }
+        } catch (err) {
+          console.log(err);
+          this.$notifier.showError(this.$t('common.errors.request'));
         }
+        
       }
     }
   };

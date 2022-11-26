@@ -1,6 +1,6 @@
 import { setLocalesMessages } from '@/casimir-framework/all';
 import { AttributeScope } from '@/casimir-framework/vars';
-import { nftItemsStore, nftItemDraftsStore } from './store';
+import { nftItemDraftsStore } from './store';
 import { nftItemScope } from './config';
 
 const locales = require.context('./locales', true, /[A-Za-z0-9-_,\s]+\.js$/i);
@@ -23,7 +23,6 @@ const install = (Vue, options = {}) => {
   }
 
   if (store) {
-    store.registerModule('nftItems', nftItemsStore);
     store.registerModule('nftItemDrafts', nftItemDraftsStore);
   } else {
     throw Error('[nftItemsModule]: storeInstance is not provided');

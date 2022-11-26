@@ -34,31 +34,6 @@ export class AttributesHttp {
   }
 
   /**
-   * Get network attributes by scope
-   * @param {string} scope
-   * @return {Promise<Object>}
-   */
-  async getNetworkAttributesByScope(scope) {
-    return this.http.get(`/api/v2/attributes/scope/network/${scope}`);
-  }
-
-  /**
-   * Get all network attributes
-   * @return {Promise<Object>}
-   */
-  async getNetworkAttributes() {
-    return this.http.get('/api/v2/attributes/network');
-  }
-
-  /**
-   * Deprecated
-   * @return {Promise<Object>}
-   */
-  async getSystemAttributes() {
-    return this.http.get('/api/v2/attributes/system');
-  }
-
-  /**
    * Create new attribute
    * @param {Object} req
    * @return {Promise<Object>}
@@ -89,8 +64,8 @@ export class AttributesHttp {
    * Get attributes settings
    * @return {Promise<Object>}
    */
-  async getSettings() {
-    return this.http.get('/portal/settings/attribute-settings');
+  async getMappings() {
+    return this.http.get('/portal/settings/attribute-mappings');
   }
 
   /**
@@ -98,8 +73,8 @@ export class AttributesHttp {
    * @param {Object} req
    * @return {Promise<Object>}
    */
-  async updateSettings(req) {
-    return this.http.put('/portal/settings/attribute-settings', req.getHttpBody());
+  async updateMappings(req) {
+    return this.http.put('/portal/settings/attribute-mappings', req.getHttpBody());
   }
 
   /** @type {() => AttributesHttp} */

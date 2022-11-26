@@ -18,14 +18,14 @@ class CreateNftCollectionCmd extends ProtocolEntityCmd {
   constructor(cmdPayload) {
     const {
       entityId,
-      issuer
+      ownerId
     } = cmdPayload;
 
     assert(
       isNumber(entityId) || (isString(entityId) && entityId),
       "'entityId' must be a number or non emplty string"
     );
-    assert(!!issuer, "'issuer' is required");
+    assert(!!ownerId, "'ownerId' is required");
 
     super(APP_CMD.CREATE_NFT_COLLECTION, cmdPayload);
   }

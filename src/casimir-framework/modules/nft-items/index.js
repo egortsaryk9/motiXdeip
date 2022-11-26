@@ -4,13 +4,7 @@ export { default as NftItemsDraftsDataProvider } from './lib/components/drafts/D
 export { default as NftItemDraftsList } from './lib/components/drafts/List';
 export { default as NftItemDraftDetails } from './lib/components/drafts/Details';
 export { default as NftItemDraftForm } from './lib/components/drafts/Form';
+export { default as NftItemsInfiniteScroll } from './lib/components/drafts/InfiniteScroll';
 
-export { default as NftItemsDataProvider } from './lib/components/content/DataProvider';
-export { default as NftItemsList } from './lib/components/content/List';
-export { default as NftItemDetails } from './lib/components/content/Details';
-
-export { default as NftItemsInfiniteScroll } from './lib/components/common/NftItemsInfiniteScroll';
-export { default as NftItemDraftDeclineDialog }
-  from './lib/components/moderation/NftItemDraftDeclineDialog';
-export { default as NftItemDraftModerationCard }
-  from './lib/components/moderation/NftItemDraftModerationCard';
+export { default as NftItemDraftDeclineDialog } from './lib/components/moderation/NftItemDraftDeclineDialog';
+export { default as NftItemDraftModerationCard } from './lib/components/moderation/NftItemDraftModerationCard';

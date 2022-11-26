@@ -63,8 +63,8 @@ export class LayoutHttp {
    * Get layouts settings
    * @returns {Promise<Object>}
    */
-  async getSettings() {
-    return this.http.get('/portal/settings/layout-settings');
+  async getMappings() {
+    return this.http.get('/portal/settings/layout-mappings');
   }
 
   /**
@@ -72,8 +72,8 @@ export class LayoutHttp {
    * @param {Object} req
    * @returns {Promise<Object>}
    */
-  async updateSettings(req) {
-    return this.http.put('/portal/settings/layout-settings', req.getHttpBody());
+  async updateMappings(req) {
+    return this.http.put('/portal/settings/layout-mappings', req.getHttpBody());
   }
 
   /** @type {() => LayoutHttp} */

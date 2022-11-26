@@ -17,13 +17,13 @@ class CreateNftItemCmd extends ProtocolCmd {
    */
   constructor(cmdPayload) {
     const {
-      issuer,
+      ownerId,
       nftCollectionId,
       nftItemId,
       recipient
     } = cmdPayload;
 
-    assert(!!issuer, "'issuer' is required");
+    assert(!!ownerId, "'ownerId' is required");
     assert(
       isNumber(nftCollectionId) || (isString(nftCollectionId) && nftCollectionId.length),
       "'nftCollectionId' is required and must be a number or non emplty string"

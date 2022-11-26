@@ -3,7 +3,7 @@ import { JsonDataMsg } from '@/casimir-framework/messages';
 import { AcceptProposalCmd, CreateProposalCmd } from '@/casimir-framework/commands';
 // import { ChainService } from '@casimir.one/chain-service';
 import { wrapInArray } from '@/casimir-framework/all';
-// import { walletSignTx } from '@casimir.one/platform-util';
+// import { walletSignTx } from '@/casimir-framework/all';
 
 /**
  * Build transaction with proposal

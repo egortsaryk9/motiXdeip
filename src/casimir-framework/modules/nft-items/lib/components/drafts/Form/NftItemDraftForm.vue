@@ -115,7 +115,7 @@
        * Get team
        */
       team() {
-        return this.$store.getters['teams/one'](this.nftCollection.issuer);
+        return this.$store.getters['teams/one'](this.nftCollection.ownerId);
       }
     },
 
@@ -192,8 +192,7 @@
           nftCollectionId: this.nftCollection._id,
           title: this.formData.title,
           authors: this.formData.authors,
-          owner: this.nftCollection.issuer,
-          ownedByTeam: this.nftCollection.issuedByTeam,
+          ownerId: this.nftCollection.ownerId,
           formatType: this.formData.formatType,
           nftItemId: this.nftCollection.nextNftItemId
         };

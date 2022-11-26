@@ -20,6 +20,11 @@
         menu: {
           admin: [
             {
+              icon: 'mdi-folder-multiple-outline',
+              title: this.$t('components.navigation.collections'),
+              to: { name: 'admin.collections' }
+            },
+            {
               icon: 'mdi-puzzle-outline',
               title: this.$t('components.navigation.attributes'),
               to: { name: 'admin.attributes' }

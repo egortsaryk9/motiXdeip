@@ -169,9 +169,10 @@
             initiator: this.$currentUser,
             data: {
               _id: draft._id,
-              issuer: draft.owner,
+              ownerId: draft.ownerId,
+              issuer: draft.ownerId, // temp
               nftItemId: draft.nftItemId,
-              recipient: draft.owner, // TODO: should be fixed to owner on backend
+              recipient: draft.ownerId, // TODO: should be fixed to owner on backend
               ownedByTeam: draft.ownedByTeam,
               nftCollectionId: draft.nftCollectionId,
               nftItemMetadataDraftId: draft._id,

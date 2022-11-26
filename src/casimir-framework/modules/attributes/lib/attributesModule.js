@@ -17,7 +17,7 @@ const install = (Vue, options = {}) => {
 
     store.registerModule('attributes', attributesStore);
     store.dispatch('attributes/getList');
-    store.dispatch('attributes/getSettings');
+    store.dispatch('attributes/getMappings');
 
     for (const attribute of attributes) {
       store.dispatch('attributesRegistry/addAttribute', attribute);

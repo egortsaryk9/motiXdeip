@@ -37,7 +37,7 @@ const install = (Vue, options = {}) => {
 
     store.registerModule('layouts', layoutsStore);
     store.dispatch('layouts/getList');
-    store.dispatch('layouts/getSettings');
+    store.dispatch('layouts/getMappings');
 
     Object.defineProperty(Vue.prototype, '$layouts', {
       get() {

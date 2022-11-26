@@ -11,7 +11,8 @@ export default {
   navigation: {
     members: 'Members',
     attributes: 'Attributes',
-    layouts: 'Layouts'
+    layouts: 'Layouts',
+    collections: 'Collections',
   },
   assetCard: {
     created: 'Created',

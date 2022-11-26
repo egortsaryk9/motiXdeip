@@ -12,21 +12,21 @@
     <vex-section max-width="1200" class="mx-auto pa-0">
       <ve-stack :gap="32">
         <vex-section-title title="Attribute settings" />
-        <attributes-setup :value="$store.getters['attributes/settings']" />
+        <attributes-mappings :value="$store.getters['attributes/settings']" />
       </ve-stack>
     </vex-section>
   </v-sheet>
 </template>
 
 <script>
-  import { AttributesSetup } from '@/casimir-framework/modules/attributes';
+  import { AttributesMappings } from '@/casimir-framework/modules/attributes';
   import { VexSection, VexSectionTitle } from '@/casimir-framework/plugins/VuetifyExtended';
   import { VeStack } from '@/casimir-framework/vue-elements';
 
   export default {
     name: 'AdminAttributesSettings',
     components: {
-      AttributesSetup,
+      AttributesMappings,
 
       VeStack,
       VexSection,

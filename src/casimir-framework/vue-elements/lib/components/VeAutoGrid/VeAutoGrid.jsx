@@ -1,7 +1,7 @@
 import './VeAutoGrid.scss';
 
-// import { defineComponent } from '@casimir.one/platform-util';
-// import { convertToUnit } from '@casimir.one/toolbox';
+// import { defineComponent } from '@/casimir-framework/all';
+// import { convertToUnit } from '@/casimir-framework/all';
 import { convertToUnit, defineComponent } from '@/casimir-framework/all';
 import { genBreakpointCssVarsStyles, genBreakpointProps } from '../../util/breakpoint';
 

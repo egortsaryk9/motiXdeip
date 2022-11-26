@@ -25,7 +25,7 @@
 <script>
   import { VexSection, VexSectionTitle } from '@/casimir-framework/plugins/VuetifyExtended';
   import { VeStack } from '@/casimir-framework/vue-elements';
-  // import { awaitForStore } from '@casimir.one/platform-util';
+  // import { awaitForStore } from '@/casimir-framework/all';
 
   export default {
     name: 'ModerationPage',

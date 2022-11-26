@@ -41,31 +41,6 @@ export class AttributesService {
   }
 
   /**
-   * Get all network attributes
-   * @return {Promise<Object>}
-   */
-  async getNetworkAttributes() {
-    return this.attributesHttp.getNetworkAttributes();
-  }
-
-  /**
-   * Get network attributes by scope
-   * @param {string} scope
-   * @return {Promise<Object>}
-   */
-  async getNetworkAttributesByScope(scope) {
-    return this.attributesHttp.getNetworkAttributesByScope(scope);
-  }
-
-  /**
-   * @deprecated
-   * @return {Promise<Object>}
-   */
-  async getSystemAttributes() {
-    return this.attributesHttp.getSystemAttributes();
-  }
-
-  /**
    * Create new attribute
    * @param {Object} attribute
    * @return {Promise<Object>}
@@ -102,8 +77,8 @@ export class AttributesService {
    * Get attributes settings
    * @return {Promise<Object>}
    */
-  async getSettings() {
-    return this.attributesHttp.getSettings();
+  async getMappings() {
+    return this.attributesHttp.getMappings();
   }
 
   /**
@@ -111,10 +86,10 @@ export class AttributesService {
    * @param {Object} data
    * @return {Promise<Object>}
    */
-  async updateSettings(data) {
+  async updateMappings(data) {
     const updateAttributeSettingsCmd = new UpdateAttributeSettingsCmd(data);
     const msg = new JsonDataMsg({ appCmds: [updateAttributeSettingsCmd] });
-    return this.attributesHttp.updateSettings(msg);
+    return this.attributesHttp.updateMappings(msg);
   }
 
   /** @type {() => AttributesService} */

@@ -10,7 +10,7 @@
       {{ $t('auth.signIn') }}
     </m-btn>
 
-    <!-- <template v-if="isUser">
+    <template v-if="isUser">
       <v-menu
         bottom
         left
@@ -70,8 +70,25 @@
           </v-list-item>
         </v-list>
       </v-menu>
+      
+      <!-- <div>
 
-    </template> -->
+        {{$currentPortal.settings}}
+      </div> -->
+
+      <!-- <m-btn
+        v-if="nftCollection"
+        kind="primary"
+        :disabled="loading"
+        small
+        active-class="no-active"
+        @click="handleCreateAssetClick"
+      >
+        {{ $t('components.appBar.submitAsset') }}
+      </m-btn> -->
+
+
+    </template>
   </ve-stack>
 </template>
 
@@ -121,11 +138,7 @@
       handleSignOut() {
         this.$store.dispatch('auth/signOut');
       },
-
-      handleCreateAssetClick() {
-        this.isCreateAssetDialogOpened = true;
-      },
-
+      
     }
   };
 </script>

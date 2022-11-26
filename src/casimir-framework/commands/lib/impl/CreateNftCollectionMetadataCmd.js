@@ -10,19 +10,19 @@ class CreateNftCollectionMetadataCmd extends AppCmd {
   /**
    * Create command for nft collection metadata creation
    * @param {Object} cmdPayload
-   * @param {string} cmdPayload.issuer
+   * @param {string} cmdPayload.ownerId
    * @param {string} cmdPayload.entityId
    * @param {Array.<Object>} cmdPayload.attributes
    */
   constructor(cmdPayload) {
     const {
       // onchain
-      issuer,
+      ownerId,
       entityId
     } = cmdPayload;
 
     assert(!!entityId, "'entityId' is required");
-    assert(!!issuer, "'issuer' is required");
+    assert(!!ownerId, "'ownerId' is required");
 
     super(APP_CMD.CREATE_NFT_COLLECTION_METADATA, cmdPayload);
   }

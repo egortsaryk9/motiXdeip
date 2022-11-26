@@ -9,14 +9,14 @@ import { ValidationPlugin } from '@/casimir-framework/plugins/Validation';
 import { VuetifyExtended } from '@/casimir-framework/plugins/VuetifyExtended';
 
 import { EnvModule } from '@/casimir-framework/modules/env';
-// import { PortalsModule } from '@casimir.one/portals-module';
+import { PortalsModule } from '@/casimir-framework/modules/portals';
 import { ScopesModule } from '@/casimir-framework/modules/scopes';
 import { AttributesModule } from '@/casimir-framework/modules/attributes';
 import { LayoutsModule } from '@/casimir-framework/modules/layouts';
 // import { AuthModule } from '@casimir.one/auth-module';
 // import { UsersModule } from '@casimir.one/users-module';
 // import { TeamsModule } from '@casimir.one/teams-module';
-// import { NftCollectionsModule } from '@casimir.one/nft-collections-module';
+import { NftCollectionsModule } from '@/casimir-framework/modules/nft-collections';
 import { NftItemsModule } from '@/casimir-framework/modules/nft-items';
 // import { AssetsModule } from '@casimir.one/assets-module';
 
@@ -59,11 +59,11 @@ const nftMarketplaceApp = new CreateApp(Vue, {
 //   ]
 // };
 
-// const nftCollectionsModuleOptions = {
-//   attributesMappedKeys: [
-//     { key: 'name', label: 'Name', allowedTypes: ['text'] }
-//   ]
-// };
+const nftCollectionsModuleOptions = {
+  attributesMappedKeys: [
+    { key: 'name', label: 'Name', allowedTypes: ['text'] }
+  ]
+};
 
 const nftItemsModuleOptions = {
   attributesMappedKeys: [
@@ -87,14 +87,14 @@ nftMarketplaceApp
   .addModule(ValidationPlugin)
   .addModule(VuetifyExtended, { vuetify })
 
-  // .addModule(PortalsModule)
+  .addModule(PortalsModule)
   .addModule(ScopesModule)
   .addModule(AttributesModule)
   .addModule(LayoutsModule, layoutsModuleOptions)
   // .addModule(AuthModule)
   // .addModule(UsersModule, usersModuleOptions)
   // .addModule(TeamsModule)
-  // .addModule(NftCollectionsModule, nftCollectionsModuleOptions)
+  .addModule(NftCollectionsModule, nftCollectionsModuleOptions)
   .addModule(NftItemsModule, nftItemsModuleOptions)
   // .addModule(AssetsModule)
   // .addModule(NftMarketplaceWalletModule)
