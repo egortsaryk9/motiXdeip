@@ -25,7 +25,9 @@ const install = (Vue, options = {}) => {
 export const NftMarketplaceAdminModule = {
   name: 'NftMarketplaceAdminModule',
   deps: [
-    'EnvModule'
+    'EnvModule',
+    'LayoutsModule',
+    'NftCollectionsModule'
   ],
   install
 };

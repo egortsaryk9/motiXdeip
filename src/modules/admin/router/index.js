@@ -1,8 +1,9 @@
 import { SYSTEM_ROLE, ViewMode } from '@/casimir-framework/vars';
 
 import { AdminNftCollections } from '@/modules/admin/components/collections/AdminNftCollections';
-import { AdminNftCollectionForm } from '@/modules/admin/components/collections/AdminNftCollectionForm';
+import { AdminNftCollectionsForm } from '@/modules/admin/components/collections/AdminNftCollectionsForm';
 import { AdminNftCollectionDetails } from '@/modules/admin/components/collections/AdminNftCollectionDetails';
+import { AdminNftCollectionsSettings } from '@/modules/admin/components/collections/AdminNftCollectionsSettings';
 
 import { AdminAttributes } from '@/modules/admin/components/attributes/AdminAttributes';
 import { AdminAttributesForm } from '@/modules/admin/components/attributes/AdminAttributesForm';
@@ -56,7 +57,7 @@ export const adminRouter = [
           {
             name: 'admin.collections.create',
             path: 'create',
-            component: AdminNftCollectionForm,
+            component: AdminNftCollectionsForm,
             meta: formViewMeta(),
             props: (route) => ({
               mode: ViewMode.CREATE
@@ -65,7 +66,17 @@ export const adminRouter = [
           {
             name: 'admin.collections.edit',
             path: ':nftCollectionId/edit',
-            component: AdminNftCollectionForm,
+            component: AdminNftCollectionsForm,
+            meta: formViewMeta(),
+            props: (route) => ({
+              nftCollectionId: route.params.nftCollectionId,
+              mode: ViewMode.EDIT
+            })
+          },
+          {
+            name: 'admin.collections.settings',
+            path: 'settings',
+            component: AdminNftCollectionsSettings,
             meta: formViewMeta(),
             props: (route) => ({
               nftCollectionId: route.params.nftCollectionId,

@@ -9,10 +9,12 @@ const install = (Vue, options = {}) => {
   if (store) {
     store.registerModule('currentPortal', currentPortalStore);
     store.dispatch('currentPortal/get');
+    store.dispatch('currentPortal/getPortalCustomFields');
 
     Vue.mixin({
       computed: {
-        $currentPortal() { return this.$store.getters['currentPortal/data']; }
+        $currentPortal() { return this.$store.getters['currentPortal/data']; },
+        $portalCustomFields() { return this.$store.getters['currentPortal/customFields']; }
       }
     });
   } else {

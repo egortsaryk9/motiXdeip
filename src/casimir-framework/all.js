@@ -1630,3 +1630,24 @@ export const createFormData = model => {
 
   return formData;
 };
+
+/**
+ * Wait until some value appears in getter
+ * @param {Object} store
+ * @param {string} getter
+ * @returns {Promise}
+ */
+export const awaitForStore = (store, getter) => new Promise((resolve) => {
+  if (!isNil(store.getters[getter])) {
+    resolve(store.getters[getter]);
+  }
+  const unwatch = store.watch(
+    (_, getters) => getters[getter],
+    (value) => {
+      if (value) {
+        unwatch();
+        resolve(value);
+      }
+    }
+  );
+});

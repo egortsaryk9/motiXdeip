@@ -24,6 +24,10 @@ export default {
     },
     details: {
       title: 'NFT Collection details'
+    },
+    settings: {
+      settings: 'Settings',
+      title: 'Active Collection'
     }
   },
   attributes: {

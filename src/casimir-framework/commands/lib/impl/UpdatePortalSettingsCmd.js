@@ -1,5 +1,5 @@
 import { APP_CMD } from '@/casimir-framework/vars';
-import { assert, isNumber, isString, isNumeric, isBoolean } from '@/casimir-framework/all';
+import { assert } from '@/casimir-framework/all';
 import AppCmd from '../base/AppCmd';
 
 /**
@@ -10,18 +10,14 @@ class UpdatePortalSettingsCmd extends AppCmd {
   /**
    * Create command for portal settings update
    * @param {Object} cmdPayload
-   * @param {string} cmdPayload.title
-   * @param {string} cmdPayload.banner
-   * @param {string} cmdPayload.logo
+   * @param {string} cmdPayload.customFields
    */
   constructor(cmdPayload) {
     const {
-      title,
-      banner,
-      logo
+      customFields
     } = cmdPayload;
 
-    assert(!!title || !!banner || !!logo, "at least one of 'title', 'banner', 'logo' is required");
+    assert(!!customFields, "'customFields' is required");
 
     super(APP_CMD.UPDATE_PORTAL_SETTINGS, cmdPayload);
   }

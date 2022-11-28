@@ -6,18 +6,18 @@
         class="align-center"
       >
         <template #append>
-          <!-- <m-btn
+          <m-btn
             small
             kind="primary"
             outlined
             class="mr-4"
-            :to="{ name: 'admin.collections.create' }"
+            :to="{ name: 'admin.collections.settings' }"
           >
             <v-icon left>
               mdi-tune-vertical
             </v-icon>
-            {{ $t('admin.collections.form.create') }}
-          </m-btn> -->
+            {{ $t('admin.collections.settings.settings') }}
+          </m-btn>
           <m-btn
             small
             kind="primary"
@@ -69,13 +69,7 @@
           params: { nftCollectionId: nftCollection._id }
         });
       },
-
       onRowClick(nftCollection) {
-        console.log("Handle click")
-        // this.$router.push({
-        //   name: 'nftCollections.nftItem.details',
-        //   params: { nftCollectionId: this.nftCollectionId, nftItemId: nftItem._id.nftItemId }
-        // });
       }
     }
   };

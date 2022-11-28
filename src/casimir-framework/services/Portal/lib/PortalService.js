@@ -39,6 +39,25 @@ export class PortalService {
     return this.portalHttp.updatePortal(msg);
   }
 
+  /**
+   * Get portal custom fields
+   * @returns {Promise<Object>}
+   */
+  async getPortalCustomFields() {
+    return this.portalHttp.getPortalCustomFields();
+  }
+
+  /**
+   * Update attributes settings
+   * @param {Object} req
+   * @return {Promise<Object>}
+   */
+  async updatePortalCustomFields(data) {
+    const updatePortalCustomFieldsCmd = new UpdatePortalSettingsCmd(data);
+    const msg = new JsonDataMsg({ appCmds: [updatePortalCustomFieldsCmd] });
+    return this.portalHttp.updatePortalCustomFields(msg);
+  }
+
   /** @type {() => PortalService} */
   static getInstance = makeSingletonInstance(() => new PortalService());
 }

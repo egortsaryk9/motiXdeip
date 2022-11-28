@@ -24,6 +24,23 @@ export class PortalHttp {
     return this.http.put('/portal', req.getHttpBody());
   }
 
+  /**
+   * Get layouts settings
+   * @returns {Promise<Object>}
+   */
+  async getPortalCustomFields() {
+    return this.http.get('/portal/settings/custom-fields');
+  }
+
+  /**
+   * Update portal custom fields
+   * @param {Object} req
+   * @returns {Promise<Object>}
+   */
+  async updatePortalCustomFields(req) {
+    return this.http.put('/portal/settings/custom-fields', req.getHttpBody());
+  }
+
   /** @type {() => PortalHttp} */
   static getInstance = makeSingletonInstance(() => new PortalHttp());
 }

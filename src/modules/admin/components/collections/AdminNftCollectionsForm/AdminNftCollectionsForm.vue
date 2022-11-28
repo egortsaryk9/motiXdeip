@@ -34,7 +34,8 @@
 
 
   export default {
-    name: 'AdminNftCollectionForm',
+    name: 'AdminNftCollectionsForm',
+
 
     components: {
       VexSection,

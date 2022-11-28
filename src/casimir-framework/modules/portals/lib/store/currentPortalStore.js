@@ -4,11 +4,13 @@ import { proxydi } from '@/casimir-framework/proxydi';
 const portalService = PortalService.getInstance();
 
 const STATE = {
-  data: null
+  data: null,
+  customFields: null
 };
 
 const GETTERS = {
-  data: (state) => state.data
+  data: (state) => state.data,
+  customFields: (state) => state.customFields || {}
 };
 
 const ACTIONS = {
@@ -24,13 +26,31 @@ const ACTIONS = {
       .then((res) => {
         commit('setData', res.data);
       });
-  }
+  },
+
+  getPortalCustomFields({ commit }) {
+    return portalService.getPortalCustomFields()
+      .then((res) => {
+        commit('setCustomFields', res.data);
+      });
+  },
+
+  updatePortalCustomFields({ commit }, payload) {
+    return portalService.updatePortalCustomFields(payload)
+      .then((res) => {
+        commit('setCustomFields', res.data);
+      });
+  },
 
 };
 
 const MUTATIONS = {
   setData(state, payload) {
     state.data = payload;
+  },
+  
+  setCustomFields(state, payload) {
+    state.customFields = payload;
   }
 };
 
