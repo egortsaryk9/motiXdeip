@@ -323,15 +323,6 @@ export class NonFungibleTokenService {
     return this.nonFungibleTokenHttp.getNftItemMetadataDraftsListPaginated(query);
   }
 
-  /**
-   * Get nft item metadata drafts list by nft collection
-   * @param {string} nftCollectionId
-   * @returns {Promise<Object>}
-   */
-  async getNftItemMetadataDraftsByNftCollection(nftCollectionId) {
-    return this.nonFungibleTokenHttp.getNftItemMetadataDraftsByNftCollection(nftCollectionId);
-  }
-
   /** @type {() => NonFungibleTokenService} */
   static getInstance = makeSingletonInstance(() => new NonFungibleTokenService());
 }

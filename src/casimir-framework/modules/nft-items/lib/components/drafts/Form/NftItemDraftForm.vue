@@ -133,8 +133,7 @@
         const { DEIP_SERVER_URL } = this.$env;
         // return `${DEIP_SERVER_URL}/api/v2/nft-items/package/${this.draft._id}/
         // ${fileHash}?download=true&authorization=${accessService.getAccessToken()}`;
-        return `${DEIP_SERVER_URL}/api/v2/nft-items/package/${this.draft._id}/
-            ${fileHash}?download=true}`;
+        return `${DEIP_SERVER_URL}/api/v2/nft-items/package/${this.draft._id}/${fileHash}?download=true}`;
       },
       /**
        * Set form data files

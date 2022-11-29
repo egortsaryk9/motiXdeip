@@ -51,6 +51,7 @@
   import { NftItemMetadataDraftStatus, AttributeScope } from '@/casimir-framework/vars';
   import { MBtn } from '@/components/MBtn';
   import { VeStack } from '@/casimir-framework/vue-elements';
+  import { awaitForStore } from '@/casimir-framework/all';
 
   export default {
     name: 'AssetCreateForm',
@@ -80,11 +81,6 @@
       },
     },
 
-    mounted() {
-      this.clearForm();
-      // this.reloadNftCollection();
-    },
-
     methods: {
       // async reloadNftCollection() {
       //   await this.$store.dispatch('getCurrentUserNftCollection');
@@ -106,6 +102,14 @@
         const email = this.$attributes.getMappedData('nftItem.email', this.lazyFormData.attributes)?.value;
 
         try {
+          
+          // const {
+          //   nftItemMetadataDraftModerationRequired = false
+          // } = this.$currentPortal?.profile?.settings?.nftModeration.isRequired || {};
+          // const status = nftItemMetadataDraftModerationRequired
+          //   ? NftItemMetadataDraftStatus.PROPOSED
+          //   : NftItemMetadataDraftStatus.APPROVED;
+
           const draftPayload = {
             data: {
               nftCollectionId: "lisbon-I-love-you",
@@ -133,11 +137,21 @@
           });
 
         } catch (err) {
-          console.log(err);
+          console.error(err);
           this.$notifier.showError(this.$t('common.errors.request'));
         }
         
       }
-    }
+    },
+
+    // async created() {
+    //   await awaitForStore(this.$store, 'currentPortal/data');
+    // },
+
+    mounted() {
+      this.clearForm();
+      // this.reloadNftCollection();
+    },
+
   };
 </script>

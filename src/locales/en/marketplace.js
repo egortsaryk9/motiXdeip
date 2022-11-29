@@ -9,7 +9,8 @@ export default {
     errors: {
       duplicate: 'Such asset already exists',
       noNftCollection: 'User can\'t submit assets without the collection'
-    }
+    },
+    createSuccess: "The asset has been uploaded successfully"
   },
   conceptPage: {
     pageTitle: 'Lisbon I, love you',

@@ -20,11 +20,6 @@ const GETTERS = {
 };
 
 const ACTIONS = {
-  async getListByNftCollectionId({ commit }, nftCollectionId) {
-    const res = await nonFungibleTokenService.getNftItemMetadataDraftsByNftCollection(nftCollectionId);
-    commit('setList', res.data.items);
-  },
-
   async getListPaginated({ commit }, query) {
     const res = await nonFungibleTokenService.getNftItemMetadataDraftsListPaginated(query);
     commit('setList', res.data.items);
@@ -42,14 +37,6 @@ const ACTIONS = {
 
   async update(_, payload) {
     return nonFungibleTokenService.updateNftItemMetadataDraft(payload);
-  },
-
-  async sellLazy(_, payload) {
-    await nonFungibleTokenService.sellLazy(payload);
-  },
-
-  async buyLazy(_, payload) {
-    await nonFungibleTokenService.buyLazy(payload);
   },
 
   async remove({ commit }, id) {

@@ -98,9 +98,14 @@
       async getNftItems() {
         this.loading = true;
 
+        const query = {
+          page: 0,
+          pageSize: 1000, // todo: add pagination
+          filter: { nftCollectionId: this.nftCollectionId }
+        };
+        
         try {
-          await this.$store.dispatch('nftItemDrafts/getListByNftCollectionId',
-                                     this.nftCollectionId);
+          await this.$store.dispatch('nftItemDrafts/getListPaginated', query);
           this.handleReady();
         } catch (error) {
           console.error(error);
