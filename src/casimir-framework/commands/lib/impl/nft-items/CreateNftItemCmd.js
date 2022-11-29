@@ -8,7 +8,7 @@ import AppEntityCmd from '../../base/AppEntityCmd';
  */
 class CreateNftItemCmd extends AppEntityCmd {
   /**
-   * Create command for project content draft creation
+   * Command for NFT item creation
    * @param {Object} cmdPayload
    * @param {string} cmdPayload.nftCollectionId
    * @param {string} cmdPayload.entityId

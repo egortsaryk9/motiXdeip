@@ -8,7 +8,7 @@ import AppCmd from '../../base/AppCmd';
  */
 class ModerateNftItemCmd extends AppCmd {
   /**
-   * Create command for nft item metadata draft status update
+   * Command for NFT item moderation
    * @param {Object} cmdPayload
    * @param {string} cmdPayload._id
    * @param {number} cmdPayload.status

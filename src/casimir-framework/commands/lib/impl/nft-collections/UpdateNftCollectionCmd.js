@@ -4,11 +4,11 @@ import { assert } from '@/casimir-framework/all';
 import AppCmd from '../../base/AppCmd';
 
 /**
- * Update nft collection metadata command
+ * Update NFT collection command
  */
 class UpdateNftCollectionCmd extends AppCmd {
   /**
-   * Create command for project update
+   * Command for NFT collection update
    * @param {Object} cmdPayload
    * @param {string} cmdPayload._id
    * @param {Array.<Object>} cmdPayload.attributes
