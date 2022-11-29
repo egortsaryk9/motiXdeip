@@ -58,10 +58,6 @@
       },
 
       cardSchemaData() {
-        // const scopeId = !this.isDraft ? this.asset._id : {
-        //   nftItemId: this.asset.nftItemId,
-        //   nftCollectionId: this.asset.nftCollectionId
-        // };
         const scopeId = { 
           nftItemId: this.asset.nftItemId,
           nftCollectionId: this.asset.nftCollectionId
