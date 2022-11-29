@@ -1,10 +1,10 @@
 export * from './lib/nftItemsModule';
 
-export { default as NftItemsDraftsDataProvider } from './lib/components/drafts/DataProvider';
-export { default as NftItemDraftsList } from './lib/components/drafts/List';
-export { default as NftItemDraftDetails } from './lib/components/drafts/Details';
-export { default as NftItemDraftForm } from './lib/components/drafts/Form';
-export { default as NftItemsInfiniteScroll } from './lib/components/drafts/InfiniteScroll';
+export { default as NftItemsDataProvider } from './lib/components/items/DataProvider';
+export { default as NftItemsList } from './lib/components/items/List';
+export { default as NftItemDetails } from './lib/components/items/Details';
+export { default as NftItemForm } from './lib/components/items/Form';
+export { default as NftItemsInfiniteScroll } from './lib/components/items/InfiniteScroll';
 
-export { default as NftItemDraftDeclineDialog } from './lib/components/moderation/NftItemDraftDeclineDialog';
-export { default as NftItemDraftModerationCard } from './lib/components/moderation/NftItemDraftModerationCard';
+export { default as NftItemDeclineDialog } from './lib/components/moderation/NftItemDeclineDialog';
+export { default as NftItemModerationCard } from './lib/components/moderation/NftItemModerationCard';

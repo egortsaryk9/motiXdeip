@@ -63,7 +63,7 @@
       },
 
       asset() {
-        return this.$store.getters['nftItemDrafts/one'](this.assetId);
+        return this.$store.getters['nftItems/one'](this.assetId);
       },
 
     },
@@ -75,7 +75,7 @@
     methods: {
   
       async getData() {
-        await this.$store.dispatch('nftItemDrafts/getOne', this.assetId);
+        await this.$store.dispatch('nftItems/getOne', this.assetId);
       },
 
       handleCopyLinkClick() {

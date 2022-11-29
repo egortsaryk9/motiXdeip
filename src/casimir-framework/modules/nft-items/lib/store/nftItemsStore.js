@@ -66,7 +66,7 @@ const MUTATIONS = {
   remove: removeFromListMutation
 };
 
-export const nftItemDraftsStore = {
+export const nftItemsStore = {
   namespaced: true,
   state: STATE,
   getters: GETTERS,

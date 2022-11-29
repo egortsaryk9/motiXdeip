@@ -6,7 +6,7 @@
     >
       <ve-stack :gap="24">
         <layout-renderer
-          :value="draft"
+          :value="nftItem"
           :schema="internalSchema"
           :schema-data="internalSchemaData"
         />
@@ -53,20 +53,20 @@
   // const accessService = AccessService.getInstance();
 
   /**
-   * NFT item draft form component
+   * NFT item form component
    */
   export default defineComponent({
-    name: 'NftItemDraftForm',
+    name: 'NftItemForm',
 
     components: {
       VeStack,
       LayoutRenderer
     },
 
-    mixins: [formFactory('draft'), attributedDetailsFactory('draft')],
+    mixins: [formFactory('nftItem'), attributedDetailsFactory('nftItem')],
 
     props: {
-      draft: {
+      nftItem: {
         type: Object,
         default: () => {}
       },
@@ -90,12 +90,12 @@
       internalSchemaData() {
         return {
           ...attributeMethodsFactory(
-            expandAttributes(this.draft),
+            expandAttributes(this.nftItem),
             {
               scopeName: AttributeScope.NFT_ITEM,
               scopeId: {
-                nftItemId: this.draft.nftItemId,
-                nftCollectionId: this.draft.nftCollectionId
+                nftItemId: this.nftItem.nftItemId,
+                nftCollectionId: this.nftItem.nftCollectionId
               }
             }
           ),
@@ -125,15 +125,15 @@
 
     methods: {
       /**
-       * Get Nft item draft url by file hash
+       * Get Nft item nftItem url by file hash
        *
        * @param {string} fileHash
        */
       getContentUrl(fileHash) {
         const { DEIP_SERVER_URL } = this.$env;
-        // return `${DEIP_SERVER_URL}/api/v2/nft-items/package/${this.draft._id}/
+        // return `${DEIP_SERVER_URL}/api/v2/nft-items/package/${this.nftItem._id}/
         // ${fileHash}?download=true&authorization=${accessService.getAccessToken()}`;
-        return `${DEIP_SERVER_URL}/api/v2/nft-items/package/${this.draft._id}/${fileHash}?download=true}`;
+        return `${DEIP_SERVER_URL}/api/v2/nft-items/package/${this.nftItem._id}/${fileHash}?download=true}`;
       },
       /**
        * Set form data files
@@ -154,27 +154,26 @@
         }
       },
       /**
-       * Create draft
+       * Create nftItem
        *
        * @param {Object} data
        */
-      async createDraft(data) {
+      async createNftItem(data) {
         try {
-          await this.$store.dispatch('nftItemDrafts/create', { data });
+          await this.$store.dispatch('nftItems/create', { data });
           this.emitSuccess();
         } catch (error) {
           console.error(error);
         }
       },
       /**
-       * Update draft
+       * Update nftItem
        *
        * @param {Object} data
        */
-      async updateDraft(data) {
+      async updateNftItem(data) {
         try {
-          await this.$store.dispatch('nftItemDrafts/update',
-                                     { data: { ...this.draft, ...data } });
+          await this.$store.dispatch('nftItems/update',{ data: { ...this.nftItem, ...data } });
           this.emitSuccess();
         } catch (error) {
           console.error(error);
@@ -203,9 +202,9 @@
         }
 
         if (this.isEditMode) {
-          await this.updateDraft(data);
+          await this.updateNftItem(data);
         } else {
-          await this.createDraft(data);
+          await this.createNftItem(data);
         }
         this.loading = false;
       },

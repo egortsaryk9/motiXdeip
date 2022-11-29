@@ -44,10 +44,6 @@
       addAssetsDetailsModal: {
         type: Boolean,
         default: false
-      },
-      isDraft: {
-        type: Boolean,
-        default: false
       }
     },
 
@@ -62,10 +58,14 @@
       },
 
       cardSchemaData() {
-        const scopeId = !this.isDraft ? this.asset._id : {
+        // const scopeId = !this.isDraft ? this.asset._id : {
+        //   nftItemId: this.asset.nftItemId,
+        //   nftCollectionId: this.asset.nftCollectionId
+        // };
+        const scopeId = { 
           nftItemId: this.asset.nftItemId,
           nftCollectionId: this.asset.nftCollectionId
-        };
+        }
         return {
           ...attributeMethodsFactory(
             expandAttributes(this.asset),
@@ -79,7 +79,7 @@
       },
 
       isCopyLinkShown() {
-        return this.isDraft && this.asset.status === NftItemMetadataDraftStatus.APPROVED;
+        return this.asset.status === NftItemMetadataDraftStatus.APPROVED;
       }
     },
 

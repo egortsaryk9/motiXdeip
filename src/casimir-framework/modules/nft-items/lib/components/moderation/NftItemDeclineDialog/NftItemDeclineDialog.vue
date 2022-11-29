@@ -9,9 +9,7 @@
   >
     <ve-stack>
       <span>
-        {{ $t('module.nftItems.moderation.declineDialog.message',
-              { title: nftItemTitle })
-        }}
+        {{ $t('module.nftItems.moderation.declineDialog.message',{ title: nftItemTitle }) }}
       </span>
 
       <!-- <v-text-field
@@ -27,9 +25,9 @@
   import { VexDialog } from '@/casimir-framework/plugins/VuetifyExtended';
   import { VeStack } from '@/casimir-framework/vue-elements';
 
-  /** Decline NFT item draft on moderation dialog */
+  /** Decline NFT item on moderation dialog */
   export default {
-    name: 'NftItemDraftDeclineDialog',
+    name: 'NftItemDeclineDialog',
 
     components: {
       VexDialog,
@@ -45,8 +43,8 @@
         type: Boolean,
         default: false
       },
-      /** NFT item draft */
-      nftItemDraft: {
+      /** NFT item */
+      nftItem: {
         type: Object,
         default: null
       },
@@ -102,7 +100,7 @@
 
       /** Handle confirm button click */
       handleConfirmClick() {
-        this.declineNftItemDraft();
+        this.declineNftItem();
       },
 
       /**
@@ -113,26 +111,26 @@
         this.loading = value;
       },
 
-      /** Decline NFT item draft */
-      async declineNftItemDraft() {
+      /** Decline NFT item */
+      async declineNftItem() {
         this.setLoading(true);
 
         try {
           const payload = {
             data: {
-              _id: this.nftItemDraft._id,
+              _id: this.nftItem._id,
               status: NftItemMetadataDraftStatus.REJECTED,
               moderationMessage: this.reason
             }
           };
 
-          await this.$store.dispatch('nftItemDrafts/moderate', payload);
+          await this.$store.dispatch('nftItems/moderate', payload);
 
           /**
-           * NFT item draft declined successfully
+           * NFT item declined successfully
            * @event success
            */
-          this.$emit('success', this.nftItemDraft);
+          this.$emit('success', this.nftItem);
           this.closeDialog();
         } catch (error) {
           console.error(error?.error || error);

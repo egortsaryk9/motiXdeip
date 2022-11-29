@@ -61,7 +61,7 @@
   import NftCollectionsDataProvider from '../DataProvider';
 
   /**
-   * NFT item drafts list component
+   * NFT items list component
    */
   export default defineComponent({
     name: 'NftCollectionsList',

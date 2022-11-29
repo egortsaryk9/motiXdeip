@@ -85,7 +85,7 @@
 
         try {
 
-          const { items } = await this.$store.dispatch('nftItemDrafts/getListPaginated', query);
+          const { items } = await this.$store.dispatch('nftItems/getListPaginated', query);
           if (items.length) {
             this.list = this.list.concat(items);
             this.page++;

@@ -110,21 +110,20 @@
           //   ? NftItemMetadataDraftStatus.PROPOSED
           //   : NftItemMetadataDraftStatus.APPROVED;
 
-          const draftPayload = {
+          const nftItemPayload = {
             data: {
               nftCollectionId: "lisbon-I-love-you",
               nftItemId: `${new Date().getTime()}`,
               owner: email,
-              ownedByTeam: false,
               authors: [email],
               status: NftItemMetadataDraftStatus.PROPOSED,
               ...this.lazyFormData
             }
           };
 
-          const { data: { _id } } = await this.$store.dispatch('nftItemDrafts/create', draftPayload);
+          const { data: { _id } } = await this.$store.dispatch('nftItems/create', nftItemPayload);
 
-          let createdAssetId = _id;
+          const createdAssetId = _id;
 
           this.$notifier.showSuccess(this.$t('marketplace.createAsset.createSuccess'));
           this.$emit('success');

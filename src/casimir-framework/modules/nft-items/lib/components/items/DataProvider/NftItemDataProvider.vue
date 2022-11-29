@@ -8,10 +8,10 @@
   import { defineComponent } from '@/casimir-framework/all';
 
   /**
-   * NFT item drafts data provider
+   * NFT items data provider
    */
   export default defineComponent({
-    name: 'NftItemDraftsDataProvider',
+    name: 'NftItemDataProvider',
     props: {
       /**
        * Tag name
@@ -59,18 +59,17 @@
         return filter;
       },
       /**
-       * Get computed NFT item drafts list
+       * Get computed NFT items list
        */
-      drafts() {
-        return this.$store.getters['nftItemDrafts/list'](this.getterFilter);
+      nftItems() {
+        return this.$store.getters['nftItems/list'](this.getterFilter);
       },
       /**
        * Get computed slot properties
        */
       slotProps() {
         return {
-          drafts: this.drafts,
-
+          nftItems: this.nftItems,
           loading: this.loading,
           ready: this.ready,
           disabled: this.disabled
@@ -86,14 +85,14 @@
       handleReady() {
         this.ready = true;
         /**
-         * Triggers when the drafts list is ready
+         * Triggers when the nftItems list is ready
          *
-         * @property {Array.<Object>} drafts
+         * @property {Array.<Object>} nftItems
          */
-        this.$emit('ready', this.drafts);
+        this.$emit('ready', this.nftItems);
       },
       /**
-       * Get NFT item drafts by NFT collection id
+       * Get NFT items by NFT collection id
        */
       async getNftItems() {
         this.loading = true;
@@ -103,9 +102,9 @@
           pageSize: 1000, // todo: add pagination
           filter: { nftCollectionId: this.nftCollectionId }
         };
-        
+
         try {
-          await this.$store.dispatch('nftItemDrafts/getListPaginated', query);
+          await this.$store.dispatch('nftItems/getListPaginated', query);
           this.handleReady();
         } catch (error) {
           console.error(error);

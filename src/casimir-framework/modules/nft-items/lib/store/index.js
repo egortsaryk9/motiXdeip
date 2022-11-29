@@ -1,5 +1,5 @@
-import { nftItemDraftsStore } from './nftItemDraftsStore';
+import { nftItemsStore } from './nftItemsStore';
 
 export {
-  nftItemDraftsStore
+  nftItemsStore
 };

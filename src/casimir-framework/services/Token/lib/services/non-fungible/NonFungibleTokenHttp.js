@@ -51,7 +51,7 @@ export class NonFungibleTokenHttp {
   }
 
   /**
-   * Get nft item metadata drafts list paginated
+   * Get nft items list paginated
    * @param {Object} query
    * @param {Object} query.sort 'asc', 'desc' by fields
    * @param {Number} query.page 0 or above
@@ -65,7 +65,7 @@ export class NonFungibleTokenHttp {
   }
 
   /**
-   * Moderate nft item metadata draft
+   * Moderate nft item
    * @param {Object} req
    * @returns {Promise<Object>}
    */

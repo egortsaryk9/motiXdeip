@@ -2,7 +2,7 @@
   <div>
     <v-card outlined>
       <router-link
-        :to="{ name: 'assetDetails', params: { assetId: nftItemDraft._id } }"
+        :to="{ name: 'assetDetails', params: { assetId: nftItem._id } }"
         class="text-decoration-none"
       >
         <layout-renderer
@@ -33,10 +33,10 @@
       </ve-stack>
     </v-card>
 
-    <nft-item-draft-decline-dialog
+    <nft-item-decline-dialog
       v-if="isDeclineDialogOpened"
       v-model="isDeclineDialogOpened"
-      :nft-item-draft="nftItemDraft"
+      :nft-item="nftItem"
       :nft-item-title="itemTitle"
       :success-message="successDeclineMessage"
       @success="handleDeclineSuccess"
@@ -51,25 +51,25 @@
   import { VeStack } from '@/casimir-framework/vue-elements';
   import { attributedDetailsFactory, LayoutRenderer } from '@/casimir-framework/modules/layouts';
   import { attributeMethodsFactory, expandAttributes } from '@/casimir-framework/modules/attributes';
-  import { NftItemDraftDeclineDialog } from '../NftItemDraftDeclineDialog';
+  import { NftItemDeclineDialog } from '../NftItemDeclineDialog';
 
   /**
    * NFT item moderation card
    */
   export default {
-    name: 'NftItemDraftModerationCard',
+    name: 'NftItemModerationCard',
 
     components: {
       VeStack,
       LayoutRenderer,
-      NftItemDraftDeclineDialog
+      NftItemDeclineDialog
     },
 
     mixins: [dateMixin, attributedDetailsFactory('nftItem')],
 
     props: {
-      /** NFT item draft */
-      nftItemDraft: {
+      /** NFT item */
+      nftItem: {
         type: Object,
         required: true
       },
@@ -106,7 +106,7 @@
       itemTitle() {
         const isAttributeName = this.$attributes.getMappedData(
           this.titleAttributeKey,
-          this.nftItemDraft.attributes
+          this.nftItem.attributes
         )?.value;
         return isAttributeName ? ` ${isAttributeName}` : '';
       },
@@ -116,12 +116,12 @@
       cardSchemaData() {
         return {
           ...attributeMethodsFactory(
-            expandAttributes(this.nftItemDraft),
+            expandAttributes(this.nftItem),
             {
               scopeName: 'nftItem',
               scopeId: {
-                nftItemId: this.nftItemDraft.nftItemId,
-                nftCollectionId: this.nftItemDraft.nftCollectionId
+                nftItemId: this.nftItem.nftItemId,
+                nftCollectionId: this.nftItem.nftCollectionId
               }
             }
           ),
@@ -152,35 +152,33 @@
       /** Handle approve button click */
       async handleApproveClick() {
         const isConfirmed = await this.$confirm(
-          this.$t('module.nftItems.moderation.card.approveConfirm.message',
-                  { title: this.itemTitle }),
+          this.$t('module.nftItems.moderation.card.approveConfirm.message', { title: this.itemTitle }),
           {
             title: this.$t('module.nftItems.moderation.card.approveConfirm.title')
           }
         );
 
         if (isConfirmed) {
-          await this.approveNftItemDraft();
+          await this.approveNftItem();
         }
       },
 
-      /** Approve NFT item draft */
-      async approveNftItemDraft() {
+      /** Approve NFT item */
+      async approveNftItem() {
         try {
           const payload = {
             data: {
-              _id: this.nftItemDraft._id,
+              _id: this.nftItem._id,
               status: NftItemMetadataDraftStatus.APPROVED
             }
           };
 
-          await this.$store.dispatch('nftItemDrafts/moderate', payload);
-
+          await this.$store.dispatch('nftItems/moderate', payload);
           this.$notifier.showSuccess(this.successApproveMessage);
           this.setDisabled(true);
-        } catch (error) {
-          console.error(error?.error || error);
-          this.$notifier.showError(error?.error?.message || error);
+        } catch (err) {
+          console.error(err);
+          this.$notifier.showError('An error occured while approving, please try again later');
         }
       }
     }

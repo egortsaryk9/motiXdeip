@@ -8,16 +8,15 @@
       v-slot="{list}"
       :filter="filter"
       :sort="sort"
-      is-draft
       class="py-6"
     >
       <ve-auto-grid
         cols="1"
       >
-        <nft-item-draft-moderation-card
+        <nft-item-moderation-card
           v-for="asset in list"
           :key="asset._id"
-          :nft-item-draft="asset"
+          :nft-item="asset"
           title-attribute-key="nftItem.title"
           :success-approve-message="$t('moderation.pendingAssets.approveSuccess')"
           :success-decline-message="$t('moderation.pendingAssets.declineSuccess')"
@@ -29,14 +28,14 @@
 
 <script>
   import { NftItemMetadataDraftStatus } from '@/casimir-framework/vars';
-  import { NftItemsInfiniteScroll, NftItemDraftModerationCard } from '@/casimir-framework/modules/nft-items';
+  import { NftItemsInfiniteScroll, NftItemModerationCard } from '@/casimir-framework/modules/nft-items';
   import { VeAutoGrid, VeStack } from '@/casimir-framework/vue-elements';
 
   export default {
     name: 'PendingAssetsList',
 
     components: {
-      NftItemDraftModerationCard,
+      NftItemModerationCard,
       NftItemsInfiniteScroll,
       VeAutoGrid,
       VeStack
