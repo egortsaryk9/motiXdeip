@@ -26,7 +26,7 @@ export class FungibleTokenHttp {
   }
 
   /**
-   * Transfer fungible token to other owner
+   * Transfer fungible token to other ownerId
    * @param {Object} req
    * @return {Promise<Object>}
    */
@@ -73,21 +73,21 @@ export class FungibleTokenHttp {
 
   /**
    * Get fungible token balances by symbol for certain account
-   * @param {string} owner
+   * @param {string} ownerId
    * @param {string} symbol
    * @return {Promise<Object>}
    */
-  async getAccountBalance(owner, symbol) {
-    return this.http.get(`/api/v2/tokens/ft/owner/${owner}/symbol/${symbol}`);
+  async getAccountBalance(ownerId, symbol) {
+    return this.http.get(`/api/v2/tokens/ft/owner/${ownerId}/symbol/${symbol}`);
   }
 
   /**
-   * Get fungible token balances by owner
-   * @param {string} owner
+   * Get fungible token balances by ownerId
+   * @param {string} ownerId
    * @return {Promise<Object>}
    */
-  async getAccountBalancesByOwner(owner) {
-    return this.http.get(`/api/v2/tokens/ft/owner/${owner}`);
+  async getAccountBalancesByOwner(ownerId) {
+    return this.http.get(`/api/v2/tokens/ft/owner/${ownerId}`);
   }
 
   /**

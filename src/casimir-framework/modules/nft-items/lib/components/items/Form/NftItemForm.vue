@@ -189,8 +189,8 @@
         const data = {
           nftCollectionId: this.nftCollection._id,
           title: this.formData.title,
-          authors: this.formData.authors,
           ownerId: this.nftCollection.ownerId,
+          creatorId: this.nftCollection.ownerId,
           formatType: this.formData.formatType,
           nftItemId: this.nftCollection.nextNftItemId
         };

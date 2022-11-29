@@ -5,6 +5,7 @@
         title="Lisbon, I Love you"
       />
         <asset-create-form
+          :nft-collection-id="activeNftCollection?._id"
           ref="createAssetForm"
           @success="handleCreateSuccess"
         />
@@ -17,6 +18,7 @@
   import { VexSection, VexSectionTitle } from '@/casimir-framework/plugins/VuetifyExtended';
   import { VeStack } from '@/casimir-framework/vue-elements';
   import AssetCreateForm from './AssetCreateForm';
+  import { awaitForStore } from '@/casimir-framework/all';
 
   export default {
     name: 'AssetCreatePage',
@@ -28,13 +30,24 @@
       VeStack
     },
 
-    created() {
+    computed: {
+      activeNftCollection() {
+        return this.$store.getters.activeNftCollection;
+      },
     },
 
     methods: {
-      handleCreateSuccess() {
-
+      handleCreateSuccess(assetId) {
+        this.$router.push({
+          name: 'assetDetails',
+          params: { assetId: assetId }
+        });
       },
+    },
+
+    async created() {
+      await awaitForStore(this.$store, 'currentPortal/customFields');
+      await this.$store.dispatch('getActiveNftCollection');
     }
   };
 </script>

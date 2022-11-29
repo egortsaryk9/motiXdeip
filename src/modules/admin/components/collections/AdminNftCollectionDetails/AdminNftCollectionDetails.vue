@@ -43,7 +43,6 @@
         type: String,
         required: true
       },
-
     },
 
     computed: {
@@ -68,7 +67,6 @@
     async created() {
       await this.getNftCollection();
     },
-
 
   };
 </script>

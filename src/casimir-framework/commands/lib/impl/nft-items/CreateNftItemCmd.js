@@ -12,8 +12,8 @@ class CreateNftItemCmd extends AppEntityCmd {
    * @param {Object} cmdPayload
    * @param {string} cmdPayload.nftCollectionId
    * @param {string} cmdPayload.entityId
-   * @param {Array.<string>} cmdPayload.authors
-   * @param {string} cmdPayload.owner
+   * @param {string} cmdPayload.ownerId
+   * @param {string} cmdPayload.creatorId
    * @param {Array.<Object>} cmdPayload.attributes
    * @param {Object} cmdPayload.status
    */
@@ -22,15 +22,16 @@ class CreateNftItemCmd extends AppEntityCmd {
       nftCollectionId,
       nftItemId,
       status,
-      owner,
+      ownerId,
+      creatorId,
       // eslint-disable-next-line no-unused-vars
       attributes
     } = cmdPayload;
 
-    assert(!!nftCollectionId, "'nftCollectionId' is required");
+    // assert(!!nftCollectionId, "'nftCollectionId' is required");
     assert(!!nftItemId, "'nftItemId' is required");
-
-    assert(!!owner, "'owner' is required");
+    assert(!!ownerId, "'ownerId' is required");
+    assert(!!creatorId, "'creatorId' is required");
 
     if (status) {
       assert(Object.values(NftItemMetadataDraftStatus).includes(status), "'status' is invalid");

@@ -101,7 +101,7 @@
 
     methods: {
       /**
-       * Check if current user is NFT Collection owner
+       * Check if current user is NFT Collection ownerId
        *
        * @param {Object} nftCollection
        */

@@ -11,7 +11,6 @@ class UpdateNftItemCmd extends AppCmd {
    * Command for NFT item update
    * @param {Object} cmdPayload
    * @param {string} cmdPayload._id
-   * @param {Array.<string>} cmdPayload.authors
    * @param {Array.<Object>} cmdPayload.attributes
    */
   constructor(cmdPayload) {

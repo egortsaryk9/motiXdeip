@@ -10,7 +10,7 @@ import {
   UpdateNftCollectionCmd, 
   ModerateNftItemCmd, 
 } from '@/casimir-framework/commands';
-import { APP_PROPOSAL, APP_EVENT } from '@/casimir-framework/vars';
+import { APP_PROPOSAL } from '@/casimir-framework/vars';
 // import { walletSignTx } from '@/casimir-framework/all';
 // import { ChainService } from '@casimir.one/chain-service';
 // import { WebSocketService } from '@casimir.one/web-socket-service';
@@ -85,7 +85,6 @@ export class NonFungibleTokenService {
     const cmd = new CreateNftCollectionCmd({
       entityId,
       ownerId,
-      issuer: ownerId, // temp
       attributes
     });
 
@@ -159,8 +158,7 @@ export class NonFungibleTokenService {
    * @param {number} payload.data.formatType
    * @param {Object} payload.data.jsonData
    * @param {number} payload.data.status
-   * @param {string} payload.data.owner,
-   * @param {boolean} payload.data.ownedByTeam,
+   * @param {string} payload.data.ownerId,
    * @param {Array.<Object>} payload.data.attributes
    * @returns {Promise<Object>}
    */

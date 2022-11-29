@@ -64,6 +64,13 @@
 
     mixins: [attributedFormFactory(AttributeScope.NFT_ITEM, 'nftItem')],
 
+    props: {
+      nftCollectionId: {
+        type: String,
+        default: null
+      },
+    },
+
     data() {
       return {
         loading: false,
@@ -75,16 +82,9 @@
       formSchema() {
         return this.$layouts.getMappedData('nftItem.form')?.value;
       },
-
-      nftCollection() {
-        return {} //this.$store.getters.userNftCollection;
-      },
     },
 
     methods: {
-      // async reloadNftCollection() {
-      //   await this.$store.dispatch('getCurrentUserNftCollection');
-      // },
 
       async submit() {
         this.loading = true;
@@ -102,38 +102,29 @@
         const email = this.$attributes.getMappedData('nftItem.email', this.lazyFormData.attributes)?.value;
 
         try {
-          
-          // const {
-          //   nftItemMetadataDraftModerationRequired = false
-          // } = this.$currentPortal?.profile?.settings?.nftModeration.isRequired || {};
-          // const status = nftItemMetadataDraftModerationRequired
-          //   ? NftItemMetadataDraftStatus.PROPOSED
-          //   : NftItemMetadataDraftStatus.APPROVED;
+
+          const isModerationRequired = this.$store.getters.isModerationRequired;
+          const status = isModerationRequired
+            ? NftItemMetadataDraftStatus.PROPOSED
+            : NftItemMetadataDraftStatus.APPROVED;
 
           const nftItemPayload = {
             data: {
-              nftCollectionId: "lisbon-I-love-you",
+              nftCollectionId: this.nftCollectionId,
               nftItemId: `${new Date().getTime()}`,
-              owner: email,
-              authors: [email],
-              status: NftItemMetadataDraftStatus.PROPOSED,
+              ownerId: email,
+              creatorId: email,
+              status: status,
               ...this.lazyFormData
             }
           };
 
-          const { data: { _id } } = await this.$store.dispatch('nftItems/create', nftItemPayload);
-
-          const createdAssetId = _id;
+          const { data: { _id: assetId } } = await this.$store.dispatch('nftItems/create', nftItemPayload);
 
           this.$notifier.showSuccess(this.$t('marketplace.createAsset.createSuccess'));
-          this.$emit('success');
+          this.$emit('success', assetId);
           this.$eventBus.$emit('submit-asset');
           this.clearForm();
-
-          this.$router.push({
-            name: 'assetDetails',
-            params: { assetId: createdAssetId }
-          });
 
         } catch (err) {
           console.error(err);
@@ -143,14 +134,13 @@
       }
     },
 
-    // async created() {
-    //   await awaitForStore(this.$store, 'currentPortal/data');
-    // },
-
     mounted() {
       this.clearForm();
-      // this.reloadNftCollection();
     },
+
+    async created() {
+      await awaitForStore(this.$store, 'isModerationRequired');
+    }
 
   };
 </script>

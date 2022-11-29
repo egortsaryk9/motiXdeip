@@ -118,7 +118,7 @@ export class NonFungibleTokenHttp {
   }
 
   /**
-   * Transfer non-fungible token to other owner
+   * Transfer non-fungible token to other ownerId
    * @param {Object} req
    * @return {Promise<Object>}
    */

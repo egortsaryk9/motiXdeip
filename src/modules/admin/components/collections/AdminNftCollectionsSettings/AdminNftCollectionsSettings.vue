@@ -13,14 +13,16 @@
       <ve-stack :gap="32">
         <vex-section-title :title="$t('admin.collections.settings.title')" />
 
-        <validation-observer v-slot="{ handleSubmit, invalid }">
+        <validation-observer 
+          v-slot="{ handleSubmit, invalid }" 
+          ref="validationObserver"
+        >
           <v-form @submit.prevent="handleSubmit(updateActiveNftCollectionId)">
             <ve-stack :gap="32">
 
               <validation-provider
                 v-slot="{ errors }"
                 :name="$t('admin.collections.settings.title')"
-                rules="required"
               >
                 <v-select
                   v-model="formData.activeNftCollectionId"
@@ -79,6 +81,7 @@
     computed: {
       nftCollectionsList() {
         return [
+          { value: null, text: 'Without Collection' },
           ...this.$store.getters['nftCollections/list']()
             .map((c) => ({ text: c._id, value: c._id }))
         ];
@@ -86,6 +89,7 @@
     },
 
     methods: {
+
       async loadNftCollections() {
         try {
           await this.$store.dispatch('nftCollections/getList');
@@ -101,6 +105,7 @@
         try {
           const customFields = { ...this.$portalCustomFields, ...this.lazyFormData };
           await this.$store.dispatch('currentPortal/updatePortalCustomFields', { customFields,  title: 'temp' });
+          this.$refs.validationObserver.reset();
           this.$notifier.showSuccess('Active collection has been updated successfully');
         } catch (err) {
           console.error(err);
@@ -114,13 +119,14 @@
       setActiveCollectionId() {
         const activeNftCollectionId = this.$portalCustomFields.activeNftCollectionId;
         this.$set(this.formData, 'activeNftCollectionId', activeNftCollectionId);
-      }
+      },
     },
 
     async created() {
       await this.loadNftCollections();
       await awaitForStore(this.$store, 'currentPortal/customFields');
-      await this.setActiveCollectionId();
-    },
+      this.setActiveCollectionId();
+    }
+
   };
 </script>

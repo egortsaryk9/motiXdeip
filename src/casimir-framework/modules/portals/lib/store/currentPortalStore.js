@@ -10,7 +10,7 @@ const STATE = {
 
 const GETTERS = {
   data: (state) => state.data,
-  customFields: (state) => state.customFields || {}
+  customFields: (state) => state.customFields
 };
 
 const ACTIONS = {
@@ -37,6 +37,9 @@ const ACTIONS = {
 
   updatePortalCustomFields({ commit }, payload) {
     return portalService.updatePortalCustomFields(payload)
+      .then((res) => {
+        return portalService.getPortalCustomFields();
+      })
       .then((res) => {
         commit('setCustomFields', res.data);
       });

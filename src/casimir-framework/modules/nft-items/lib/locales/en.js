@@ -6,7 +6,6 @@ export default {
         title: 'Title',
         type: 'Material type',
         formatType: 'Format type',
-        authors: 'Authors',
         references: 'References to material posted on platform',
         file: 'File',
         contentPlaceholder: 'Start typing here...',
@@ -22,7 +21,6 @@ export default {
         title: 'Title'
       },
       details: {
-        authors: 'Authors',
         download: 'Download'
       },
       nftItemsInfiniteScroll: {

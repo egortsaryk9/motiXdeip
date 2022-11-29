@@ -213,21 +213,21 @@ export class FungibleTokenService {
 
   /**
    * Get fungible tokens balances by symbol for certain account
-   * @param {string} owner
+   * @param {string} ownerId
    * @param {string} symbol
    * @return {Promise<Object>}
    */
-  async getAccountBalance(owner, symbol) {
-    return this.fungibleTokenHttp.getAccountBalance(owner, symbol);
+  async getAccountBalance(ownerId, symbol) {
+    return this.fungibleTokenHttp.getAccountBalance(ownerId, symbol);
   }
 
   /**
-   * Get asset balances by owner
-   * @param {string} owner
+   * Get asset balances by ownerId
+   * @param {string} ownerId
    * @return {Promise<Object>}
    */
-  async getAccountBalancesByOwner(owner) {
-    return this.fungibleTokenHttp.getAccountBalancesByOwner(owner);
+  async getAccountBalancesByOwner(ownerId) {
+    return this.fungibleTokenHttp.getAccountBalancesByOwner(ownerId);
   }
 
   /**
