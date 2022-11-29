@@ -51,7 +51,7 @@ export class NonFungibleTokenHttp {
   }
 
   /**
-   * Get nft items list paginated
+   * Get NFT items list paginated
    * @param {Object} query
    * @param {Object} query.sort 'asc', 'desc' by fields
    * @param {Number} query.page 0 or above
@@ -59,64 +59,63 @@ export class NonFungibleTokenHttp {
    * @param {Object} query.filter filter
    * @returns {Promise<Object>}
    */
-  async getNftItemMetadataDraftsListPaginated(query) {
+  async getNftItemsListPaginated(query) {
     const querySerialized = serializeParams(query);
     return this.http.get(`/api/v3/items?${querySerialized}`);
   }
 
   /**
-   * Moderate nft item
-   * @param {Object} req
-   * @returns {Promise<Object>}
-   */
-  async moderateNftItemMetadataDraft(req) {
-    return this.http.put('/api/v3/items/moderate', req.getHttpBody(), {
-      headers: req.getHttpHeaders()
-    });
-  }
-
-  /**
-   * Get nft item metadata draft by id
+   * Get NFT item
    * @param {string} id
    * @returns {Promise<Object>}
    */
-  async getNftItemMetadataDraft(id) {
+  async getNftItem(id) {
     return this.http.get(`/api/v3/items/${id}`);
   }
 
   /**
-   * Create nft item metadata draft
+   * Create NFT item
    * @param {Object} req
    * @returns {Promise<Object>}
    */
-  async createNftItemMetadataDraft(req) {
+  async createNftItem(req) {
     return this.http.post('/api/v3/items', req.getHttpBody(), {
       headers: req.getHttpHeaders()
     });
   }
 
   /**
-   * Update nft item metadata draft
+   * Update NFT item
    * @param {Object} req
    * @returns {Promise<Object>}
    */
-  async updateNftItemMetadataDraft(req) {
+  async updateNftItem(req) {
     return this.http.put('/api/v3/items', req.getHttpBody(), {
       headers: req.getHttpHeaders()
     });
   }
 
   /**
-   * Delete nft item metadata draft
+   * Delete NFT item
    * @param {Object} req
    * @returns {Promise<Object>}
    */
-  async deleteNftItemMetadataDraft(req) {
+  async deleteNftItem(req) {
     return this.http.delete('/api/v3/items', req.getHttpBody(), {
       headers: req.getHttpHeaders()
     });
   }
 
+  /**
+   * Moderate NFT item
+   * @param {Object} req
+   * @returns {Promise<Object>}
+   */
+  async moderateNftItem(req) {
+    return this.http.put('/api/v3/items/moderate', req.getHttpBody(), {
+      headers: req.getHttpHeaders()
+    });
+  }
 
   /**
    * Transfer non-fungible token to other owner

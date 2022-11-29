@@ -1,12 +1,12 @@
 import { APP_CMD } from '@/casimir-framework/vars';
-import { assert, isNumber, isString, isNumeric, isBoolean } from '@/casimir-framework/all';
+import { assert } from '@/casimir-framework/all';
 
-import AppCmd from '../base/AppCmd';
+import AppCmd from '../../base/AppCmd';
 
 /**
  * Update nft collection metadata command
  */
-class UpdateNftCollectionMetadataCmd extends AppCmd {
+class UpdateNftCollectionCmd extends AppCmd {
   /**
    * Create command for project update
    * @param {Object} cmdPayload
@@ -25,8 +25,8 @@ class UpdateNftCollectionMetadataCmd extends AppCmd {
 
     assert(!!_id, "'_id' is required");
 
-    super(APP_CMD.UPDATE_NFT_COLLECTION_METADATA, cmdPayload);
+    super(APP_CMD.UPDATE_NFT_COLLECTION, cmdPayload);
   }
 }
 
-export default UpdateNftCollectionMetadataCmd;
+export default UpdateNftCollectionCmd;

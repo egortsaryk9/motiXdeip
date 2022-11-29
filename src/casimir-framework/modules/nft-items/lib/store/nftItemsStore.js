@@ -21,26 +21,26 @@ const GETTERS = {
 
 const ACTIONS = {
   async getListPaginated({ commit }, query) {
-    const res = await nonFungibleTokenService.getNftItemMetadataDraftsListPaginated(query);
+    const res = await nonFungibleTokenService.getNftItemsListPaginated(query);
     commit('setList', res.data.items);
     return res.data;
   },
 
   async getOne({ commit }, id) {
-    const res = await nonFungibleTokenService.getNftItemMetadataDraft(id);
+    const res = await nonFungibleTokenService.getNftItem(id);
     commit('setOne', res.data);
   },
 
   async create(_, payload) {
-    return nonFungibleTokenService.createNftItemMetadataDraft(payload);
+    return nonFungibleTokenService.createNftItem(payload);
   },
 
   async update(_, payload) {
-    return nonFungibleTokenService.updateNftItemMetadataDraft(payload);
+    return nonFungibleTokenService.updateNftItem(payload);
   },
 
   async remove({ commit }, id) {
-    await nonFungibleTokenService.deleteNftItemMetadataDraft(id);
+    await nonFungibleTokenService.deleteNftItem(id);
     commit('remove', id);
   },
 
@@ -56,7 +56,7 @@ const ACTIONS = {
   },
 
   moderate(_, payload) {
-    return nonFungibleTokenService.moderateNftItemMetadataDraft(payload);
+    return nonFungibleTokenService.moderateNftItem(payload);
   }
 };
 

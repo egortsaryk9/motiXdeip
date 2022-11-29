@@ -1,12 +1,12 @@
 import { APP_CMD, NftItemMetadataDraftStatus } from '@/casimir-framework/vars';
-import { assert, isNumber, isString } from '@/casimir-framework/all';
-import AppEntityCmd from '../base/AppEntityCmd';
+import { assert } from '@/casimir-framework/all';
+import AppEntityCmd from '../../base/AppEntityCmd';
 
 /**
- * Create nft item metadata draft command
+ * Create NFT item command
  * @extends AppCmd
  */
-class CreateNftItemMetadataDraftCmd extends AppEntityCmd {
+class CreateNftItemCmd extends AppEntityCmd {
   /**
    * Create command for project content draft creation
    * @param {Object} cmdPayload
@@ -36,8 +36,8 @@ class CreateNftItemMetadataDraftCmd extends AppEntityCmd {
       assert(Object.values(NftItemMetadataDraftStatus).includes(status), "'status' is invalid");
     }
 
-    super(APP_CMD.CREATE_NFT_ITEM_METADATA_DRAFT, cmdPayload);
+    super(APP_CMD.CREATE_NFT_ITEM, cmdPayload);
   }
 }
 
-export default CreateNftItemMetadataDraftCmd;
+export default CreateNftItemCmd;

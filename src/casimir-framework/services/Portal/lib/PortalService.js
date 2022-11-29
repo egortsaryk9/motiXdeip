@@ -1,9 +1,6 @@
 import { createFormData, makeSingletonInstance, genSha256Hash } from '@/casimir-framework/all';
 import { proxydi } from '@/casimir-framework/proxydi';
 import {
-  CreateDaoCmd,
-  DeleteUserProfileCmd,
-  UpdateNetworkSettingsCmd,
   UpdatePortalProfileCmd,
   UpdatePortalSettingsCmd
 } from '@/casimir-framework/commands';

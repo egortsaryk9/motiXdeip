@@ -1,14 +1,14 @@
 import { APP_CMD } from '@/casimir-framework/vars';
-import { assert, isNumber, isString } from '@/casimir-framework/all';
-import AppCmd from '../base/AppCmd';
+import { assert } from '@/casimir-framework/all';
+import AppCmd from '../../base/AppCmd';
 
 /**
- * Create nft collection metadata command
+ * Create NFT collection command
  * @extends AppCmd
  */
-class CreateNftCollectionMetadataCmd extends AppCmd {
+class CreateNftCollectionCmd extends AppCmd {
   /**
-   * Create command for nft collection metadata creation
+   * Command for NFT collection creation
    * @param {Object} cmdPayload
    * @param {string} cmdPayload.ownerId
    * @param {string} cmdPayload.entityId
@@ -24,8 +24,8 @@ class CreateNftCollectionMetadataCmd extends AppCmd {
     assert(!!entityId, "'entityId' is required");
     assert(!!ownerId, "'ownerId' is required");
 
-    super(APP_CMD.CREATE_NFT_COLLECTION_METADATA, cmdPayload);
+    super(APP_CMD.CREATE_NFT_COLLECTION, cmdPayload);
   }
 }
 
-export default CreateNftCollectionMetadataCmd;
+export default CreateNftCollectionCmd;

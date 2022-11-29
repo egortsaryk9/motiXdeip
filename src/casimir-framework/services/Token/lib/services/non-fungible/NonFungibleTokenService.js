@@ -4,13 +4,11 @@ import { JsonDataMsg, MultFormDataMsg } from '@/casimir-framework/messages';
 import { 
   TransferNFTCmd, 
   CreateNftCollectionCmd, 
-  CreateNftCollectionMetadataCmd, 
-  UpdateNftItemMetadataDraftCmd, 
-  CreateNftItemMetadataDraftCmd, 
-  DeleteNftItemMetadataDraftCmd,
-  UpdateNftCollectionMetadataCmd, 
-  UpdateNftItemMetadataDraftStatusCmd, 
-  UpdateNftItemMetadataDraftModerationMsgCmd 
+  UpdateNftItemCmd, 
+  CreateNftItemCmd, 
+  DeleteNftItemCmd,
+  UpdateNftCollectionCmd, 
+  ModerateNftItemCmd, 
 } from '@/casimir-framework/commands';
 import { APP_PROPOSAL, APP_EVENT } from '@/casimir-framework/vars';
 // import { walletSignTx } from '@/casimir-framework/all';
@@ -45,7 +43,7 @@ export class NonFungibleTokenService {
   }
 
   /**
-   * Get nft collection by id
+   * Get NFT collection
    * @param {string} nftCollectionId
    * @return {Promise<Object>}
    */
@@ -54,7 +52,7 @@ export class NonFungibleTokenService {
   }
 
   /**
-   * Get public nft collections list
+   * Get NFT collections
    * @param {Object} filter
    * @param {Array} filter.attributes
    * @param {Array.<string>} filter.attributes
@@ -65,7 +63,7 @@ export class NonFungibleTokenService {
   }
 
   /**
-   * Create new nft collection and nft collection metadata
+   * Create new NFT collection
    * @param {import('@casimir.one/platform-core').NonFungibleTokenCreatePayload} payload
    * @param signTxCallback
    * @return {Promise<Object>}
@@ -84,7 +82,7 @@ export class NonFungibleTokenService {
 
     const entityId = uuidv4();
     
-    const createNftCollectionMetadataCmd = new CreateNftCollectionMetadataCmd({
+    const cmd = new CreateNftCollectionCmd({
       entityId,
       ownerId,
       issuer: ownerId, // temp
@@ -92,7 +90,7 @@ export class NonFungibleTokenService {
     });
 
     const metadataMsg = new MultFormDataMsg(formData, {
-      appCmds: [createNftCollectionMetadataCmd]
+      appCmds: [cmd]
     }, {
       'entity-id': entityId
     });
@@ -102,7 +100,7 @@ export class NonFungibleTokenService {
   }
 
   /**
-   * Update nft collection metadata
+   * Update NFT collection
    * @param {Object} payload.data
    * @param {string} payload.data._id
    * @param {Array.<Object>} payload.data.attributes
@@ -117,13 +115,13 @@ export class NonFungibleTokenService {
       attributes
     } = NonFungibleTokenService.#convertFormData(data);
 
-    const updateNftCollectionMetadataCmd = new UpdateNftCollectionMetadataCmd({
+    const cmd = new UpdateNftCollectionCmd({
       _id,
       attributes
     });
 
     const msg = new MultFormDataMsg(formData, {
-      appCmds: [updateNftCollectionMetadataCmd]
+      appCmds: [cmd]
     }, {
       'entity-id': _id
     });
@@ -132,9 +130,29 @@ export class NonFungibleTokenService {
     return response;
   }
 
+  /**
+   * Get NFT item
+   * @param {string} id
+   * @returns {Promise<Object>}
+   */
+  async getNftItem(id) {
+    return this.nonFungibleTokenHttp.getNftItem(id);
+  }
 
   /**
-   * Create nft item metadata draft
+   * Get NFT item
+   * @param {Object} query
+   * @param {Object} query.sort 'asc', 'desc'
+   * @param {Number} query.page 0 or above
+   * @param {Number} query.pageSize from 1 to 100
+   * @param {Object} query.filter
+   */
+  async getNftItemsListPaginated(query) {
+    return this.nonFungibleTokenHttp.getNftItemsListPaginated(query);
+  }
+
+  /**
+   * Create NFT item
    * @param {Object} payload.data
    * @param {string} payload.data.nftCollectionId
    * @param {string} payload.data.nftItemId
@@ -146,7 +164,7 @@ export class NonFungibleTokenService {
    * @param {Array.<Object>} payload.data.attributes
    * @returns {Promise<Object>}
    */
-  async createNftItemMetadataDraft(payload) {
+  async createNftItem(payload) {
     const {
       data
     } = payload;
@@ -157,20 +175,20 @@ export class NonFungibleTokenService {
     const commandData = { ...data,
       attributes
     };
-    const createNftItemMetadataDraftCmd = new CreateNftItemMetadataDraftCmd(commandData);
+    const cmd = new CreateNftItemCmd(commandData);
     const msg = new MultFormDataMsg(formData, {
-      appCmds: [createNftItemMetadataDraftCmd]
+      appCmds: [cmd]
     }, {
       'nft-collection-id': data.nftCollectionId,
       'nft-item-id': data.nftItemId
     });
 
-    const response = await this.nonFungibleTokenHttp.createNftItemMetadataDraft(msg);
+    const response = await this.nonFungibleTokenHttp.createNftItem(msg);
     return response;
   }
 
   /**
-   * Update nft item metadata draft
+   * Update NFT item
    * @param {Object} payload.data
    * @param {string} payload.data._id,
    * @param {number} payload.data.formatType
@@ -179,7 +197,7 @@ export class NonFungibleTokenService {
    * @param {Array.<Object>} payload.data.attributes
    * @returns {Promise<Object>}
    */
-  async updateNftItemMetadataDraft(payload) {
+  async updateNftItem(payload) {
     const {
       data
     } = payload;
@@ -190,90 +208,65 @@ export class NonFungibleTokenService {
     const commandData = { ...data,
       attributes
     };
-    const updateNftItemMetadataDraftCmd = new UpdateNftItemMetadataDraftCmd(commandData);
+    const cmd = new UpdateNftItemCmd(commandData);
     const msg = new MultFormDataMsg(formData, {
-      appCmds: [updateNftItemMetadataDraftCmd]
+      appCmds: [cmd]
     }, {
       'nft-collection-id': data.nftCollectionId,
       'nft-item-id': data.nftItemId
     });
-    const {
-      RETURN_MSG
-    } = this.proxydi.get('env');
 
-    if (RETURN_MSG === true) {
-      return msg;
-    }
-
-    const response = await this.nonFungibleTokenHttp.updateNftItemMetadataDraft(msg);
+    const response = await this.nonFungibleTokenHttp.updateNftItem(msg);
     return response;
   }
 
   /**
-   * Delete nft item metadata draft
-   * @param {string} nftItemMetadataDraftId
+   * Delete NFT item
+   * @param {string} nftItemId
    * @returns {Promise<Object>}
    */
-  async deleteNftItemMetadataDraft(nftItemMetadataDraftId) {
-    const deleteNftItemMetadataDraftCmd = new DeleteNftItemMetadataDraftCmd({
-      _id: nftItemMetadataDraftId
+  async deleteNftItem(nftItemId) {
+    const cmd = new DeleteNftItemCmd({
+      _id: nftItemId
     });
     const msg = new JsonDataMsg({
-      appCmds: [deleteNftItemMetadataDraftCmd]
+      appCmds: [cmd]
     }, {
-      'entity-id': nftItemMetadataDraftId
+      'entity-id': nftItemId
     });
-    const {
-      RETURN_MSG
-    } = this.proxydi.get('env');
 
-    if (RETURN_MSG === true) {
-      return msg;
-    }
-
-    return this.nonFungibleTokenHttp.deleteNftItemMetadataDraft(msg);
+    return this.nonFungibleTokenHttp.deleteNftItem(msg);
   }
 
   /**
-   * Moderate nft item metadata draft
+   * Moderate NFT item
    * @param {Object} payload
    * @param {Object} payload.data
    * @param {string} payload.data._id
    * @param {string} payload.data.status NftItemMetadataDraftStatus
-   * @param {string} payload.data.moderationMessage
    * @returns
    */
-  async moderateNftItemMetadataDraft(payload) {
+  async moderateNftItem(payload) {
     const {
       data
     } = payload;
     const {
       _id,
       status,
-      moderationMessage
     } = data;
-    const appCmds = [];
-    const updateStatusCmd = new UpdateNftItemMetadataDraftStatusCmd({
+
+    const cmd = new ModerateNftItemCmd({
       _id,
       status
     });
-    appCmds.push(updateStatusCmd);
-
-    if (moderationMessage) {
-      const updateMetadataCmd = new UpdateNftItemMetadataDraftModerationMsgCmd({
-        _id,
-        moderationMessage
-      });
-      appCmds.push(updateMetadataCmd);
-    }
 
     const msg = new JsonDataMsg({
-      appCmds
+      appCmds: [cmd]
     }, {
       'entity-id': _id
     });
  
-    const response = await this.nonFungibleTokenHttp.moderateNftItemMetadataDraft(msg);
+    const response = await this.nonFungibleTokenHttp.moderateNftItem(msg);
     return response;
   }
 
@@ -298,29 +291,6 @@ export class NonFungibleTokenService {
       nftItemId: token.nftItemId
     });
     return transferToken(transferPayload, transferTokenCmd, APP_PROPOSAL.NFT_TRANSFER_PROPOSAL, this.nonFungibleTokenHttp.transfer);
-  }
-
-  
-  /**
-   * Get nft item metadata draft by id
-   * @param {string} id
-   * @returns {Promise<Object>}
-   */
-  async getNftItemMetadataDraft(id) {
-    return this.nonFungibleTokenHttp.getNftItemMetadataDraft(id);
-  }
-
-
-  /**
-   * Get nft item metadata drafts list paginated
-   * @param {Object} query
-   * @param {Object} query.sort 'asc', 'desc'
-   * @param {Number} query.page 0 or above
-   * @param {Number} query.pageSize from 1 to 100
-   * @param {Object} query.filter
-   */
-  async getNftItemMetadataDraftsListPaginated(query) {
-    return this.nonFungibleTokenHttp.getNftItemMetadataDraftsListPaginated(query);
   }
 
   /** @type {() => NonFungibleTokenService} */
