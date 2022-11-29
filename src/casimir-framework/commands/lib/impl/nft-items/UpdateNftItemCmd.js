@@ -11,7 +11,6 @@ class UpdateNftItemCmd extends AppCmd {
    * Create command for nft item metadata draft update
    * @param {Object} cmdPayload
    * @param {string} cmdPayload._id
-   * @param {string} cmdPayload.lazySellProposalId //TODO: remove when we have onchain market
    * @param {Array.<string>} cmdPayload.authors
    * @param {Array.<Object>} cmdPayload.attributes
    */
