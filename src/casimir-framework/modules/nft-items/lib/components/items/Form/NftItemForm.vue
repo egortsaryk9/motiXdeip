@@ -94,7 +94,7 @@
             {
               scopeName: AttributeScope.NFT_ITEM,
               scopeId: {
-                nftItemId: this.nftItem.nftItemId,
+                nftItemId: this.nftItem._id,
                 nftCollectionId: this.nftItem.nftCollectionId
               }
             }
@@ -119,42 +119,10 @@
       }
     },
 
-    async created() {
-      this.setExistingFiles();
-    },
-
     methods: {
-      /**
-       * Get Nft item nftItem url by file hash
-       *
-       * @param {string} fileHash
-       */
-      getContentUrl(fileHash) {
-        const { DEIP_SERVER_URL } = this.$env;
-        // return `${DEIP_SERVER_URL}/api/v2/nft-items/package/${this.nftItem._id}/
-        // ${fileHash}?download=true&authorization=${accessService.getAccessToken()}`;
-        return `${DEIP_SERVER_URL}/api/v2/nft-items/package/${this.nftItem._id}/${fileHash}?download=true}`;
-      },
-      /**
-       * Set form data files
-       */
-      async setExistingFiles() {
-        if (this.formData.packageFiles?.length > 0) {
-          this.filesInputLoading = true;
 
-          try {
-            this.formData.files = await Promise.all(this.formData.packageFiles.map(async (file) => {
-              const res = await fetch(this.getContentUrl(file.hash));
-              return new File([res.blob()], file.filename);
-            }));
-          } catch (error) {
-            console.error('Failed to upload files', error);
-          }
-          this.filesInputLoading = false;
-        }
-      },
       /**
-       * Create nftItem
+       * Create NFT Item
        *
        * @param {Object} data
        */
@@ -188,18 +156,10 @@
         this.loading = true;
         const data = {
           nftCollectionId: this.nftCollection._id,
-          title: this.formData.title,
           ownerId: this.nftCollection.ownerId,
           creatorId: this.nftCollection.ownerId,
           formatType: this.formData.formatType,
-          nftItemId: this.nftCollection.nextNftItemId
         };
-
-        if (this.formData.formatType === NFT_ITEM_METADATA_FORMAT.JSON) {
-          data.jsonData = this.formData.jsonData;
-        } else if (this.formData.formatType === NFT_ITEM_METADATA_FORMAT.PACKAGE) {
-          data.files = this.formData.files;
-        }
 
         if (this.isEditMode) {
           await this.updateNftItem(data);

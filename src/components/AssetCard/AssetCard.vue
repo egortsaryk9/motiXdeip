@@ -59,7 +59,7 @@
 
       cardSchemaData() {
         const scopeId = { 
-          nftItemId: this.asset.nftItemId,
+          nftItemId: this.asset._id,
           nftCollectionId: this.asset.nftCollectionId
         }
         return {

@@ -13,14 +13,14 @@ import { PortalsModule } from '@/casimir-framework/modules/portals';
 import { ScopesModule } from '@/casimir-framework/modules/scopes';
 import { AttributesModule } from '@/casimir-framework/modules/attributes';
 import { LayoutsModule } from '@/casimir-framework/modules/layouts';
-// import { AuthModule } from '@casimir.one/auth-module';
+import { AuthModule } from '@/casimir-framework/modules/auth';
 // import { UsersModule } from '@casimir.one/users-module';
 // import { TeamsModule } from '@casimir.one/teams-module';
 import { NftCollectionsModule } from '@/casimir-framework/modules/nft-collections';
 import { NftItemsModule } from '@/casimir-framework/modules/nft-items';
 // import { AssetsModule } from '@casimir.one/assets-module';
 
-// import { NftMarketplaceAuthModule } from '@/modules/auth';
+import { NftMarketplaceAuthModule } from '@/modules/auth';
 import { NftMarketplaceMarketplaceModule } from '@/modules/marketplace';
 import { NftMarketplaceAdminModule } from '@/modules/admin';
 // import { NftMarketplaceProfileModule } from '@/modules/profile';
@@ -91,14 +91,14 @@ nftMarketplaceApp
   .addModule(ScopesModule)
   .addModule(AttributesModule)
   .addModule(LayoutsModule, layoutsModuleOptions)
-  // .addModule(AuthModule)
+  .addModule(AuthModule)
   // .addModule(UsersModule, usersModuleOptions)
   // .addModule(TeamsModule)
   .addModule(NftCollectionsModule, nftCollectionsModuleOptions)
   .addModule(NftItemsModule, nftItemsModuleOptions)
   // .addModule(AssetsModule)
   // .addModule(NftMarketplaceWalletModule)
-  // .addModule(NftMarketplaceAuthModule)
+  .addModule(NftMarketplaceAuthModule)
   .addModule(NftMarketplaceMarketplaceModule)
   .addModule(NftMarketplaceAdminModule)
   // .addModule(NftMarketplaceProfileModule)

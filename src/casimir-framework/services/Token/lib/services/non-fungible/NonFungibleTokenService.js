@@ -13,7 +13,7 @@ import {
 import { APP_PROPOSAL } from '@/casimir-framework/vars';
 // import { walletSignTx } from '@/casimir-framework/all';
 // import { ChainService } from '@casimir.one/chain-service';
-// import { WebSocketService } from '@casimir.one/web-socket-service';
+import { WebSocketService } from '@/casimir-framework/services/WebSocket';
 import { NonFungibleTokenHttp } from './NonFungibleTokenHttp';
 import { transferToken, updateProposalInfo } from '../../util';
 
@@ -21,8 +21,8 @@ import { transferToken, updateProposalInfo } from '../../util';
  * Non-fungible token service
  */
 export class NonFungibleTokenService {
-  // proxydi = proxydi;
-  // webSocketService = WebSocketService.getInstance();
+  proxydi = proxydi;
+  webSocketService = WebSocketService.getInstance();
   nonFungibleTokenHttp = NonFungibleTokenHttp.getInstance();
 
   /**
@@ -170,7 +170,8 @@ export class NonFungibleTokenService {
       formData,
       attributes
     } = NonFungibleTokenService.#convertFormData(payload.data);
-    const commandData = { ...data,
+    const commandData = { 
+      ...data,
       attributes
     };
     const cmd = new CreateNftItemCmd(commandData);
@@ -178,7 +179,7 @@ export class NonFungibleTokenService {
       appCmds: [cmd]
     }, {
       'nft-collection-id': data.nftCollectionId,
-      'nft-item-id': data.nftItemId
+      'nft-item-id': cmd.getEntityId()
     });
 
     const response = await this.nonFungibleTokenHttp.createNftItem(msg);
@@ -211,7 +212,7 @@ export class NonFungibleTokenService {
       appCmds: [cmd]
     }, {
       'nft-collection-id': data.nftCollectionId,
-      'nft-item-id': data.nftItemId
+      'nft-item-id': data._id
     });
 
     const response = await this.nonFungibleTokenHttp.updateNftItem(msg);
@@ -223,14 +224,14 @@ export class NonFungibleTokenService {
    * @param {string} nftItemId
    * @returns {Promise<Object>}
    */
-  async deleteNftItem(nftItemId) {
+  async deleteNftItem(_id) {
     const cmd = new DeleteNftItemCmd({
-      _id: nftItemId
+      _id
     });
     const msg = new JsonDataMsg({
       appCmds: [cmd]
     }, {
-      'entity-id': nftItemId
+      'entity-id': _id
     });
 
     return this.nonFungibleTokenHttp.deleteNftItem(msg);
@@ -245,13 +246,8 @@ export class NonFungibleTokenService {
    * @returns
    */
   async moderateNftItem(payload) {
-    const {
-      data
-    } = payload;
-    const {
-      _id,
-      status,
-    } = data;
+    const { data } = payload;
+    const { _id, status } = data;
 
     const cmd = new ModerateNftItemCmd({
       _id,

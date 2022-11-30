@@ -8,6 +8,8 @@ import UpdateNftItemCmd from './impl/nft-items/UpdateNftItemCmd';
 import DeleteNftItemCmd from './impl/nft-items/DeleteNftItemCmd';
 import ModerateNftItemCmd from './impl/nft-items/ModerateNftItemCmd';
 
+import CreateUserCmd from './impl/users/CreateUserCmd';
+
 import CreateDaoCmd from './impl/CreateDaoCmd';
 import ImportDAOCmd from './impl/ImportDAOCmd';
 import AddDaoMemberCmd from './impl/AddDaoMemberCmd';
@@ -43,12 +45,21 @@ import UpdatePortalSettingsCmd from './impl/UpdatePortalSettingsCmd';
 
 
 const APP_CMD_INFO = {
+
+  [APP_CMD.CREATE_NFT_COLLECTION]: { class: CreateNftCollectionCmd },
+  [APP_CMD.UPDATE_NFT_COLLECTION]: { class: UpdateNftCollectionCmd },
+
+  [APP_CMD.CREATE_NFT_ITEM]: { class: CreateNftItemCmd },
+  [APP_CMD.UPDATE_NFT_ITEM]: { class: UpdateNftItemCmd },
+  [APP_CMD.DELETE_NFT_ITEM]: { class: DeleteNftItemCmd },
+  [APP_CMD.MODERATE_NFT_ITEM]: { class: ModerateNftItemCmd },
+
+  [APP_CMD.CREATE_USER]: { class: CreateUserCmd },
+
   [APP_CMD.CREATE_DAO]: { class: CreateDaoCmd },
   [APP_CMD.UPDATE_DAO]: { class: UpdateDaoCmd },
   [APP_CMD.IMPORT_DAO]: { class: ImportDAOCmd },
   [APP_CMD.ALTER_DAO_AUTHORITY]: { class: AlterDaoAuthorityCmd },
-  [APP_CMD.CREATE_NFT_COLLECTION]: { class: CreateNftCollectionCmd },
-  [APP_CMD.UPDATE_NFT_COLLECTION]: { class: UpdateNftCollectionCmd },
   [APP_CMD.ADD_DAO_MEMBER]: { class: AddDaoMemberCmd },
   [APP_CMD.CREATE_PROPOSAL]: { class: CreateProposalCmd },
   [APP_CMD.ACCEPT_PROPOSAL]: { class: AcceptProposalCmd },
@@ -66,10 +77,6 @@ const APP_CMD_INFO = {
   [APP_CMD.DELETE_DOCUMENT_TEMPLATE]: { class: DeleteDocumentTemplateCmd },
   [APP_CMD.CREATE_FT]: { class: CreateFTClassCmd },
   [APP_CMD.ISSUE_FT]: { class: IssueFTCmd },
-  [APP_CMD.CREATE_NFT_ITEM]: { class: CreateNftItemCmd },
-  [APP_CMD.UPDATE_NFT_ITEM]: { class: UpdateNftItemCmd },
-  [APP_CMD.DELETE_NFT_ITEM]: { class: DeleteNftItemCmd },
-  [APP_CMD.MODERATE_NFT_ITEM]: { class: ModerateNftItemCmd },
   [APP_CMD.CREATE_CONTRACT_AGREEMENT]: { class: CreateContractAgreementCmd },
   [APP_CMD.ACCEPT_CONTRACT_AGREEMENT]: { class: AcceptContractAgreementCmd },
   [APP_CMD.REJECT_CONTRACT_AGREEMENT]: { class: RejectContractAgreementCmd },

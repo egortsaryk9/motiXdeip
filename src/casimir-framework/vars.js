@@ -183,7 +183,9 @@ export const APP_CMD = createEnum({
   DELETE_USER_PROFILE: 47,
   ALTER_DAO_AUTHORITY: 48,
   CREATE_PORTAL: 52,
-  IMPORT_DAO: 56
+  IMPORT_DAO: 56,
+
+  CREATE_USER: 57,
 });
 
 export const APP_PROPOSAL = createEnum({
@@ -270,7 +272,9 @@ export const APP_EVENT = createEnum({
   PORTAL_SETTINGS_UPDATED: 171,
 
   USER_PROFILE_DELETED: 180,
-  USER_AUTHORITY_ALTERED: 181
+  USER_AUTHORITY_ALTERED: 181,
+
+  USER_CREATED: 182
 });
 
 
@@ -290,3 +294,7 @@ export const NFT_ITEM_METADATA_FORMAT = createEnum({
   PACKAGE: 2,
   JSON: 3
 });
+
+export const ACCESS_TOKEN_KEY = 'deip_jwt';
+export const OWNER_PRIVATE_KEY = 'deip_owner_priv_key';
+export const OWNER_PUBLIC_KEY = 'deip_owner_pub_key';

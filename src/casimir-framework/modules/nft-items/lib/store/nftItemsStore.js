@@ -44,17 +44,6 @@ const ACTIONS = {
     commit('remove', id);
   },
 
-  async publish({ commit }, payload) {
-    const {
-      data: {
-        _id
-      }
-    } = payload;
-
-    await nonFungibleTokenService.createNftItem(payload);
-    commit('remove', _id);
-  },
-
   moderate(_, payload) {
     return nonFungibleTokenService.moderateNftItem(payload);
   }

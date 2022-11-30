@@ -6,6 +6,11 @@ const GETTERS = {
     return isRequired;
   },
 
+  isModerator: (state) => {
+    const moderators = state.currentPortal.data?.settings.nftModeration.moderators;
+    return state.getters.isModerationRequired && moderators ? !!moderators.length : false;
+  },
+
   activeNftCollection: (state) => {
     const activeNftCollectionId = state.currentPortal.customFields?.activeNftCollectionId;
     if (!activeNftCollectionId) return null;

@@ -1,7 +1,7 @@
 <template>
   <ve-stack flow="column" gap="8">
     <m-btn
-      v-if="isGuest"
+      v-if="$isGuest"
       kind="secondary"
       small
       active-class="no-active"
@@ -10,7 +10,7 @@
       {{ $t('auth.signIn') }}
     </m-btn>
 
-    <template v-if="isUser">
+    <template v-if="$isUser">
       <v-menu
         bottom
         left
@@ -19,11 +19,11 @@
       >
         <template #activator="{ on }">
           <m-btn
-            kind="secondary"
+            kind="tetriary"
             small
             v-on="on"
           >
-            Admin Panel
+            Menu
           </m-btn>
         </template>
 
@@ -50,7 +50,7 @@
             <v-list-item-title>{{ $t('components.appBar.moderation') }}</v-list-item-title>
           </v-list-item>
 
-          <template v-if="isAdmin">
+          <template v-if="$currentUser.isAdmin">
             <v-divider />
             <v-list-item :to="{ name: 'admin' }">
               <v-list-item-icon>
@@ -71,23 +71,6 @@
         </v-list>
       </v-menu>
       
-      <!-- <div>
-
-        {{$currentPortal.settings}}
-      </div> -->
-
-      <!-- <m-btn
-        v-if="nftCollection"
-        kind="primary"
-        :disabled="loading"
-        small
-        active-class="no-active"
-        @click="handleCreateAssetClick"
-      >
-        {{ $t('components.appBar.submitAsset') }}
-      </m-btn> -->
-
-
     </template>
   </ve-stack>
 </template>
@@ -106,8 +89,6 @@
 
     data() {
       return {
-        loading: false,
-        isCreateAssetDialogOpened: false,
       };
     },
 
@@ -116,18 +97,9 @@
         return [
         ];
       },
-      isGuest() {
-        return false;
-      },
-      isUser() {
-        return true;
-      },
       isModerator() {
-        return true;
+        return this.$store.isModerator;
       },
-      isAdmin() {
-        return true;
-      }
     },
 
     created() {

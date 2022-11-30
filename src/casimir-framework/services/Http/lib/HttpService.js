@@ -1,6 +1,6 @@
 import axios from 'axios';
 import qs from 'qs';
-// import { AccessService } from '@casimir.one/access-service';
+import { AccessService } from '@/casimir-framework/services/Access';
 import { proxydi } from '@/casimir-framework/proxydi';
 import { makeSingletonInstance } from '@/casimir-framework/all';
 import { handleHttpError } from './HttpError';
@@ -17,10 +17,10 @@ export class HttpService {
    * @type {AccessService | null}
    */
 
-  // _accessService = null;
+  _accessService = null;
 
   constructor() {
-    // this._accessService = AccessService.getInstance();
+    this._accessService = AccessService.getInstance();
     const axiosInstance = this.makeAxiosInstance();
     this.setRequestInterceptors(axiosInstance);
     this.setResponseInterceptors(axiosInstance);
@@ -43,9 +43,8 @@ export class HttpService {
       async (originalConfig) => {
         const config = originalConfig;
         config.baseURL = proxydi.get('env')?.DEIP_SERVER_URL;
-        // const token = this._accessService.getAccessToken();
-        // config.headers.Authorization = `Bearer ${token}`;
-        // config.headers['deip-application'] = proxydi.get('env')?.APP_ID;
+        const token = this._accessService.getAccessToken();
+        config.headers.Authorization = `Bearer ${token}`;
         return config;
       },
       (error) => {
@@ -55,10 +54,10 @@ export class HttpService {
   }
 
   logoutUser() {
-    // this._accessService.clearAccessToken();
+    this._accessService.clearAccessToken();
 
-    // const router = proxydi.get('router');
-    // const store = proxydi.get('store');
+    const router = proxydi.get('router');
+    const store = proxydi.get('store');
     if (router && store) {
       const routeName = store.getters['auth/settings'].signInRedirectRouteName;
       router.push({ name: routeName });

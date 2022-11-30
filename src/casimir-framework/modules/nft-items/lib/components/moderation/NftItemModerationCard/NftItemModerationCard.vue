@@ -120,7 +120,7 @@
             {
               scopeName: 'nftItem',
               scopeId: {
-                nftItemId: this.nftItem.nftItemId,
+                nftItemId: this.nftItem._id,
                 nftCollectionId: this.nftItem.nftCollectionId
               }
             }

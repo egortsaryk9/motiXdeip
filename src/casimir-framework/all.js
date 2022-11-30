@@ -21,6 +21,7 @@ import {
 } from 'vuetify/lib/components';
 import { pascalCase, camelCase } from 'change-case';
 import { VexSection, VexSectionTitle } from '@/casimir-framework/plugins/VuetifyExtended';
+import { WebSocketService } from '@/casimir-framework/services/WebSocket'
 import crc32 from 'crc/crc32';
 import { find as deepFind } from 'find-keypath';
 import md5 from 'md5';
@@ -71,6 +72,7 @@ export class CreateApp {
   #registeredModules = {}
 
   #modulesStorage = {}
+  #webSocketService = WebSocketService.getInstance();
 
   /**
    * @param {*} vueInstance
@@ -162,14 +164,15 @@ export class CreateApp {
         .map((module) => this.#installModule(module))
     );
 
+    this.#webSocketService.connect();
+
     const installed = Object.keys(this.#registeredModules).sort();
 
     this.Vue.prototype.$casimirModules = installed;
 
     return installed;
   }
-};
-
+}
 
 
 
@@ -1651,3 +1654,21 @@ export const awaitForStore = (store, getter) => new Promise((resolve) => {
     }
   );
 });
+
+/**
+ * Watch current user username and dispatch actions on change
+ * @param {Object} store
+ * @param {string} getAction
+ * @param {string} clearAction
+ */
+export const callForCurrentUser = (store, getAction, clearAction) => {
+  store.dispatch(getAction);
+
+  store.watch((_, getters) => getters['auth/username'], (username) => {
+    if (username) {
+      store.dispatch(getAction);
+    } else if (!username && clearAction) {
+      store.dispatch(clearAction);
+    }
+  });
+};

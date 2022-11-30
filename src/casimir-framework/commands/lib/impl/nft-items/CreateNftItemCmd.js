@@ -4,14 +4,14 @@ import AppEntityCmd from '../../base/AppEntityCmd';
 
 /**
  * Create NFT item command
- * @extends AppCmd
+ * @extends AppEntityCmd
  */
 class CreateNftItemCmd extends AppEntityCmd {
   /**
    * Command for NFT item creation
    * @param {Object} cmdPayload
-   * @param {string} cmdPayload.nftCollectionId
    * @param {string} cmdPayload.entityId
+   * @param {string} cmdPayload.nftCollectionId
    * @param {string} cmdPayload.ownerId
    * @param {string} cmdPayload.creatorId
    * @param {Array.<Object>} cmdPayload.attributes
@@ -20,22 +20,17 @@ class CreateNftItemCmd extends AppEntityCmd {
   constructor(cmdPayload) {
     const {
       nftCollectionId,
-      nftItemId,
       status,
       ownerId,
       creatorId,
-      // eslint-disable-next-line no-unused-vars
       attributes
     } = cmdPayload;
 
-    // assert(!!nftCollectionId, "'nftCollectionId' is required");
-    assert(!!nftItemId, "'nftItemId' is required");
     assert(!!ownerId, "'ownerId' is required");
+    assert(!!nftCollectionId, "'nftCollectionId' is required");
     assert(!!creatorId, "'creatorId' is required");
-
-    if (status) {
-      assert(Object.values(NftItemMetadataDraftStatus).includes(status), "'status' is invalid");
-    }
+    assert(!!status && Object.values(NftItemMetadataDraftStatus).includes(status), "'status' is required");
+    assert(Array.isArray(attributes), "'attributes' must be array");
 
     super(APP_CMD.CREATE_NFT_ITEM, cmdPayload);
   }

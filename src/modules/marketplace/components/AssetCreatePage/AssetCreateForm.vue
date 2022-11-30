@@ -111,7 +111,6 @@
           const nftItemPayload = {
             data: {
               nftCollectionId: this.nftCollectionId,
-              nftItemId: `${new Date().getTime()}`,
               ownerId: email,
               creatorId: email,
               status: status,

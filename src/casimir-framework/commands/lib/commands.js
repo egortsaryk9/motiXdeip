@@ -6,6 +6,8 @@ import DeleteNftItemCmd from './impl/nft-items/DeleteNftItemCmd';
 import UpdateNftItemCmd from './impl/nft-items/UpdateNftItemCmd';
 import ModerateNftItemCmd from './impl/nft-items/ModerateNftItemCmd';
 
+import CreateUserCmd from './impl/users/CreateUserCmd';
+
 import CreateDaoCmd from './impl/CreateDaoCmd';
 import ImportDAOCmd from './impl/ImportDAOCmd';
 import AddDaoMemberCmd from './impl/AddDaoMemberCmd';
@@ -41,10 +43,20 @@ import UpdatePortalSettingsCmd from './impl/UpdatePortalSettingsCmd';
 import CreatePortalCmd from './impl/CreatePortalCmd';
 
 export {
-  CreateDaoCmd,
-  ImportDAOCmd,
+
   CreateNftCollectionCmd,
   UpdateNftCollectionCmd,
+
+  CreateNftItemCmd,
+  DeleteNftItemCmd,
+  UpdateNftItemCmd,
+  ModerateNftItemCmd,
+
+  CreateUserCmd,
+
+  CreateDaoCmd,
+  ImportDAOCmd,
+
   AddDaoMemberCmd,
   CreateProposalCmd,
   AcceptProposalCmd,
@@ -64,10 +76,7 @@ export {
   DeleteDocumentTemplateCmd,
   CreateFTClassCmd,
   IssueFTCmd,
-  CreateNftItemCmd,
-  DeleteNftItemCmd,
-  UpdateNftItemCmd,
-  ModerateNftItemCmd,
+
   CreateContractAgreementCmd,
   AcceptContractAgreementCmd,
   RejectContractAgreementCmd,
@@ -79,5 +88,5 @@ export {
   UpdateLayoutSettingsCmd,
   UpdatePortalProfileCmd,
   UpdatePortalSettingsCmd,
-  CreatePortalCmd,
+  CreatePortalCmd
 };

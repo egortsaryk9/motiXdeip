@@ -98,7 +98,10 @@ export default defineComponent({
     },
 
     getFileUrl(download = false) {
-      const { nftCollectionId, nftItemId } = this.schemaData.data;
+      const { 
+        _id: nftItemId,
+        nftCollectionId, 
+      } = this.schemaData.data;
       const file = this.file;
       if (!file) return null;
 
