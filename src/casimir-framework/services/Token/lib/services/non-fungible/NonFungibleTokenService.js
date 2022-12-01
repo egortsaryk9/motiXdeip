@@ -31,7 +31,6 @@ export class NonFungibleTokenService {
    * @returns {Object} convertedData
    * @returns {FormData} convertedData.formData
    * @returns {Array} convertedData.attributes
-   * @returns {string} convertedData.description
    */
   static #convertFormData(data) {
     const formData = createFormData(data);
@@ -70,31 +69,27 @@ export class NonFungibleTokenService {
    */
   async createNftCollection(payload) {
     const {
-      data: {
-        ownerId,
-      }
+      initiator,
+      data
     } = payload;
 
     const {
       formData,
       attributes
-    } = NonFungibleTokenService.#convertFormData(payload.data);
-
-    const _id = uuidv4();
+    } = NonFungibleTokenService.#convertFormData(data);
     
     const cmd = new CreateNftCollectionCmd({
-      _id,
-      ownerId,
+      ...data,
       attributes
     });
 
-    const metadataMsg = new MultFormDataMsg(formData, {
-      appCmds: [cmd]
+    const msg = new MultFormDataMsg(formData, {
+      'appCmds': [cmd]
     }, {
-      'entity-id': _id
+      'entity-id': cmd.getEntityId()
     });
 
-    const response = await this.nonFungibleTokenHttp.createNFTCollection(metadataMsg);
+    const response = await this.nonFungibleTokenHttp.createNFTCollection(msg);
     return response;
   }
 
@@ -106,23 +101,25 @@ export class NonFungibleTokenService {
    * @returns {Promise<Object>}
    */
   async updateNftCollection(payload) {
-    const { data } = payload;
-    const { _id } = data;
-
+    const {
+      initiator,
+      data
+    } = payload;
+    
     const {
       formData,
       attributes
     } = NonFungibleTokenService.#convertFormData(data);
 
     const cmd = new UpdateNftCollectionCmd({
-      _id,
+      ...data,
       attributes
     });
 
     const msg = new MultFormDataMsg(formData, {
       appCmds: [cmd]
     }, {
-      'entity-id': _id
+      'entity-id': data._id
     });
 
     const response = await this.nonFungibleTokenHttp.updateNftCollection(msg);
@@ -154,32 +151,33 @@ export class NonFungibleTokenService {
    * Create NFT item
    * @param {Object} payload.data
    * @param {string} payload.data.nftCollectionId
-   * @param {string} payload.data.nftItemId
-   * @param {number} payload.data.formatType
    * @param {Object} payload.data.jsonData
-   * @param {number} payload.data.status
+   * @param {number} payload.data.creatorId
    * @param {string} payload.data.ownerId,
    * @param {Array.<Object>} payload.data.attributes
    * @returns {Promise<Object>}
    */
   async createNftItem(payload) {
     const {
+      initiator,
       data
     } = payload;
+
     const {
       formData,
       attributes
-    } = NonFungibleTokenService.#convertFormData(payload.data);
-    const commandData = { 
+    } = NonFungibleTokenService.#convertFormData(data);
+
+    const cmd = new CreateNftItemCmd({ 
       ...data,
       attributes
-    };
-    const cmd = new CreateNftItemCmd(commandData);
+    });
+
     const msg = new MultFormDataMsg(formData, {
-      appCmds: [cmd]
+      'appCmds': [cmd]
     }, {
-      'nft-collection-id': data.nftCollectionId,
-      'nft-item-id': cmd.getEntityId()
+      'nft-item-id': cmd.getEntityId(),
+      'nft-collection-id': data.nftCollectionId
     });
 
     const response = await this.nonFungibleTokenHttp.createNftItem(msg);
@@ -190,29 +188,31 @@ export class NonFungibleTokenService {
    * Update NFT item
    * @param {Object} payload.data
    * @param {string} payload.data._id,
-   * @param {number} payload.data.formatType
-   * @param {Object} payload.data.jsonData
    * @param {string} payload.data.nftCollectionId,
    * @param {Array.<Object>} payload.data.attributes
    * @returns {Promise<Object>}
    */
   async updateNftItem(payload) {
     const {
+      initiator,
       data
     } = payload;
+
     const {
       formData,
       attributes
     } = NonFungibleTokenService.#convertFormData(payload.data);
-    const commandData = { ...data,
+
+    const cmd = new UpdateNftItemCmd({ 
+      ...data,
       attributes
-    };
-    const cmd = new UpdateNftItemCmd(commandData);
+    });
+
     const msg = new MultFormDataMsg(formData, {
-      appCmds: [cmd]
+      'appCmds': [cmd]
     }, {
+      'nft-item-id': data._id,
       'nft-collection-id': data.nftCollectionId,
-      'nft-item-id': data._id
     });
 
     const response = await this.nonFungibleTokenHttp.updateNftItem(msg);
@@ -224,14 +224,20 @@ export class NonFungibleTokenService {
    * @param {string} nftItemId
    * @returns {Promise<Object>}
    */
-  async deleteNftItem(_id) {
+  async deleteNftItem(payload) {
+    const {
+      initiator,
+      data
+    } = payload;
+
     const cmd = new DeleteNftItemCmd({
-      _id
+      ...data
     });
+
     const msg = new JsonDataMsg({
-      appCmds: [cmd]
+      'appCmds': [cmd]
     }, {
-      'entity-id': _id
+      'entity-id': data._id
     });
 
     return this.nonFungibleTokenHttp.deleteNftItem(msg);
@@ -246,18 +252,19 @@ export class NonFungibleTokenService {
    * @returns
    */
   async moderateNftItem(payload) {
-    const { data } = payload;
-    const { _id, status } = data;
+    const {
+      initiator,
+      data
+    } = payload;
 
     const cmd = new ModerateNftItemCmd({
-      _id,
-      status
+      ...data
     });
 
     const msg = new JsonDataMsg({
-      appCmds: [cmd]
+      'appCmds': [cmd]
     }, {
-      'entity-id': _id
+      'entity-id': data._id
     });
  
     const response = await this.nonFungibleTokenHttp.moderateNftItem(msg);

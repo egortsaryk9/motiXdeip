@@ -39,9 +39,9 @@ const ACTIONS = {
     return nonFungibleTokenService.updateNftItem(payload);
   },
 
-  async remove({ commit }, id) {
-    await nonFungibleTokenService.deleteNftItem(id);
-    commit('remove', id);
+  async remove({ commit }, payload) {
+    await nonFungibleTokenService.deleteNftItem(payload);
+    commit('remove', payload.data._id);
   },
 
   moderate(_, payload) {

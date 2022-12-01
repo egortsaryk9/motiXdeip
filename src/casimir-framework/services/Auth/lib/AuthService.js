@@ -2,7 +2,7 @@ import { genSha256Hash, makeSingletonInstance } from '@/casimir-framework/all';
 import { proxydi } from '@/casimir-framework/proxydi';
 import { CreateUserCmd, ImportDAOCmd } from '@/casimir-framework/commands';
 // import { ChainService } from '@casimir.one/chain-service';
-import { JsonDataMsg } from '@/casimir-framework/messages';
+import { JsonDataMsg, MultFormDataMsg } from '@/casimir-framework/messages';
 import { AuthHttp } from './AuthHttp';
 import KeyPair from './KeyPair';
 
@@ -23,29 +23,28 @@ export class AuthService {
 
   /**
    * Create new User via sign up
-   * @param {Object} keyPair
-   * @param {Object} userData
+   * @param {Object} data
    * @return {Promise<Object>}
    */
-  async signUp(keyPair, userData) {
-    const privKey = keyPair.getPrivKey();
-
+  async signUp(data) {
     const {
       email,
       pubKey,
       roles,
       attributes,
-    } = userData;
+    } = data;
 
     const cmd = new CreateUserCmd({
       pubKey,
       email,
       roles,
-      attributes,
+      attributes
     });
 
-    const msg = new JsonDataMsg({
+    const msg = new MultFormDataMsg(null, {
       appCmds: [cmd]
+    }, { 
+      'entity-id': cmd.getEntityId() 
     });
 
     return this.http.signUp(msg);

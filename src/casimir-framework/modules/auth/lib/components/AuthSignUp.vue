@@ -241,9 +241,12 @@
         this.$store.dispatch('auth/signUp', { ...this.formModel, ...{ roles: this.roles } })
           .then((res) => {
             if (this.autologin) {
-              const { email, password } = this.formModel;
-              this.$store.dispatch('auth/signIn', { email, password })
-                .then(() => this.emitSuccess(res));
+              const self = this;
+              setTimeout(async () => {
+                const { email, password } = self.formModel;
+                await self.$store.dispatch('auth/signIn', { email, password })
+                self.emitSuccess(res);
+              }, 1000);
             } else {
               this.emitSuccess(res);
             }

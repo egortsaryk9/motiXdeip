@@ -5,47 +5,32 @@ export class UserHttp {
   http = HttpService.getInstance();
 
   /**
-   * Create NFT item
+   * Create User
    * @param {Object} req
    * @returns {Promise<Object>}
    */
-  async createUser(req) {
-    return this.http.post('/api/v3/users', req.getHttpBody(), {
+  async create(req) {
+    return this.http.post(`/api/v3/users`, req.getHttpBody(), {
       headers: req.getHttpHeaders()
     });
   }
 
-/**
- * Update user information
- * @param {Object} req
- * @return {Promise<Object>}
- */
+  /**
+   * Update User
+   * @param {Object} req
+   * @return {Promise<Object>}
+   */
   async update(req) {
-    return this.http.put(
-      '/api/v2/user/update',
-      req.getHttpBody(),
-      { headers: req.getHttpHeaders() }
-    );
+    return this.http.put(`/api/v3/users`, req.getHttpBody(), { 
+      headers: req.getHttpHeaders() 
+    });
   }
 
   /**
- * Change user password
- * @param {Object} req
- * @return {Promise<Object>}
- */
-  changePassword(req) {
-    return this.http.put(
-      '/api/v2/user/update/password',
-      req.getHttpBody(),
-      { headers: req.getHttpHeaders() }
-    );
-  }
-
-  /**
- * Get users by several ids
- * @param {string[]} usernames
- * @return {Promise<Object>}
- */
+   * Get users by several ids
+   * @param {string[]} usernames
+   * @return {Promise<Object>}
+   */
   async getListByIds(usernames) {
     const query = serializeParams({ usernames });
     return this.http.get(`/api/v2/users?${query}`);

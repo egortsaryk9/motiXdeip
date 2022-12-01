@@ -48,9 +48,6 @@
   import { attributedDetailsFactory, LayoutRenderer } from '@/casimir-framework/modules/layouts';
   import { attributeMethodsFactory, expandAttributes } from '@/casimir-framework/modules/attributes';
 
-  // import { AccessService } from '@casimir.one/access-service';
-
-  // const accessService = AccessService.getInstance();
 
   /**
    * NFT item form component
@@ -128,10 +125,14 @@
        */
       async createNftItem(data) {
         try {
-          await this.$store.dispatch('nftItems/create', { data });
+          const payload = {
+            initiator: this.$currentUser,
+            data
+          };
+          await this.$store.dispatch('nftItems/create', payload);
           this.emitSuccess();
-        } catch (error) {
-          console.error(error);
+        } catch (err) {
+          console.error(err);
         }
       },
       /**
@@ -141,10 +142,14 @@
        */
       async updateNftItem(data) {
         try {
-          await this.$store.dispatch('nftItems/update',{ data: { ...this.nftItem, ...data } });
+          const payload = {
+            initiator: this.$currentUser,
+            data: { ...this.nftItem, ...data }
+          }
+          await this.$store.dispatch('nftItems/update', payload);
           this.emitSuccess();
-        } catch (error) {
-          console.error(error);
+        } catch (err) {
+          console.error(err);
         }
       },
       /**
@@ -158,7 +163,6 @@
           nftCollectionId: this.nftCollection._id,
           ownerId: this.nftCollection.ownerId,
           creatorId: this.nftCollection.ownerId,
-          formatType: this.formData.formatType,
         };
 
         if (this.isEditMode) {

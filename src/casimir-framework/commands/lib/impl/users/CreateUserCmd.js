@@ -4,7 +4,7 @@ import AppEntityCmd from '../../base/AppEntityCmd';
 
 /**
  * Create User command
- * @extends ProtocolEntityCmd
+ * @extends AppEntityCmd
  */
 class CreateUserCmd extends AppEntityCmd {
   /**
@@ -16,7 +16,6 @@ class CreateUserCmd extends AppEntityCmd {
    */
   constructor(cmdPayload) {
     const {
-      // eslint-disable-next-line no-unused-vars
       email,
       pubKey,
       attributes,

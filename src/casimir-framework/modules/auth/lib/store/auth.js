@@ -70,7 +70,7 @@ const ACTIONS = {
     }
 
     const keyPair = authService.getKeyPair(password);
-    const { data: signUp } = await authService.signUp(keyPair, {
+    const { data: signUp } = await authService.signUp({
       pubKey: keyPair.getPubKey(),
       email: payload.email,
       attributes: payload.attributes || [],
@@ -102,34 +102,23 @@ const ACTIONS = {
   },
 
   async changePassword({ dispatch }, payload) {
-    const { keyPair, initiator, data: formPass } = payload;
+    const { initiator, data: formPass } = payload;
     const { oldPassword, newPassword } = formPass;
 
     const oldKeyPair = authService.getKeyPair(oldPassword);
-    if (keyPair.getPubKey() !== oldKeyPair.getPubKey()) 
+    if (initiator.pubKey !== oldKeyPair.getPubKey()) 
       throw new Error('Old password is invalid');
     
     const newKeyPair = authService.getKeyPair(newPassword);
     const newPubKey = newKeyPair.getPubKey();
     const newPrivKey = newKeyPair.getPrivKey();
 
-    const authority = {
-      owner: {
-        auths: [{ key: newPubKey, weight: 1 }],
-        weight: 1
-      }
-    };
+    // TODO: update user PubKey
+    throw new Error("Not Implemented");
 
-    const data = {
-      initiator,
-      authority
-    };
-    
-    await userService.changePassword({ keyPair, ...data });
     await dispatch('currentUser/get', null, { root: true });
     accessService.setOwnerKeysPair(newPrivKey, newPubKey);
     return { privKey: newPrivKey, pubKey: newPubKey };
-
   }
 
 };

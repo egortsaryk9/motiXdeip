@@ -9,6 +9,7 @@ import DeleteNftItemCmd from './impl/nft-items/DeleteNftItemCmd';
 import ModerateNftItemCmd from './impl/nft-items/ModerateNftItemCmd';
 
 import CreateUserCmd from './impl/users/CreateUserCmd';
+import UpdateUserCmd from './impl/users/UpdateUserCmd';
 
 import CreateDaoCmd from './impl/CreateDaoCmd';
 import ImportDAOCmd from './impl/ImportDAOCmd';
@@ -55,6 +56,7 @@ const APP_CMD_INFO = {
   [APP_CMD.MODERATE_NFT_ITEM]: { class: ModerateNftItemCmd },
 
   [APP_CMD.CREATE_USER]: { class: CreateUserCmd },
+  [APP_CMD.UPDATE_USER]: { class: UpdateUserCmd },
 
   [APP_CMD.CREATE_DAO]: { class: CreateDaoCmd },
   [APP_CMD.UPDATE_DAO]: { class: UpdateDaoCmd },

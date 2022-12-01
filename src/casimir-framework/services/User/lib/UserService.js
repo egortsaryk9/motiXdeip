@@ -2,7 +2,7 @@ import { proxydi } from '@/casimir-framework/proxydi';
 import { MultFormDataMsg, JsonDataMsg } from '@/casimir-framework/messages';
 import {
   CreateUserCmd,
-  UpdateDaoCmd,
+  UpdateUserCmd,
   AlterDaoAuthorityCmd
 } from '@/casimir-framework/commands';
 // import { ChainService } from '@casimir.one/chain-service';
@@ -25,164 +25,94 @@ export class UserService {
 
 
   /**
-   * Create new user
-   * @param {Object} initiator
-   * @param {Object} userData
+   * Extract FormData from data
+   * @param {Object} data
+   * @returns {Object} convertedData
+   * @returns {FormData} convertedData.formData
+   * @returns {Array} convertedData.attributes
+   * 
+   */
+  static #convertFormData(data) {
+    const formData = createFormData(data);
+    const attributes = replaceFileWithName(data.attributes);
+    return {
+      formData,
+      attributes
+    };
+  }
+
+  /**
+   * Create user information
+   * @param {Object} payload
+   * @param {Object} payload.initiator
+   * @param {string} payload.initiator._id
+   * @param {string} payload.initiator.privKey
+   * @param {string} payload.data.email
+   * @param {number} payload.data.pubKey
+   * @param {Object[]} payload.data.attributes
    * @return {Promise<Object>}
    */
-  async createUser(keyPair, userData) {
-    const privKey = keyPair.getPrivKey();
-    
+  async create(payload) {
+    const env = this.proxydi.get('env');
     const {
-      email,
-      pubKey,
-      roles,
-      attributes,
-    } = userData;
+      initiator,
+      data
+    } = payload;
+
+    const {
+      formData,
+      attributes
+    } = UserService.#convertFormData(data);
 
     const cmd = new CreateUserCmd({
-      email,
-      pubKey,
-      roles,
+      ...data,
       attributes,
     });
 
-    const msg = new JsonDataMsg({
-      appCmds: [cmd]
+    const msg = new MultFormDataMsg(formData, {
+      'appCmds': [cmd]
+    }, { 
+      'entity-id': cmd.getEntityId() 
     });
 
-    return this.userHttp.createUser(msg);
+    return this.userHttp.create(msg);
   }
 
   /**
    * Update user information
    * @param {Object} payload
    * @param {Object} payload.initiator
-   * @param {string} payload.initiator.privKey
    * @param {string} payload.initiator._id
-   * @param {string} payload.email
-   * @param {number} payload.status
-   * @param {Object[]} payload.attributes
+   * @param {string} payload.initiator.privKey
+   * @param {string} payload.data.email
+   * @param {number} payload.data.pubKey
+   * @param {Object[]} payload.data.attributes
    * @return {Promise<Object>}
    */
   async update(payload) {
     const env = this.proxydi.get('env');
     const {
-      initiator: {
-        privKey,
-        _id: updater
-      },
-      ...data
+      initiator,
+      data
     } = payload;
-
+    
     const {
-      email,
-      status
-    } = data;
-
-    const formData = createFormData(data);
-    const attributes = replaceFileWithName(data.attributes);
-
-    const chainService = await ChainService.getInstanceAsync(env);
-    const chainTxBuilder = chainService.getChainTxBuilder();
-
-    const txBuilder = await chainTxBuilder.begin();
-
-    const updateDaoCmd = new UpdateDaoCmd({
-      isTeamAccount: false,
-      _id: updater,
-      description: genSha256Hash(attributes),
-      attributes,
-      email,
-      status
-    });
-
-    txBuilder.addCmd(updateDaoCmd);
-
-    const packedTx = await txBuilder.end();
-
-    const chainNodeClient = chainService.getChainNodeClient();
-    const chainInfo = chainService.getChainInfo();
-    let signedTx;
-
-    if (env.WALLET_URL) {
-      signedTx = await walletSignTx(packedTx, chainInfo);
-    } else {
-      signedTx = await packedTx.signAsync(privKey, chainNodeClient);
-    }
-
-    const msg = new MultFormDataMsg(
       formData,
-      signedTx.getPayload(),
-      { 'entity-id': updater }
-    );
+      attributes
+    } = UserService.#convertFormData(data);
 
-    if (env.RETURN_MSG === true) {
-      return msg;
-    }
-
-    const response = await this.userHttp.update(msg);
-
-    // await this.webSocketService.waitForMessage((message) => {
-    //   const [, eventBody] = message;
-    //   return eventBody.event.eventNum === APP_EVENT.DAO_UPDATED
-    //           && eventBody.event.eventPayload.daoId === updater;
-    // });
-
-    return response;
-  }
-
-  /**
-   * Change user password
-   * @param {Object} payload
-   * @param {Object} payload.initiator
-   * @param {string} payload.initiator.privKey
-   * @param {string} payload.initiator._id
-   * @param {Object} payload.authority
-   * @return {Promise<Object>}
-   */
-  async changePassword(payload) {
-    const env = this.proxydi.get('env');
-    const {
-      initiator: {
-        privKey,
-        _id
-      },
-      authority
-    } = payload;
-
-    const chainService = await ChainService.getInstanceAsync(env);
-    const chainTxBuilder = chainService.getChainTxBuilder();
-
-    const txBuilder = await chainTxBuilder.begin();
-
-    const alterDaoAuthorityCmd = new AlterDaoAuthorityCmd({
-      _id: _id,
-      isTeamAccount: false,
-      authority
+    const cmd = new UpdateUserCmd({
+      ...data,
+      attributes,
     });
 
-    txBuilder.addCmd(alterDaoAuthorityCmd);
+    const msg = new MultFormDataMsg(formData, {
+      'appCmds': [cmd]
+    }, { 
+      'entity-id': data._id 
+    });
 
-    const packedTx = await txBuilder.end();
-
-    const chainNodeClient = chainService.getChainNodeClient();
-    const chainInfo = chainService.getChainInfo();
-    let signedTx;
-
-    if (env.WALLET_URL) {
-      signedTx = await walletSignTx(packedTx, chainInfo);
-    } else {
-      signedTx = await packedTx.signAsync(privKey, chainNodeClient);
-    }
-
-    const msg = new JsonDataMsg(signedTx.getPayload(), { 'entity-id': _id });
-
-    if (env.RETURN_MSG === true) {
-      return msg;
-    }
-
-    return this.userHttp.changePassword(msg);
+    return this.userHttp.update(msg);
   }
 
   /**

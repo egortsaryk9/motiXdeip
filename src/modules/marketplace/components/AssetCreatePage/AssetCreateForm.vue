@@ -108,7 +108,8 @@
             ? NftItemMetadataDraftStatus.PROPOSED
             : NftItemMetadataDraftStatus.APPROVED;
 
-          const nftItemPayload = {
+          const payload = {
+            initiator: this.$currentUser,
             data: {
               nftCollectionId: this.nftCollectionId,
               ownerId: this.$currentUser._id,
@@ -118,7 +119,7 @@
             }
           };
 
-          const { data: { _id: assetId } } = await this.$store.dispatch('nftItems/create', nftItemPayload);
+          const { data: { _id: assetId } } = await this.$store.dispatch('nftItems/create', payload);
 
           this.$notifier.showSuccess(this.$t('marketplace.createAsset.createSuccess'));
           this.$emit('success', assetId);
@@ -129,7 +130,7 @@
           console.error(err);
           this.$notifier.showError(this.$t('common.errors.request'));
         }
-        
+
       }
 
     },

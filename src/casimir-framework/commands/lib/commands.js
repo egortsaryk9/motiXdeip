@@ -7,6 +7,7 @@ import UpdateNftItemCmd from './impl/nft-items/UpdateNftItemCmd';
 import ModerateNftItemCmd from './impl/nft-items/ModerateNftItemCmd';
 
 import CreateUserCmd from './impl/users/CreateUserCmd';
+import UpdateUserCmd from './impl/users/UpdateUserCmd';
 
 import CreateDaoCmd from './impl/CreateDaoCmd';
 import ImportDAOCmd from './impl/ImportDAOCmd';
@@ -53,6 +54,7 @@ export {
   ModerateNftItemCmd,
 
   CreateUserCmd,
+  UpdateUserCmd,
 
   CreateDaoCmd,
   ImportDAOCmd,
