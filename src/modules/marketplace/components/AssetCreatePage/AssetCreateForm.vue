@@ -1,147 +1,86 @@
 <template>
-  <validation-observer
-    v-slot="{ invalid, handleSubmit }"
-    ref="validationObserver"
-  >
-    <v-form
-      :disabled="loading"
-      @submit.prevent="handleSubmit(submit)"
-    >
-      <ve-stack>
-        <layout-renderer
-          v-if="formSchema"
-          :key="forceUpdateKey"
-          v-model="formData"
-          :schema="formSchema"
-          :schema-data="schemaData"
+
+  <v-sheet>
+    <vex-section max-width="800" class="mx-auto pa-0">
+      <ve-stack :gap="32">
+        <vex-section-title :title="title" />
+
+        <nft-item-form
+          :nft-collection-id="nftCollectionId"
+          :is-moderation-required="isModerationRequired"
+          :schema="schema"
+          :mode="mode"
+          @success="handleSuccess"
+          @error="handleError"
         />
-
-        <validation-provider
-          v-slot="{ errors }"
-          :name="$t('marketplace.createAsset.moderation')"
-          :rules="{ required: { allowFalse: false } }"
-          :custom-messages="{ required: $t('marketplace.createAsset.moderationRequired') }"
-        >
-          <v-checkbox
-            v-model="isModerationChecked"
-            :label="$t('marketplace.createAsset.moderationMessage')"
-            :error-messages="errors"
-            hide-details="auto"
-            class="pa-0 mt-0"
-          />
-        </validation-provider>
-
-        <div class="buttons-container ml-auto">
-          <m-btn
-            kind="primary"
-            :disabled="invalid"
-            :loading="loading"
-            type="submit"
-          >
-            Submit Creation
-          </m-btn>
-        </div>
       </ve-stack>
-    </v-form>
-  </validation-observer>
+    </vex-section>
+  </v-sheet>
 </template>
 
 <script>
-  import { attributedFormFactory, LayoutRenderer } from '@/casimir-framework/modules/layouts';
-  import { NftItemMetadataDraftStatus, AttributeScope } from '@/casimir-framework/vars';
-  import { MBtn } from '@/components/MBtn';
+
+  import { NftItemForm } from '@/casimir-framework/modules/nft-items';
+  import { VexSection, VexSectionTitle } from '@/casimir-framework/plugins/VuetifyExtended';
   import { VeStack } from '@/casimir-framework/vue-elements';
-  import { awaitForStore } from '@/casimir-framework/all';
+  import { formMixin, filterObjectKeys } from '@/casimir-framework/all';
+  import { ViewMode } from '@/casimir-framework/vars';
+
 
   export default {
     name: 'AssetCreateForm',
 
     components: {
-      LayoutRenderer,
+      VexSection,
+      VexSectionTitle,
       VeStack,
-      MBtn
+      NftItemForm
     },
-
-    mixins: [attributedFormFactory(AttributeScope.NFT_ITEM, 'nftItem')],
 
     props: {
       nftCollectionId: {
         type: String,
-        default: null
+        required: false
       },
-    },
 
-    data() {
-      return {
-        loading: false,
-        isModerationChecked: false
-      };
+      ...filterObjectKeys(formMixin.props, ['mode'])
     },
 
     computed: {
-      formSchema() {
+      isEditMode() { return this.mode === ViewMode.EDIT; },
+      title() {
+        return !this.isEditMode
+          ? this.$t('marketplace.createAsset.formCreateTitle')
+          : this.$t('marketplace.createAsset.formUpdateTitle');
+      },
+      schema() {
         return this.$layouts.getMappedData('nftItem.form')?.value;
       },
+      isModerationRequired() {
+        return this.$store.getters['isModerationRequired'];
+      }
     },
 
     methods: {
+      handleSuccess(assetId) {
+        const message = !this.isEditMode 
+          ? this.$t(`marketplace.createAsset.successCreate`)
+          : this.$t(`marketplace.createAsset.successUpdate`)
 
-      async submit() {
-        this.loading = true;
-        await this.createAsset();
-        this.loading = false;
+        this.$notifier.showSuccess(message);
+        this.$emit('success', assetId);
       },
 
-      clearForm() {
-        this.restoreOldValue(true);
-        this.isModerationChecked = false;
-        this.$refs.validationObserver.reset();
+      handleError(err) {
+        console.error(err);
+
+        const message = !this.isEditMode 
+          ? this.$t(`marketplace.createAsset.errorCreate`)
+          : this.$t(`marketplace.createAsset.errorUpdate`)
+
+        this.$notifier.showError(message);
+        this.$emit('error');
       },
-
-      async createAsset() {
-
-        try {
-
-          // const email = this.$attributes.getMappedData('nftItem.email', this.lazyFormData.attributes)?.value;
-          const isModerationRequired = this.$store.getters['isModerationRequired'];
-          const status = isModerationRequired
-            ? NftItemMetadataDraftStatus.PROPOSED
-            : NftItemMetadataDraftStatus.APPROVED;
-
-          const payload = {
-            initiator: this.$currentUser,
-            data: {
-              nftCollectionId: this.nftCollectionId,
-              ownerId: this.$currentUser._id,
-              creatorId: this.$currentUser._id,
-              status: status,
-              ...this.lazyFormData
-            }
-          };
-
-          const { data: { _id: assetId } } = await this.$store.dispatch('nftItems/create', payload);
-
-          this.$notifier.showSuccess(this.$t('marketplace.createAsset.createSuccess'));
-          this.$emit('success', assetId);
-          this.$eventBus.$emit('submit-asset');
-          this.clearForm();
-
-        } catch (err) {
-          console.error(err);
-          this.$notifier.showError(this.$t('common.errors.request'));
-        }
-
-      }
-
-    },
-
-    mounted() {
-      this.clearForm();
-    },
-
-    async created() {
-      await awaitForStore(this.$store, 'isModerationRequired');
     }
-
   };
 </script>

@@ -1,39 +1,46 @@
 <template>
-  <validation-observer v-slot="{ invalid, handleSubmit }" ref="observer">
+  <validation-observer 
+    v-slot="{ handleSubmit, invalid }" 
+    ref="observer"
+    tag="div"
+  >
     <v-form
       :disabled="loading"
-      @submit.prevent="handleSubmit(submit)"
+      @submit.prevent="handleSubmit(onSubmit)"
     >
-      <ve-stack :gap="24">
+      <ve-stack>
         <layout-renderer
-          :value="nftItem"
-          :schema="internalSchema"
-          :schema-data="internalSchemaData"
+          v-if="schema.length"
+          v-model="formData"
+          :key="forceUpdateKey"
+          :schema="schema"
+          :schema-data="schemaData"
         />
 
         <v-divider />
 
-        <div class="d-flex align-center">
+        <div class="d-flex">
           <v-spacer />
-          <ve-stack flow="column" :gap="8">
-            <v-btn
-              color="primary"
-              text
-              :disabled="loading || disabled"
-              @click="handleCancelClick"
-            >
-              {{ $t('module.nftItems.form.cancel') }}
-            </v-btn>
-            <v-btn
-              type="submit"
-              color="primary"
-              depressed
-              :disabled="disabled || untouched || invalid"
-              :loading="loading"
-            >
-              {{ submitLabel }}
-            </v-btn>
-          </ve-stack>
+          <!-- <ve-stack flow="column" :gap="8"> -->
+          <v-btn
+            :disabled="loading || disabled"
+            color="primary"
+            text
+            class="mr-2"
+            @click="handleCancelClick"
+          >
+            {{ $t('module.nftItems.form.cancel') }}
+          </v-btn>
+          <v-btn
+            type="submit"
+            color="primary"
+            depressed
+            :disabled="disabled || untouched || invalid"
+            :loading="loading"
+          >
+            {{ submitLabelText }}
+          </v-btn>
+          <!-- </ve-stack> -->
         </div>
       </ve-stack>
     </v-form>
@@ -41,12 +48,11 @@
 </template>
 
 <script>
-  import { defineComponent, formFactory } from '@/casimir-framework/all';
 
+  import { attributedFormFactory, LayoutRenderer } from '@/casimir-framework/modules/layouts';
   import { VeStack } from '@/casimir-framework/vue-elements';
-  import { AttributeScope, NFT_ITEM_METADATA_FORMAT } from '@/casimir-framework/vars';
-  import { attributedDetailsFactory, LayoutRenderer } from '@/casimir-framework/modules/layouts';
-  import { attributeMethodsFactory, expandAttributes } from '@/casimir-framework/modules/attributes';
+  import { defineComponent } from '@/casimir-framework/all';
+  import { ViewMode, NftItemMetadataDraftStatus } from '@/casimir-framework/vars';
 
 
   /**
@@ -60,124 +66,143 @@
       LayoutRenderer
     },
 
-    mixins: [formFactory('nftItem'), attributedDetailsFactory('nftItem')],
+    mixins: [attributedFormFactory('nftItem', 'nftItem')],
 
     props: {
-      nftItem: {
-        type: Object,
-        default: () => {}
+      /**
+       * Cancel label
+       *
+       * @example 'Cancel'
+       */
+      cancelLabel: {
+        type: String,
+        default() {
+          return this.$t('module.nftItems.form.cancel');
+        }
+      },
+      /**
+       * Submit label
+       *
+       * @example 'Submit'
+       */
+      submitLabel: {
+        type: String,
+        default() {
+          return null;
+        }
       },
       /**
        * NFT collection info
        */
-      nftCollection: {
-        type: Object,
-        default: () => {}
+      nftCollectionId: {
+        type: String,
+        default: null
+      },
+
+      /**
+       * Is moderation required
+       */
+      isModerationRequired: {
+        type: Boolean,
+        default: false
       }
     },
 
-    data() {
-      return {
-        filesInputLoading: false,
-        NFT_ITEM_METADATA_FORMAT
-      };
-    },
-
     computed: {
-      internalSchemaData() {
-        return {
-          ...attributeMethodsFactory(
-            expandAttributes(this.nftItem),
-            {
-              scopeName: AttributeScope.NFT_ITEM,
-              scopeId: {
-                nftItemId: this.nftItem._id,
-                nftCollectionId: this.nftItem.nftCollectionId
-              }
-            }
-          ),
-          ...this.schemaData
-        };
-      },
+      isEditMode() { return this.mode === ViewMode.EDIT; },
       /**
        * Get computed submit label
        */
-      submitLabel() {
+      submitLabelText() {
+        if (this.submitLabel) {
+          return this.submitLabel;
+        }
         return this.isEditMode
           ? this.$t('module.nftItems.form.update')
           : this.$t('module.nftItems.form.create');
-      },
-
-      /**
-       * Get team
-       */
-      team() {
-        return this.$store.getters['teams/one'](this.nftCollection.ownerId);
       }
     },
 
     methods: {
+      /**
+       * Triggers when user submits form
+       *
+       * @event submit
+       */
+      async onSubmit() {
+        this.loading = true;
+
+        if (!this.isEditMode) {
+          await this.createNftItem();
+        } else {
+          await this.updateNftItem();
+        }
+        
+        this.loading = false;
+      },
 
       /**
        * Create NFT Item
        *
        * @param {Object} data
        */
-      async createNftItem(data) {
+      async createNftItem() {
         try {
+
+          const status = this.isModerationRequired
+            ? NftItemMetadataDraftStatus.PROPOSED
+            : NftItemMetadataDraftStatus.APPROVED;
+
           const payload = {
             initiator: this.$currentUser,
-            data
+            data: {
+              nftCollectionId: this.nftCollectionId,
+              ownerId: this.$currentUser._id,
+              creatorId: this.$currentUser._id,
+              status,
+              ...this.lazyFormData
+            }
           };
-          await this.$store.dispatch('nftItems/create', payload);
-          this.emitSuccess();
+
+          const { _id } = await this.$store.dispatch('nftItems/create', payload);
+          this.emitSuccess(_id);
         } catch (err) {
-          console.error(err);
+          this.emitError(err);
         }
       },
       /**
-       * Update nftItem
+       * Update NFT Item
        *
        * @param {Object} data
        */
-      async updateNftItem(data) {
+      async updateNftItem() {
         try {
           const payload = {
             initiator: this.$currentUser,
-            data: { ...this.nftItem, ...data }
-          }
-          await this.$store.dispatch('nftItems/update', payload);
-          this.emitSuccess();
+            data: this.lazyFormData
+          };
+          
+          const { _id } = await this.$store.dispatch('nftItems/update', payload);
+          this.emitSuccess(_id);
         } catch (err) {
-          console.error(err);
+          this.emitError(err);
         }
       },
-      /**
-       * Triggers when user submits form
-       *
-       * @event submit
-       */
-      async submit() {
-        this.loading = true;
-        const data = {
-          nftCollectionId: this.nftCollection._id,
-          ownerId: this.nftCollection.ownerId,
-          creatorId: this.nftCollection.ownerId,
-        };
 
-        if (this.isEditMode) {
-          await this.updateNftItem(data);
-        } else {
-          await this.createNftItem(data);
-        }
-        this.loading = false;
-      },
-
-      emitSuccess() {
+      emitSuccess(_id) {
         /**
-         * Success event
+         * Success when succeeded
          */
-        this.$emit('success');
+        this.$emit('success', _id);
+      },
+
+      emitError(err) {
+        /**
+         * Triggers when error occurs
+         *
+         * @property {Error} err
+         */
+        this.$emit('error', err);
       },
 
       emitCancel() {

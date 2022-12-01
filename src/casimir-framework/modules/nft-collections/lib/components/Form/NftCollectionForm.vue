@@ -1,16 +1,18 @@
 <template>
   <validation-observer
-    v-slot="{ invalid, handleSubmit }"
+    v-slot="{ handleSubmit, invalid }"
     ref="observer"
     tag="div"
-    style="min-width: 0px"
   >
-    <v-form :disabled="loading" @submit.prevent="handleSubmit(onSubmit)">
+    <v-form 
+      :disabled="loading" 
+      @submit.prevent="handleSubmit(onSubmit)"
+    >
       <ve-stack>
         <layout-renderer
           v-if="schema.length"
-          :key="forceUpdateKey"
           v-model="formData"
+          :key="forceUpdateKey"
           :schema="schema"
           :schema-data="schemaData"
         />
@@ -19,25 +21,26 @@
 
         <div class="d-flex">
           <v-spacer />
-          <ve-stack flow="column" :gap="8">
-            <v-btn
-              text
-              color="primary"
-              :disabled="loading || disabled"
-              @click="handleCancelClick"
-            >
-              {{ cancelLabel }}
-            </v-btn>
+          <!-- <ve-stack flow="column" :gap="8"> -->
+          <v-btn
+            :disabled="loading || disabled"
+            color="primary"
+            text
+            class="mr-2"
+            @click="handleCancelClick"
+          >
+            {{ cancelLabel }}
+          </v-btn>
 
-            <v-btn
-              type="submit"
-              color="primary"
-              :disabled="disabled || untouched || invalid"
-              :loading="loading"
-            >
-              {{ submitLabelText }}
-            </v-btn>
-          </ve-stack>
+          <v-btn
+            type="submit"
+            color="primary"
+            :disabled="disabled || untouched || invalid"
+            :loading="loading"
+          >
+            {{ submitLabelText }}
+          </v-btn>
+          <!-- </ve-stack> -->
         </div>
       </ve-stack>
     </v-form>
@@ -45,12 +48,16 @@
 </template>
 
 <script>
+
   import { attributedFormFactory, LayoutRenderer } from '@/casimir-framework/modules/layouts';
   import { VeStack } from '@/casimir-framework/vue-elements';
   import { defineComponent } from '@/casimir-framework/all';
-
   import { ViewMode } from '@/casimir-framework/vars';
 
+
+  /**
+   * NFT Collection form component
+   */
   export default defineComponent({
     name: 'NftCollectionForm',
 
@@ -132,8 +139,8 @@
         };
 
         try {
-          const nftCollection = await this.$store.dispatch('nftCollections/create', payload);
-          this.emitSuccess(nftCollection._id);
+          const { _id } = await this.$store.dispatch('nftCollections/create', payload);
+          this.emitSuccess(_id);
         } catch (err) {
           this.emitError(err);
         }
@@ -149,37 +156,40 @@
         };
 
         try {
-          const nftCollection = await this.$store.dispatch('nftCollections/update', payload);
-          this.emitSuccess(nftCollection._id);
+          const { _id } = await this.$store.dispatch('nftCollections/update', payload);
+          this.emitSuccess(_id);
         } catch (err) {
           this.emitError(err);
         }
       },
 
-      emitSuccess(id) {
+      emitSuccess(_id) {
         /**
          * Success event
          *
          * @property {string} id
          */
-        this.$emit('success', id);
+        this.$emit('success', _id);
       },
 
       emitError(err) {
-        console.error(err);
         /**
-       * Triggers when error occurs
-       *
-       * @property {Error} err
-       */
+         * Triggers when error occurs
+         *
+         * @property {Error} err
+         */
         this.$emit('error', err);
       },
 
-      handleCancelClick() {
+      emitCancel() {
         /**
-       * Triggers by clicking on cancel button
-       */
+         * Triggers by clicking on cancel button
+         */
         this.$emit('cancel');
+      },
+
+      handleCancelClick() {
+        this.emitCancel();
       }
     }
   });

@@ -13,8 +13,8 @@
       <ve-stack :gap="32">
         <vex-section-title :title="title" />
 
-        <nft-collection-form
-          :nft-collection="nftCollection"
+        <users-form
+          :user="userId"
           :schema="schema"
           :mode="mode"
           @success="handleSuccess"
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-  import { NftCollectionForm } from '@/casimir-framework/modules/nft-collections';
+  import { AdminUsersForm } from '@/casimir-framework/modules/users';
   import { VexSection, VexSectionTitle } from '@/casimir-framework/plugins/VuetifyExtended';
   import { VeStack } from '@/casimir-framework/vue-elements';
   import { formMixin, filterObjectKeys } from '@/casimir-framework/all';
@@ -34,18 +34,18 @@
 
 
   export default {
-    name: 'AdminNftCollectionsForm',
+    name: 'AdminUsersForm',
 
 
     components: {
       VexSection,
       VexSectionTitle,
       VeStack,
-      NftCollectionForm
+      AdminUsersForm
     },
 
     props: {
-      nftCollectionId: {
+      userId: {
         type: String,
         required: false
       },
@@ -61,13 +61,13 @@
           : this.$t('admin.collections.form.update');
       },
       schema() {
-        return this.$layouts.getMappedData('nftCollection.form')?.value;
+        return this.$layouts.getMappedData('user.form')?.value;
       },
-      nftCollection() {
+      user() {
         if (!this.isEditMode) {
           return null;
         }
-        return this.$store.getters['nftCollections/one'](this.nftCollectionId);
+        return this.$store.getters['users/one'](this.userId);
       }
     },
 
@@ -83,9 +83,7 @@
         });
       },
 
-      handleError(err) {
-        console.error(err);
-
+      handleError() {
         const messageKey = !this.isEditMode
           ? 'errorCreate'
           : 'errorUpdate';
@@ -96,5 +94,6 @@
         });
       },
     }
+
   };
 </script>

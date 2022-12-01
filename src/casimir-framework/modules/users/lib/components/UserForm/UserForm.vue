@@ -1,13 +1,14 @@
 <template>
-  <validation-observer v-slot="{ handleSubmit, invalid }">
-    <ve-raw-display
-      v-if="$env.NODE_ENV === 'development'"
-      :value="formData"
-      class="mb-6"
-    />
-
-    <v-form @submit.prevent="handleSubmit(onSubmit)">
-      <ve-stack :gap="32">
+  <validation-observer 
+    v-slot="{ handleSubmit, invalid }"
+    ref="observer"
+    tag="div"
+  >
+    <v-form 
+      :disabled="loading" 
+      @submit.prevent="handleSubmit(onSubmit)"
+    >
+      <ve-stack>
         <layout-renderer
           v-if="schema.length"
           :key="forceUpdateKey"
@@ -29,10 +30,11 @@
           >
             {{ cancelLabel }}
           </v-btn>
+
           <v-btn
             type="submit"
             color="primary"
-            :disabled="untouched || invalid"
+            :disabled="disabled || untouched || invalid"
             :loading="loading"
           >
             {{ submitLabelText }}
@@ -44,11 +46,15 @@
 </template>
 
 <script>
-  import { attributedFormFactory, LayoutRenderer } from '@/casimir-framework/modules/layouts';
+  import { formFactory, LayoutRenderer } from '@/casimir-framework/modules/layouts';
   import { VeStack, VeRawDisplay } from '@/casimir-framework/vue-elements';
   import { ViewMode } from '@/casimir-framework/vars';
   import { defineComponent } from '@/casimir-framework/all';
 
+
+  /**
+   * NFT item form component
+   */
   export default defineComponent({
     name: 'UserForm',
 
@@ -58,7 +64,7 @@
       VeRawDisplay
     },
 
-    mixins: [attributedFormFactory('user', 'user')],
+    mixins: [formFactory('user', 'user')],
 
     props: {
       /**
@@ -66,6 +72,12 @@
        *
        * @example 'Cancel'
        */
+      user: {
+        type: Object,
+        default: () => {}
+      },
+
+      /**
       cancelLabel: {
         type: String,
         default() {

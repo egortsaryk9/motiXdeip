@@ -32,20 +32,23 @@ const ACTIONS = {
   },
 
   async create(_, payload) {
-    return nonFungibleTokenService.createNftItem(payload);
+    const res = await nonFungibleTokenService.createNftItem(payload);
+    return res.data;
   },
 
   async update(_, payload) {
-    return nonFungibleTokenService.updateNftItem(payload);
+    const res = await nonFungibleTokenService.updateNftItem(payload);
+    return res.data;
   },
 
   async remove({ commit }, payload) {
-    await nonFungibleTokenService.deleteNftItem(payload);
-    commit('remove', payload.data._id);
+    const res = await nonFungibleTokenService.deleteNftItem(payload);
+    commit('remove', res.data._id);
   },
 
-  moderate(_, payload) {
-    return nonFungibleTokenService.moderateNftItem(payload);
+  async moderate(_, payload) {
+    const res = await nonFungibleTokenService.moderateNftItem(payload);
+    return res.data;
   }
 };
 

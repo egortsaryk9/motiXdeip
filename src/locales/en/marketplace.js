@@ -1,16 +1,20 @@
 export default {
   createAsset: {
-    formTitle: 'Submit asset',
     price: 'Price',
     createNft: 'Submit asset',
     moderation: 'Moderation',
     moderationRequired: 'This is a required field.',
     moderationMessage: `By clicking Submit Artwork, you accept Terms and Conditions of the Project. No creative rights will be delivered to Moti., Ltd`,
     errors: {
-      duplicate: 'Such asset already exists',
       noNftCollection: 'User can\'t submit assets without the collection'
     },
-    createSuccess: "The asset has been uploaded successfully"
+    formCreateTitle: 'Submit Creation',
+    formUpdateTitle: 'Update Creation',
+    successCreate: "The asset has been created successfully",
+    successUpdate: "The asset has been updated successfully",
+    errorCreate: "An error occurred, while creating the asset, please try again later",
+    errorUpdate: "An error occurred, while updating the asset, please try again later",
+    
   },
   conceptPage: {
     pageTitle: 'Lisbon, I love you',

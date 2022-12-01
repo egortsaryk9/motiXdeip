@@ -15,7 +15,6 @@
 
         <validation-observer 
           v-slot="{ handleSubmit, invalid }" 
-          ref="validationObserver"
         >
           <v-form @submit.prevent="handleSubmit(updateActiveNftCollectionId)">
             <ve-stack :gap="32">
@@ -105,8 +104,10 @@
         try {
           const customFields = { ...this.$portalCustomFields, ...this.lazyFormData };
           await this.$store.dispatch('currentPortal/updatePortalCustomFields', { customFields,  title: 'temp' });
-          this.$refs.validationObserver.reset();
           this.$notifier.showSuccess('Active collection has been updated successfully');
+          this.$router.push({
+            name: 'admin.collections',
+          });
         } catch (err) {
           console.error(err);
           this.$notifier.showError('An error occurred while settings Active collection, please try again later');
