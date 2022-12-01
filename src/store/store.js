@@ -8,7 +8,8 @@ const GETTERS = {
 
   isModerator: (state) => {
     const moderators = state.currentPortal.data?.settings.nftModeration.moderators;
-    return state.getters.isModerationRequired && moderators ? !!moderators.length : false;
+    const userId = state.currentUser.data?._id;
+    return !!moderators && moderators.includes(userId);
   },
 
   activeNftCollection: (state) => {

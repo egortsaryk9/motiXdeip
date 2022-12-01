@@ -25,7 +25,7 @@
 <script>
   import { VexSection, VexSectionTitle } from '@/casimir-framework/plugins/VuetifyExtended';
   import { VeStack } from '@/casimir-framework/vue-elements';
-  // import { awaitForStore } from '@/casimir-framework/all';
+  import { awaitForStore } from '@/casimir-framework/all';
 
   export default {
     name: 'ModerationPage',
@@ -36,18 +36,16 @@
       VeStack
     },
 
-    created() {
-      // awaitForStore(this.$store, 'currentPortal/data').then(this.checkRole);
+    async created() {
+      await awaitForStore(this.$store, 'currentPortal/data');
+      this.checkRole();
     },
 
     methods: {
       checkRole() {
-        // const { moderators = [] } = this.$currentPortal?.profile?.settings?.moderation || {};
-        // const isModerator = moderators.includes(this.$currentUser?._id);
-
-        // if (!isModerator) {
-        //   this.$router.push({ name: 'home' });
-        // }
+        if (!this.$store.getters['isModerator']) {
+          this.$router.push({ name: 'home' });
+        }
       }
     }
   };

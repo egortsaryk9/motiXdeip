@@ -23,7 +23,7 @@
             small
             v-on="on"
           >
-            Menu
+            <v-icon>mdi-menu</v-icon>
           </m-btn>
         </template>
 
@@ -93,16 +93,21 @@
     },
 
     computed: {
+
       userMenu() {
         return [
+          {
+            label: this.$t('components.appBar.submitAsset'),
+            icon: 'mdi-image',
+            to: { name: 'assetCreate' }
+          },
         ];
       },
-      isModerator() {
-        return this.$store.isModerator;
-      },
-    },
 
-    created() {
+      isModerator() {
+        return this.$store.getters['isModerator'];
+      },
+
     },
 
     methods: {

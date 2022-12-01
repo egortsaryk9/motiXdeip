@@ -20,7 +20,7 @@
           A creative movement celebrating our city through the eyes and lives of those who love it.
         </div>
       </div>
-      <div class="d-flex align-center justify-center">
+      <div v-if="$isUser" class="d-flex align-center justify-center">
         <m-btn
           kind="primary"
           :to="{ name: 'assetCreate' }"

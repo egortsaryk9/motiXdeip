@@ -13,7 +13,7 @@ export default {
     createSuccess: "The asset has been uploaded successfully"
   },
   conceptPage: {
-    pageTitle: 'Lisbon I, love you',
+    pageTitle: 'Lisbon, I love you',
   },
   assetList: {
     allNfts: 'Queue',

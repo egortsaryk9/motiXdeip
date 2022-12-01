@@ -134,7 +134,6 @@
         try {
           const nftCollection = await this.$store.dispatch('nftCollections/create', payload);
           this.emitSuccess(nftCollection._id);
-          this.clearForm();
         } catch (err) {
           this.emitError(err);
         }
@@ -181,11 +180,6 @@
        * Triggers by clicking on cancel button
        */
         this.$emit('cancel');
-      },
-
-      clearForm() {
-        this.restoreOldValue(true);
-        this.$refs.observer.reset();
       }
     }
   });

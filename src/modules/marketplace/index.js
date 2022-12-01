@@ -19,7 +19,7 @@ export const NftMarketplaceMarketplaceModule = {
   name: 'NftMarketplaceMarketplaceModule',
   deps: [
     'EnvModule',
-    // 'AuthModule',
+    'AuthModule',
     'NftItemsModule'
   ],
   install

@@ -16,7 +16,7 @@ import { AdminLayoutsSettings } from '@/modules/admin/components/layouts/AdminLa
 import { AdminNavigationView } from '@/modules/admin/components/view/AdminNavigationView';
 
 const formViewMeta = (
-  auth = [SYSTEM_ROLE.ANY]
+  auth = [SYSTEM_ROLE.ADMIN]
 ) => ({
   auth,
   viewSetup: {
@@ -43,13 +43,13 @@ export const adminRouter = [
             name: 'admin.collections',
             path: '',
             component: AdminNftCollections,
-            meta: { auth: [SYSTEM_ROLE.ANY] }
+            meta: { auth: [SYSTEM_ROLE.ADMIN] }
           },
           {
             name: 'admin.collections.details',
             path: ':nftCollectionId/details',
             component: AdminNftCollectionDetails,
-            meta: { auth: [SYSTEM_ROLE.ANY], viewSetup: { sideBar: { isVisible: false } } },
+            meta: { auth: [SYSTEM_ROLE.ADMIN], viewSetup: { sideBar: { isVisible: false } } },
             props: (route) => ({
               nftCollectionId: route.params.nftCollectionId
             })
@@ -93,7 +93,7 @@ export const adminRouter = [
             name: 'admin.attributes',
             path: '',
             component: AdminAttributes,
-            meta: { auth: [SYSTEM_ROLE.ANY] }
+            meta: { auth: [SYSTEM_ROLE.ADMIN] }
           },
           {
             name: 'admin.attributes.settings',
@@ -128,7 +128,7 @@ export const adminRouter = [
             name: 'admin.layouts',
             path: '',
             component: AdminLayouts,
-            meta: { auth: [SYSTEM_ROLE.ANY] }
+            meta: { auth: [SYSTEM_ROLE.ADMIN] }
           },
           {
             name: 'admin.layouts.settings',

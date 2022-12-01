@@ -2,6 +2,7 @@ import { AssetListPage } from '../components/AssetListPage';
 import { ConceptPage } from '../components/ConceptPage';
 import { AssetCreatePage } from '../components/AssetCreatePage';
 import { AssetsDetailsPage } from '../components/AssetsDetailsPage';
+import { SYSTEM_ROLE } from '@/casimir-framework/vars';
 
 
 export const marketplaceRouter = [
@@ -26,7 +27,7 @@ export const marketplaceRouter = [
         name: 'assetCreate',
         path: 'asset/create',
         component: AssetCreatePage,
-        meta: { auth: false }
+        meta: { auth: [SYSTEM_ROLE.ANY] }
       },
       {
         name: 'assetDetails',

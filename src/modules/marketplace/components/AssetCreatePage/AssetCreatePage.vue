@@ -2,7 +2,7 @@
   <vex-section>
     <ve-stack>
       <vex-section-title
-        title="Lisbon, I Love you"
+        title="Lisbon, I love you"
       />
         <asset-create-form
           :nft-collection-id="activeNftCollection?._id"
