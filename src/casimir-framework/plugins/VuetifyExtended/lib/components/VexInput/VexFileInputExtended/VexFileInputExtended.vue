@@ -19,6 +19,7 @@
           </v-icon>
           <a
             :href="urlBuilder(file)"
+            target="_blank"
             class="link text-caption text--secondary"
           >
             {{ file }}

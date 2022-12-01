@@ -3,7 +3,22 @@
     <ve-stack>
       <vex-section-title
         title="Creation Details"
-      />
+      >
+        <template v-if="$currentUser.isAdmin" #append>
+          <m-btn
+            small
+            kind="primary"
+            outlined
+            :to="{ name: 'asset.edit', nftItemId: assetId }"
+          >
+            <v-icon left>
+              mdi-pencil
+            </v-icon>
+            Edit
+          </m-btn>
+        </template>
+      </vex-section-title>
+
       <asset-details :assetId="assetId"/>
     </ve-stack>
   </vex-section>

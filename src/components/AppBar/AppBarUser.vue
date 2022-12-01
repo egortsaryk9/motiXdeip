@@ -99,7 +99,7 @@
           {
             label: this.$t('components.appBar.submitAsset'),
             icon: 'mdi-image',
-            to: { name: 'assetCreate' }
+            to: { name: 'asset.create' }
           },
         ];
       },

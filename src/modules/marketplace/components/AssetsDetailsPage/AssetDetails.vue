@@ -46,10 +46,7 @@
       },
 
       detailsSchemaData() {
-        const scopeId = {
-          nftItemId: this.asset._id,
-          nftCollectionId: this.asset.nftCollectionId
-        };
+        const scopeId = this.asset._id;
         return {
           ...attributeMethodsFactory(
             expandAttributes(this.asset),
@@ -80,7 +77,7 @@
 
       handleCopyLinkClick() {
         const props = this.$router.resolve({
-          name: 'assetDetails',
+          name: 'asset.details',
           params: { assetId: this.asset._id }
         });
 

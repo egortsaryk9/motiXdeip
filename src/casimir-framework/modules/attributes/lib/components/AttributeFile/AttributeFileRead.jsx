@@ -51,7 +51,7 @@ export default defineComponent({
             <VIcon size={20} class="mr-2">
               {getFileIcon(this.internalValue)}
             </VIcon>
-            <a href={this.schemaData.getAttributeFileSrc(this.attributeId)}>{this.internalValue}</a>
+            <a target="_blank" href={this.schemaData.getAttributeFileSrc(this.attributeId)}>{this.internalValue}</a>
           </div>
         </VeStack>
       );

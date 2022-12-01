@@ -1,8 +1,9 @@
 import { AssetListPage } from '../components/AssetListPage';
 import { ConceptPage } from '../components/ConceptPage';
-import { AssetCreatePage } from '../components/AssetCreatePage';
+import { AssetFormPage } from '../components/AssetFormPage';
 import { AssetsDetailsPage } from '../components/AssetsDetailsPage';
 import { SYSTEM_ROLE } from '@/casimir-framework/vars';
+import { ViewMode } from '@/casimir-framework/vars';
 
 
 export const marketplaceRouter = [
@@ -18,19 +19,32 @@ export const marketplaceRouter = [
         meta: { auth: false }
       },
       {
-        name: 'assetList',
+        name: 'asset.list',
         path: 'asset/list',
         component: AssetListPage,
         meta: { auth: false }
       },
       {
-        name: 'assetCreate',
+        name: 'asset.create',
         path: 'asset/create',
-        component: AssetCreatePage,
-        meta: { auth: [SYSTEM_ROLE.ANY] }
+        component: AssetFormPage,
+        meta: { auth: [SYSTEM_ROLE.ANY] },
+        props: (route) => ({
+          mode: ViewMode.CREATE
+        }),
       },
       {
-        name: 'assetDetails',
+        name: 'asset.edit', // Test
+        path: 'asset/edit/:assetId',
+        component: AssetFormPage,
+        meta: { auth: [SYSTEM_ROLE.ADMIN] },
+        props: (route) => ({
+          assetId: route.params.assetId,
+          mode: ViewMode.EDIT
+        }),
+      },
+      {
+        name: 'asset.details',
         path: 'asset/details/:assetId',
         component: AssetsDetailsPage,
         meta: { auth: false },

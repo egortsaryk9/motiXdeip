@@ -98,17 +98,11 @@ export default defineComponent({
     },
 
     getFileUrl(download = false) {
-      const { 
-        _id: nftItemId,
-        nftCollectionId, 
-      } = this.schemaData.data;
+      const { _id: nftItemId } = this.schemaData.data;
       const file = this.file;
       if (!file) return null;
 
-      const scopeId = JSON.stringify({
-        nftCollectionId: nftCollectionId,
-        nftItemId: nftItemId
-      });
+      const scopeId = nftItemId;
 
       return this.$attributes.getFileSrc({
         scope: 'nftItem',

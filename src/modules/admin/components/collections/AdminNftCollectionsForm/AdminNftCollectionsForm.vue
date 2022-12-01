@@ -36,7 +36,6 @@
   export default {
     name: 'AdminNftCollectionsForm',
 
-
     components: {
       VexSection,
       VexSectionTitle,
@@ -55,19 +54,21 @@
 
     computed: {
       isEditMode() { return this.mode === ViewMode.EDIT; },
+
       title() {
         return !this.isEditMode
           ? this.$t('admin.collections.form.create')
           : this.$t('admin.collections.form.update');
       },
+
       schema() {
         return this.$layouts.getMappedData('nftCollection.form')?.value;
       },
+
       nftCollection() {
-        if (!this.isEditMode) {
-          return null;
-        }
-        return this.$store.getters['nftCollections/one'](this.nftCollectionId);
+        return this.isEditMode 
+          ? this.$store.getters['nftCollections/one'](this.nftCollectionId)
+          : null;
       }
     },
 

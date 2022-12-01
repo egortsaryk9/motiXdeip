@@ -2,7 +2,7 @@
   <div>
     <v-card outlined>
       <router-link
-        :to="{ name: 'assetDetails', params: { assetId: nftItem._id } }"
+        :to="{ name: 'asset.details', params: { assetId: nftItem._id } }"
         class="text-decoration-none"
       >
         <layout-renderer

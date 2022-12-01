@@ -6,6 +6,7 @@
         <vex-section-title :title="title" />
 
         <nft-item-form
+          :nft-item="asset"
           :nft-collection-id="nftCollectionId"
           :is-moderation-required="isModerationRequired"
           :schema="schema"
@@ -28,7 +29,7 @@
 
 
   export default {
-    name: 'AssetCreateForm',
+    name: 'AssetForm',
 
     components: {
       VexSection,
@@ -38,11 +39,6 @@
     },
 
     props: {
-      nftCollectionId: {
-        type: String,
-        required: false
-      },
-
       ...filterObjectKeys(formMixin.props, ['mode'])
     },
 
@@ -58,6 +54,11 @@
       },
       isModerationRequired() {
         return this.$store.getters['isModerationRequired'];
+      },
+      asset() {
+        return this.isEditMode 
+          ? this.$store.getters['nftItems/one'](this.assetId)
+          : null;
       }
     },
 

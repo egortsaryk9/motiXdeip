@@ -6,7 +6,7 @@
       >
         <template #append>
           <v-btn
-            :to="{ name: 'assetList' }"
+            :to="{ name: 'asset.list' }"
             kind="primary"
             small
           >
@@ -23,7 +23,7 @@
       <div v-if="$isUser" class="d-flex align-center justify-center">
         <m-btn
           kind="primary"
-          :to="{ name: 'assetCreate' }"
+          :to="{ name: 'asset.create' }"
         >
           Submit Creation
         </m-btn>
