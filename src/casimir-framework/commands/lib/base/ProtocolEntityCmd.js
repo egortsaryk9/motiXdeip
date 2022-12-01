@@ -12,8 +12,8 @@ class ProtocolEntityCmd extends ProtocolCmd {
    */
   constructor(cmdNum, cmdPayload) {
     super(cmdNum, cmdPayload);
-    this._cmdPayload.entityId = cmdPayload.entityId
-      ? cmdPayload.entityId // Set
+    this._cmdPayload._id = cmdPayload._id
+      ? cmdPayload._id // Set
       : ProtocolEntityCmd.GenerateProtocolEntityId(cmdPayload); // Auto-Generated
   }
 
@@ -21,7 +21,7 @@ class ProtocolEntityCmd extends ProtocolCmd {
    * Get protocol entity id
    * @returns {string} entity id
    */
-  getProtocolEntityId() { return this._cmdPayload.entityId; }
+  getProtocolEntityId() { return this._cmdPayload._id; }
 
   /**
    * Generate protocol entity id
@@ -29,8 +29,8 @@ class ProtocolEntityCmd extends ProtocolCmd {
    * @returns {string} entity id
    */
   static GenerateProtocolEntityId(payload) {
-    const entityId = genRipemd160Hash({ ...payload, __timestamp: new Date().getTime() });
-    return entityId;
+    const _id = genRipemd160Hash({ ...payload, __timestamp: new Date().getTime() });
+    return _id;
   }
 }
 

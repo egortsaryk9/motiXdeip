@@ -55,7 +55,7 @@ export const NftCollectionsModule = {
     'AttributesModule',
     'LayoutsModule',
 
-    // 'AuthModule',
+    'AuthModule',
     // 'UsersModule'
   ],
   install

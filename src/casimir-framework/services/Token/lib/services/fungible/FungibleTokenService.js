@@ -41,9 +41,9 @@ export class FungibleTokenService {
     const chainTxBuilder = chainService.getChainTxBuilder();
     const chainRpc = chainService.getChainRpc();
     const txBuilder = await chainTxBuilder.begin();
-    const entityId = await chainRpc.getNextAvailableFtId();
+    const _id = await chainRpc.getNextAvailableFtId();
     const createFTClassCmd = new CreateFTClassCmd({
-      entityId,
+      _id,
       issuer,
       symbol,
       precision,

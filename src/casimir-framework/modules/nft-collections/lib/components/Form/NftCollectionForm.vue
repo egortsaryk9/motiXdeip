@@ -126,7 +126,7 @@
         const payload = {
           initiator: this.$currentUser,
           data: {
-            ownerId: "temp", // this.$currentUser._id,
+            ownerId: this.$currentUser._id,
             ...this.lazyFormData
           }
         };

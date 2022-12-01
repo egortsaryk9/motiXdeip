@@ -4,7 +4,7 @@ import { assert, isNumber, isString } from '@/casimir-framework/all';
 import ProtocolEntityCmd from '../base/ProtocolEntityCmd';
 
 /**
- * @typedef {{entityId: string} & import('@casimir.one/platform-core').FungibleTokenCreateData} FungibleTokenCreateCmdPayload
+ * @typedef {{_id: string} & import('@casimir.one/platform-core').FungibleTokenCreateData} FungibleTokenCreateCmdPayload
  */
 
 /**
@@ -18,7 +18,7 @@ class CreateFTClassCmd extends ProtocolEntityCmd {
    */
   constructor(cmdPayload) {
     const {
-      entityId,
+      _id,
       issuer,
       symbol,
       precision,
@@ -28,8 +28,8 @@ class CreateFTClassCmd extends ProtocolEntityCmd {
     } = cmdPayload;
 
     assert(
-      isNumber(entityId) || (isString(entityId) && entityId),
-      "'entityId' is required and must be a number or non emplty string"
+      isNumber(_id) || (isString(_id) && _id),
+      "'_id' is required and must be a number or non emplty string"
     );
     assert(!!issuer, "'issuer' is required");
     assert(!!symbol, "'symbol' is required");

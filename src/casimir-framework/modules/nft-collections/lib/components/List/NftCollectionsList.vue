@@ -19,6 +19,21 @@
 
         <template #item.actions="{item}">
           <vex-tooltip
+            :tooltip="$t('module.nftCollections.list.view')"
+            bottom
+          >
+            <v-btn
+              icon
+              small
+              @click.stop="handleViewClick(item)"
+            >
+              <v-icon small>
+                mdi-eye-outline
+              </v-icon>
+            </v-btn>
+          </vex-tooltip>
+
+          <vex-tooltip
             v-if="isOwner(item)"
             :tooltip="$t('module.nftCollections.list.edit')"
             bottom
@@ -30,21 +45,6 @@
             >
               <v-icon small>
                 mdi-pencil
-              </v-icon>
-            </v-btn>
-          </vex-tooltip>
-
-          <vex-tooltip
-            :tooltip="$t('module.nftCollections.list.view')"
-            bottom
-          >
-            <v-btn
-              icon
-              small
-              @click.stop="handleViewClick(item)"
-            >
-              <v-icon small>
-                mdi-eye-outline
               </v-icon>
             </v-btn>
           </vex-tooltip>
@@ -106,7 +106,7 @@
        * @param {Object} nftCollection
        */
       isOwner(nftCollection) {
-        return true // nftCollection.ownerId === 'this.$currentUser._id';
+        return nftCollection.ownerId === this.$currentUser._id;
       },
 
       handleEditClick(nftCollection) {

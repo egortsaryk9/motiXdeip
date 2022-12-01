@@ -10,7 +10,7 @@ class ImportDAOCmd extends AppEntityCmd {
   /**
    * Create command for DAO creation
    * @param {Object} cmdPayload
-   * @param {string} cmdPayload.entityId
+   * @param {string} cmdPayload._id
    * @param {Object} cmdPayload.authority
    * @param {Object} cmdPayload.authority.owner
    * @param {Array.<Object>} cmdPayload.authority.owner.auths
@@ -22,14 +22,14 @@ class ImportDAOCmd extends AppEntityCmd {
    */
   constructor(cmdPayload) {
     const {
-      entityId,
+      _id,
       authority,
       isTeamAccount,
       // eslint-disable-next-line no-unused-vars
       attributes
     } = cmdPayload;
 
-    assert(!!entityId, "'entityId' is required");
+    assert(!!_id, "'_id' is required");
     assert(!!authority, "'authority' auths must be set");
     assert(!!authority.owner, "'owner' authority must be set");
     assert(isBoolean(isTeamAccount) && !isTeamAccount, 'Dao must belong to a user');

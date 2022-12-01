@@ -52,7 +52,7 @@ export class AuthService {
   }
 
   /**
-   * Check if user exists by username or email
+   * Check if user exists by _id or email
    * @param {string} usernameOrEmail
    * @return {Promise<Object>}
    */

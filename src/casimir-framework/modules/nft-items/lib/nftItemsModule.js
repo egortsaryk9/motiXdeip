@@ -50,7 +50,7 @@ export const NftItemsModule = {
   name: 'NftItemsModule',
   deps: [
     'EnvModule',
-    // 'AuthModule',
+    'AuthModule',
     // 'UsersModule',
     'NftCollectionsModule'
   ],

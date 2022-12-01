@@ -12,10 +12,10 @@
         {{ $t('module.nftItems.moderation.declineDialog.message',{ title: nftItemTitle }) }}
       </span>
 
-      <!-- <v-text-field
+      <v-text-field
         v-model="reason"
         :label="$t('module.nftItems.moderation.declineDialog.reason')"
-      /> -->
+      />
     </ve-stack>
   </vex-dialog>
 </template>
@@ -132,6 +132,7 @@
            */
           this.$emit('success', this.nftItem);
           this.closeDialog();
+          this.$notifier.showSuccess(this.successMessage);
         } catch (error) {
           console.error(error?.error || error);
           this.$notifier.showError(error?.error?.message || error);

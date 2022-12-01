@@ -59,7 +59,7 @@ export class UserService {
    * @param {Object} payload
    * @param {Object} payload.initiator
    * @param {string} payload.initiator.privKey
-   * @param {string} payload.initiator.username
+   * @param {string} payload.initiator._id
    * @param {string} payload.email
    * @param {number} payload.status
    * @param {Object[]} payload.attributes
@@ -70,7 +70,7 @@ export class UserService {
     const {
       initiator: {
         privKey,
-        username: updater
+        _id: updater
       },
       ...data
     } = payload;
@@ -90,7 +90,7 @@ export class UserService {
 
     const updateDaoCmd = new UpdateDaoCmd({
       isTeamAccount: false,
-      entityId: updater,
+      _id: updater,
       description: genSha256Hash(attributes),
       attributes,
       email,
@@ -137,7 +137,7 @@ export class UserService {
    * @param {Object} payload
    * @param {Object} payload.initiator
    * @param {string} payload.initiator.privKey
-   * @param {string} payload.initiator.username
+   * @param {string} payload.initiator._id
    * @param {Object} payload.authority
    * @return {Promise<Object>}
    */
@@ -146,7 +146,7 @@ export class UserService {
     const {
       initiator: {
         privKey,
-        username
+        _id
       },
       authority
     } = payload;
@@ -157,7 +157,7 @@ export class UserService {
     const txBuilder = await chainTxBuilder.begin();
 
     const alterDaoAuthorityCmd = new AlterDaoAuthorityCmd({
-      entityId: username,
+      _id: _id,
       isTeamAccount: false,
       authority
     });
@@ -176,7 +176,7 @@ export class UserService {
       signedTx = await packedTx.signAsync(privKey, chainNodeClient);
     }
 
-    const msg = new JsonDataMsg(signedTx.getPayload(), { 'entity-id': username });
+    const msg = new JsonDataMsg(signedTx.getPayload(), { 'entity-id': _id });
 
     if (env.RETURN_MSG === true) {
       return msg;
@@ -222,15 +222,15 @@ export class UserService {
   }
 
   /**
-   * Get user by username or email
-   * @param {string} username
+   * Get user by _id or email
+   * @param {string} _id
    * @return {Promise<Object>}
    */
-  async getOne(username) {
-    if (username.includes('@')) {
-      return this.userHttp.getOneByEmail(username);
+  async getOne(_id) {
+    if (_id.includes('@')) {
+      return this.userHttp.getOneByEmail(_id);
     }
-    return this.userHttp.getOne(username);
+    return this.userHttp.getOne(_id);
   }
 
   /** @type {() => UserService} */

@@ -10,7 +10,7 @@ const userService = UserService.getInstance();
 const webSocketService = WebSocketService.getInstance();
 
 const STATE = {
-  username: null,
+  _id: null,
   isLoggedIn: false,
   settings: {
     signInRouteName: 'signIn',
@@ -20,7 +20,7 @@ const STATE = {
 };
 
 const GETTERS = {
-  username: (state) => state.username,
+  _id: (state) => state._id,
   settings: (state) => state.settings,
   isLoggedIn: (state) => state.isLoggedIn
 };
@@ -43,7 +43,7 @@ const ACTIONS = {
     const keyPair = authService.getKeyPair(password);
 
     const { data: signIn } = await authService.signIn({
-      username: user._id,
+      _id: user._id,
       secretSigHex: keyPair.signMsg(this._vm.$env.SIG_SEED)
     });
 
@@ -146,14 +146,14 @@ const MUTATIONS = {
       accessService.setAccessToken(jwtToken, privKey, pubKey);
     }
 
-    state.username = accessService.getDecodedToken().username;
+    state._id = accessService.getDecodedToken()._id;
     state.isLoggedIn = accessService.isLoggedIn();
   },
 
   clearData(state) {
     accessService.clearAccessToken();
 
-    state.username = null;
+    state._id = null;
     state.isLoggedIn = accessService.isLoggedIn();
   },
 

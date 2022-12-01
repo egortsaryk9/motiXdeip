@@ -27,7 +27,7 @@ class CreateInvestmentOpportunityCmd extends ProtocolEntityCmd {
    */
   constructor(cmdPayload) {
     const {
-      entityId,
+      _id,
       teamId,
       projectId,
       startTime,

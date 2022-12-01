@@ -99,11 +99,11 @@
       },
 
       async createAsset() {
-        const email = this.$attributes.getMappedData('nftItem.email', this.lazyFormData.attributes)?.value;
 
         try {
 
-          const isModerationRequired = this.$store.getters.isModerationRequired;
+          // const email = this.$attributes.getMappedData('nftItem.email', this.lazyFormData.attributes)?.value;
+          const isModerationRequired = this.$store.getters['isModerationRequired'];
           const status = isModerationRequired
             ? NftItemMetadataDraftStatus.PROPOSED
             : NftItemMetadataDraftStatus.APPROVED;
@@ -111,8 +111,8 @@
           const nftItemPayload = {
             data: {
               nftCollectionId: this.nftCollectionId,
-              ownerId: email,
-              creatorId: email,
+              ownerId: this.$currentUser._id,
+              creatorId: this.$currentUser._id,
               status: status,
               ...this.lazyFormData
             }
@@ -131,6 +131,7 @@
         }
         
       }
+
     },
 
     mounted() {

@@ -80,10 +80,10 @@ export class NonFungibleTokenService {
       attributes
     } = NonFungibleTokenService.#convertFormData(payload.data);
 
-    const entityId = uuidv4();
+    const _id = uuidv4();
     
     const cmd = new CreateNftCollectionCmd({
-      entityId,
+      _id,
       ownerId,
       attributes
     });
@@ -91,7 +91,7 @@ export class NonFungibleTokenService {
     const metadataMsg = new MultFormDataMsg(formData, {
       appCmds: [cmd]
     }, {
-      'entity-id': entityId
+      'entity-id': _id
     });
 
     const response = await this.nonFungibleTokenHttp.createNFTCollection(metadataMsg);

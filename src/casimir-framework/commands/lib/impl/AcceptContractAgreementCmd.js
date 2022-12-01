@@ -10,16 +10,16 @@ class AcceptContractAgreementCmd extends ProtocolCmd {
   /**
    * Create command for acceprting contract agreement
    * @param {Object} cmdPayload
-   * @param {string} cmdPayload.entityId
+   * @param {string} cmdPayload._id
    * @param {party} cmdPayload.party
    */
   constructor(cmdPayload) {
     const {
-      entityId,
+      _id,
       party
     } = cmdPayload;
 
-    assert(!!entityId, "'entityId' is required");
+    assert(!!_id, "'_id' is required");
     assert(!!party, "'party' is required");
 
     super(APP_CMD.ACCEPT_CONTRACT_AGREEMENT, cmdPayload);

@@ -12,7 +12,7 @@ class CreateProposalCmd extends ProtocolEntityCmd {
   /**
    * Create command for proposal creation
    * @param {Object} cmdPayload
-   * @param {string} cmdPayload.entityId
+   * @param {string} cmdPayload._id
    * @param {number} cmdPayload.type
    * @param {string} cmdPayload.creator
    * @param {Array.<ProtocolCmd>} cmdPayload.proposedCmds
@@ -22,7 +22,7 @@ class CreateProposalCmd extends ProtocolEntityCmd {
   constructor(cmdPayload) {
     const {
       // eslint-disable-next-line no-unused-vars
-      entityId,
+      _id,
       type,
       creator,
       proposedCmds,

@@ -12,15 +12,15 @@ import { wrapInArray } from '@/casimir-framework/all';
  * @param {boolean} isProposalApproved
  * @param {number} proposalLifetime
  * @param {string} proposalType
- * @param {string} username
+ * @param {string} _id
  * @returns {FinalizedTx}
  */
-const buildCommandsProposalTx = async (commandsBatch, chainTxBuilder, isProposalApproved, proposalLifetime, proposalType, username) => {
+const buildCommandsProposalTx = async (commandsBatch, chainTxBuilder, isProposalApproved, proposalLifetime, proposalType, _id) => {
   const txBuilder = await chainTxBuilder.begin();
   const batchWeight = await chainTxBuilder.getBatchWeight(commandsBatch);
   const createProposalCmd = new CreateProposalCmd({
     type: proposalType,
-    creator: username,
+    creator: _id,
     expirationTime: proposalLifetime,
     proposedCmds: commandsBatch,
     batchWeight
@@ -30,8 +30,8 @@ const buildCommandsProposalTx = async (commandsBatch, chainTxBuilder, isProposal
   if (isProposalApproved) {
     const updateProposalId = createProposalCmd.getProtocolEntityId();
     const updateProposalCmd = new AcceptProposalCmd({
-      entityId: updateProposalId,
-      account: username,
+      _id: updateProposalId,
+      account: _id,
       batchWeight
     });
     txBuilder.addCmd(updateProposalCmd);
@@ -64,12 +64,12 @@ const buildCommandsTx = async (commandsBatch, chainTxBuilder) => {
  * @param {boolean} isProposalApproved
  * @param {number} proposalLifetime
  * @param {string} proposalType
- * @param {string} username
+ * @param {string} _id
  * @returns {FinalizedTx}
  */
-const packTx = async (commandsBatch, chainTxBuilder, isProposal, isProposalApproved, proposalLifetime, proposalType, username) => {
+const packTx = async (commandsBatch, chainTxBuilder, isProposal, isProposalApproved, proposalLifetime, proposalType, _id) => {
   if (isProposal) {
-    return buildCommandsProposalTx(commandsBatch, chainTxBuilder, isProposalApproved, proposalLifetime, proposalType, username);
+    return buildCommandsProposalTx(commandsBatch, chainTxBuilder, isProposalApproved, proposalLifetime, proposalType, _id);
   }
 
   return buildCommandsTx(commandsBatch, chainTxBuilder);
@@ -89,7 +89,7 @@ export async function transferToken(payload, transferTokenCmd, proposalType, tra
   const {
     initiator: {
       privKey,
-      username
+      _id
     },
     proposalInfo: {
       isProposal,
@@ -101,7 +101,7 @@ export async function transferToken(payload, transferTokenCmd, proposalType, tra
   const chainService = await ChainService.getInstanceAsync(env);
   const chainTxBuilder = chainService.getChainTxBuilder();
   const commandsBatch = wrapInArray(transferTokenCmd);
-  const packedTx = await packTx(commandsBatch, chainTxBuilder, isProposal, isProposalApproved, proposalLifetime, proposalType, username);
+  const packedTx = await packTx(commandsBatch, chainTxBuilder, isProposal, isProposalApproved, proposalLifetime, proposalType, _id);
   const chainNodeClient = chainService.getChainNodeClient();
   const chainInfo = chainService.getChainInfo();
   let signedTx;

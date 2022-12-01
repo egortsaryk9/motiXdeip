@@ -10,7 +10,7 @@ class AlterDaoAuthorityCmd extends ProtocolCmd {
   /**
    * Create command for alteration DAO authority
    * @param {Object} cmdPayload
-   * @param {string} cmdPayload.entityId
+   * @param {string} cmdPayload._id
    * @param {Object} cmdPayload.authority
    * @param {Object} cmdPayload.authority.owner
    * @param {Array.<Object>} cmdPayload.authority.owner.auths
@@ -21,11 +21,11 @@ class AlterDaoAuthorityCmd extends ProtocolCmd {
    */
   constructor(cmdPayload) {
     const {
-      entityId,
+      _id,
       authority
     } = cmdPayload;
 
-    assert(!!entityId, "'entityId' is required");
+    assert(!!_id, "'_id' is required");
     assert(!!authority, "'authority' is required");
 
     super(APP_CMD.ALTER_DAO_AUTHORITY, cmdPayload);

@@ -10,7 +10,7 @@ class CreateNftItemCmd extends AppEntityCmd {
   /**
    * Command for NFT item creation
    * @param {Object} cmdPayload
-   * @param {string} cmdPayload.entityId
+   * @param {string} cmdPayload._id
    * @param {string} cmdPayload.nftCollectionId
    * @param {string} cmdPayload.ownerId
    * @param {string} cmdPayload.creatorId

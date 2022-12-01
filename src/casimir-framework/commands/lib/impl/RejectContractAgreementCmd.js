@@ -11,16 +11,16 @@ class RejectContractAgreementCmd extends ProtocolCmd {
   /**
    * Create command for contract agreement rejection
    * @param {Object} cmdPayload
-   * @param {string} cmdPayload.entityId
+   * @param {string} cmdPayload._id
    * @param {string} cmdPayload.party
    */
   constructor(cmdPayload) {
     const {
-      entityId,
+      _id,
       party
     } = cmdPayload;
 
-    assert(!!entityId, "'entityId' is required");
+    assert(!!_id, "'_id' is required");
     assert(!!party, "'party' is required");
 
     super(APP_CMD.REJECT_CONTRACT_AGREEMENT, cmdPayload);

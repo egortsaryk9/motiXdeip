@@ -9,14 +9,14 @@ class DeleteUserProfileCmd extends AppCmd {
   /**
    * Create command for user profile deletion
    * @param {Object} cmdPayload
-   * @param {string} cmdPayload.username
+   * @param {string} cmdPayload._id
    */
   constructor(cmdPayload) {
     const {
-      username
+      _id
     } = cmdPayload;
 
-    assert(!!username, "'username' is required");
+    assert(!!_id, "'_id' is required");
 
     super(APP_CMD.DELETE_USER_PROFILE, cmdPayload);
   }

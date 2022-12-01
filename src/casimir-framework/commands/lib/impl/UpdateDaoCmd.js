@@ -11,7 +11,7 @@ class UpdateDaoCmd extends ProtocolCmd {
   /**
    * Create command for DAO update
    * @param {Object} cmdPayload
-   * @param {string} cmdPayload.entityId
+   * @param {string} cmdPayload._id
    * @param {string} cmdPayload.description
    * @param {boolean} cmdPayload.isTeamAccount
    * @param {Array} cmdPayload.attributes
@@ -19,7 +19,7 @@ class UpdateDaoCmd extends ProtocolCmd {
   constructor(cmdPayload) {
     const {
       // onchain
-      entityId,
+      _id,
       description,
 
       // offchain
@@ -29,7 +29,7 @@ class UpdateDaoCmd extends ProtocolCmd {
     } = cmdPayload;
 
     assert(!!description, "'description' is required");
-    assert(!!entityId, "'entityId' is required");
+    assert(!!_id, "'_id' is required");
     assert(isBoolean(isTeamAccount), 'Account must belong to a team or user');
 
     super(APP_CMD.UPDATE_DAO, cmdPayload);

@@ -80,12 +80,12 @@ export class UserHttp {
   }
 
   /**
- * Get user by given username
- * @param {string} username
+ * Get user by given _id
+ * @param {string} _id
  * @return {Promise<Object>}
  */
-  async getOne(username) {
-    return this.http.get(`/api/v2/user/name/${username}`);
+  async getOne(_id) {
+    return this.http.get(`/api/v2/user/name/${_id}`);
   }
 
   /**

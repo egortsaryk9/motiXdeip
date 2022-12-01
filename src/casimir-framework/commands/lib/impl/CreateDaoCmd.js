@@ -10,7 +10,7 @@ class CreateDaoCmd extends ProtocolEntityCmd {
   /**
    * Create command for DAO creation
    * @param {Object} cmdPayload
-   * @param {string} cmdPayload.entityId
+   * @param {string} cmdPayload._id
    * @param {string} cmdPayload.creator
    * @param {Object} cmdPayload.authority
    * @param {Object} cmdPayload.authority.owner
@@ -26,7 +26,7 @@ class CreateDaoCmd extends ProtocolEntityCmd {
     const {
       // onchain
       // eslint-disable-next-line no-unused-vars
-      entityId,
+      _id,
       creator,
       authority,
       description,

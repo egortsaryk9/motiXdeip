@@ -1656,7 +1656,7 @@ export const awaitForStore = (store, getter) => new Promise((resolve) => {
 });
 
 /**
- * Watch current user username and dispatch actions on change
+ * Watch current user _id and dispatch actions on change
  * @param {Object} store
  * @param {string} getAction
  * @param {string} clearAction
@@ -1664,10 +1664,10 @@ export const awaitForStore = (store, getter) => new Promise((resolve) => {
 export const callForCurrentUser = (store, getAction, clearAction) => {
   store.dispatch(getAction);
 
-  store.watch((_, getters) => getters['auth/username'], (username) => {
-    if (username) {
+  store.watch((_, getters) => getters['auth/_id'], (_id) => {
+    if (_id) {
       store.dispatch(getAction);
-    } else if (!username && clearAction) {
+    } else if (!_id && clearAction) {
       store.dispatch(clearAction);
     }
   });

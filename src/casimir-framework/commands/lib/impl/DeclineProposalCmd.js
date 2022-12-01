@@ -10,18 +10,18 @@ class DeclineProposalCmd extends ProtocolCmd {
   /**
    * Create command for proposal rejection
    * @param {Object} cmdPayload
-   * @param {string} cmdPayload.entityId
+   * @param {string} cmdPayload._id
    * @param {string} cmdPayload.account
    */
   constructor(cmdPayload) {
     const {
       // onchain
-      entityId,
+      _id,
       account,
       batchWeight
     } = cmdPayload;
 
-    assert(!!entityId, "'entityId' is required");
+    assert(!!_id, "'_id' is required");
     assert(!!account, "'account' is required");
     assert(!!batchWeight || batchWeight === 0, "'batchWeight' is required");
 

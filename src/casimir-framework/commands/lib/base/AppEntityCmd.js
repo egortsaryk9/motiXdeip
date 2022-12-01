@@ -13,8 +13,8 @@ class AppEntityCmd extends AppCmd {
    */
   constructor(cmdNum, cmdPayload) {
     super(cmdNum, cmdPayload);
-    this._cmdPayload.entityId = cmdPayload.entityId
-      ? cmdPayload.entityId // Set
+    this._cmdPayload._id = cmdPayload._id
+      ? cmdPayload._id // Set
       : AppEntityCmd.GenerateEntityId(cmdPayload); // Auto-Generated
   }
 
@@ -22,7 +22,7 @@ class AppEntityCmd extends AppCmd {
    * Get entity id
    * @returns {string} entity id
    */
-  getEntityId() { return this._cmdPayload.entityId; }
+  getEntityId() { return this._cmdPayload._id; }
 
   /**
    * Generate entity id
@@ -30,11 +30,11 @@ class AppEntityCmd extends AppCmd {
    * @returns {string} entity id
    */
   static GenerateEntityId(payload) {
-    const entityId = genRipemd160Hash({
+    const _id = genRipemd160Hash({
       ...payload,
       __timestamp: new Date().getTime()
     }).slice(0, 24);
-    return entityId;
+    return _id;
   }
 }
 

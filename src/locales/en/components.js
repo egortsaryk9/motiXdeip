@@ -1,7 +1,7 @@
 export default {
   appBar: {
     createCollection: 'Create collection',
-    submitAsset: 'Submit creation',
+    submitAsset: 'Submit Creation',
     profile: 'Profile',
     account: 'Account',
     wallet: 'Account balance',
