@@ -21,7 +21,6 @@
 
         <div class="d-flex">
           <v-spacer />
-          <!-- <ve-stack flow="column" :gap="8"> -->
           <v-btn
             :disabled="loading || disabled"
             color="primary"
@@ -29,18 +28,17 @@
             class="mr-2"
             @click="handleCancelClick"
           >
-            {{ $t('module.nftItems.form.cancel') }}
+            {{ cancelLabel }}
           </v-btn>
+
           <v-btn
             type="submit"
             color="primary"
-            depressed
             :disabled="disabled || untouched || invalid"
             :loading="loading"
           >
             {{ submitLabelText }}
           </v-btn>
-          <!-- </ve-stack> -->
         </div>
       </ve-stack>
     </v-form>
@@ -56,7 +54,7 @@
 
 
   /**
-   * NFT item form component
+   * NFT item Form component
    */
   export default defineComponent({
     name: 'NftItemForm',
@@ -70,7 +68,7 @@
 
     props: {
       /**
-       * Cancel label
+       * The 'Cancel' button label
        *
        * @example 'Cancel'
        */
@@ -80,8 +78,9 @@
           return this.$t('module.nftItems.form.cancel');
         }
       },
+
       /**
-       * Submit label
+       * The 'Submit' button label
        *
        * @example 'Submit'
        */
@@ -91,8 +90,9 @@
           return null;
         }
       },
+
       /**
-       * NFT collection info
+       * NFT Collection info
        */
       nftCollectionId: {
         type: String,
@@ -100,7 +100,7 @@
       },
 
       /**
-       * Is moderation required
+       * Is moderation step required
        */
       isModerationRequired: {
         type: Boolean,
@@ -109,9 +109,12 @@
     },
 
     computed: {
-      isEditMode() { return this.mode === ViewMode.EDIT; },
+      isEditMode() { 
+        return this.mode === ViewMode.EDIT; 
+      },
+
       /**
-       * Get computed submit label
+       * Get computed label for the 'Submit' button
        */
       submitLabelText() {
         if (this.submitLabel) {
@@ -124,10 +127,12 @@
     },
 
     methods: {
+
       /**
-       * Triggers when user submits form
+       * Triggers when the form is submitted
        *
-       * @event submit
+       * @event success
+       * @event error
        */
       async onSubmit() {
         this.loading = true;
@@ -144,36 +149,35 @@
       /**
        * Create NFT Item
        *
-       * @param {Object} data
+       * @event success
+       * @event error
        */
       async createNftItem() {
         try {
-
-          const status = this.isModerationRequired
-            ? NftItemMetadataDraftStatus.PROPOSED
-            : NftItemMetadataDraftStatus.APPROVED;
-
           const payload = {
             initiator: this.$currentUser,
             data: {
               nftCollectionId: this.nftCollectionId,
               ownerId: this.$currentUser._id,
               creatorId: this.$currentUser._id,
-              status,
+              status: this.isModerationRequired
+                ? NftItemMetadataDraftStatus.PROPOSED
+                : NftItemMetadataDraftStatus.APPROVED,
               ...this.lazyFormData
             }
           };
-
           const { _id } = await this.$store.dispatch('nftItems/create', payload);
           this.emitSuccess(_id);
         } catch (err) {
           this.emitError(err);
         }
       },
+
       /**
        * Update NFT Item
        *
-       * @param {Object} data
+       * @event success
+       * @event error
        */
       async updateNftItem() {
         try {
@@ -181,7 +185,6 @@
             initiator: this.$currentUser,
             data: this.lazyFormData
           };
-          
           const { _id } = await this.$store.dispatch('nftItems/update', payload);
           this.emitSuccess(_id);
         } catch (err) {
@@ -189,32 +192,37 @@
         }
       },
 
+      /**
+       * Triggers when submission is succeeded
+       * 
+       * @param {string} _id
+       * @event success
+       */
       emitSuccess(_id) {
-        /**
-         * Success when succeeded
-         */
         this.$emit('success', _id);
       },
 
+      /**
+       * Triggers when submission is failed
+       * 
+       * @param {Error} err
+       * @event error
+       */
       emitError(err) {
-        /**
-         * Triggers when error occurs
-         *
-         * @property {Error} err
-         */
         this.$emit('error', err);
       },
 
+      /**
+       * Triggers when the 'Cancel' button is clicked
+       * 
+       * @event cancel
+       */
       emitCancel() {
-        /**
-         * Triggers by clicking on cancel button
-         */
         this.$emit('cancel');
       },
+
       /**
-       * Handle cancel click
-       *
-       * @event click
+       * Handle cancelation
        */
       handleCancelClick() {
         this.emitCancel();

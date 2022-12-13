@@ -5,8 +5,6 @@
     @success="onSuccess"
     @error="onError"
   />
-  <!-- <div>ADMIN LAYOUTS FORM</div> -->
-
 </template>
 
 <script>

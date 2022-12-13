@@ -5,6 +5,10 @@ export default {
         cancel: 'Cancel',
         create: 'Create',
         update: 'Update'
+      },
+      list: {
+        id: 'ID',
+        email: 'Email'
       }
     }
   }

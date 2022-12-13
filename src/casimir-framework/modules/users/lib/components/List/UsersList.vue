@@ -1,11 +1,11 @@
 <template>
-  <nft-collections-data-provider
+  <users-data-provider
     v-bind="providerProps"
   >
-    <template #default="{nftCollections, loading}">
+    <template #default="{users, loading}">
       <v-data-table
         :headers="tableHeaders"
-        :items="nftCollections"
+        :items="users"
         :loading="loading"
         disable-sort
         disable-pagination
@@ -15,6 +15,10 @@
 
         <template #item.id="{item}">
           <span>{{ item._id }}</span>
+        </template>
+
+        <template #item.email="{item}">
+          <span>{{ item.email }}</span>
         </template>
 
         <template #item.actions="{item}">
@@ -34,7 +38,6 @@
           </vex-tooltip>
 
           <vex-tooltip
-            v-if="isOwner(item)"
             :tooltip="$t('module.nftCollections.list.edit')"
             bottom
           >
@@ -51,37 +54,40 @@
         </template>
       </v-data-table>
     </template>
-  </nft-collections-data-provider>
+  </users-data-provider>
 </template>
 
 <script>
   import { defineComponent } from '@/casimir-framework/all';
   import { getBindableProps } from '@/casimir-framework/plugins/VuetifyExtended/lib/composables/props';
   import { VexTooltip } from '@/casimir-framework/plugins/VuetifyExtended';
-  import NftCollectionsDataProvider from '../DataProvider';
+  import UsersDataProvider from '../DataProvider';
 
   /**
-   * NFT items list component
+   * Users list component
    */
   export default defineComponent({
-    name: 'NftCollectionsList',
+    name: 'UsersList',
 
     components: {
-      NftCollectionsDataProvider,
+      UsersDataProvider,
       VexTooltip
     },
 
     props: {
-      ...NftCollectionsDataProvider.options.props
+      ...UsersDataProvider.options.props
     },
 
     data() {
       return {
         tableHeaders: [
           {
-            text: this.$t('module.nftCollections.list.id'),
-            value: 'actions',
+            text: this.$t('module.users.list.id'),
             value: 'id',
+          },
+          {
+            text: this.$t('module.users.list.email'),
+            value: 'email',
           },
           {
             value: 'actions',
@@ -96,45 +102,38 @@
        * Get computed provider properties
        */
       providerProps() {
-        return getBindableProps.call(this, NftCollectionsDataProvider.options.props);
+        return getBindableProps.call(this, UsersDataProvider.options.props);
       }
     },
 
     methods: {
-      /**
-       * Check if current user is NFT Collection ownerId
-       *
-       * @param {Object} nftCollection
-       */
-      isOwner(nftCollection) {
-        return nftCollection.ownerId === this.$currentUser._id;
-      },
 
-      handleEditClick(nftCollection) {
+      handleEditClick(user) {
         /**
          * Triggers when user clicks the edit button
          *
-         * @property {Object} nftCollection
+         * @property {Object} user
          */
-        this.$emit('click-edit', nftCollection);
+        this.$emit('click-edit', user);
       },
 
-      handleViewClick(nftCollection) {
+      handleViewClick(user) {
+        debugger
         /**
          * Triggers when user clicks the view button
          *
          * @property {Object} nftCollection
          */
-        this.$emit('click-view', nftCollection);
+        this.$emit('click-view', user);
       },
 
-      handleRowClick(nftCollection) {
+      handleRowClick(user) {
         /**
          * Triggers when user clicks the row
          *
-         * @property {Object} nftCollection
+         * @property {Object} user
          */
-        this.$emit('click-row', nftCollection);
+        this.$emit('click-row', user);
       }
       
     }

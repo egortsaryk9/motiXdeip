@@ -10,7 +10,7 @@
 </template>
 
 <script>
-  import { AdminNavigationMenu } from '@/modules/admin/components/view/AdminNavigationMenu';
+  import { AdminNavigationMenu } from '@/modules/admin/components/View/AdminNavigationMenu';
 
   export default {
     name: 'AdminNavigation',
@@ -23,6 +23,11 @@
               icon: 'mdi-folder-multiple-outline',
               title: this.$t('components.navigation.collections'),
               to: { name: 'admin.collections' }
+            },
+            {
+              icon: 'mdi-account-multiple',
+              title: this.$t('components.navigation.users'),
+              to: { name: 'admin.users' }
             },
             {
               icon: 'mdi-puzzle-outline',

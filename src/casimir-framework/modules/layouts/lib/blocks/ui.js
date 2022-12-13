@@ -11,7 +11,7 @@ const {
 } = defaultLayoutComponents;
 
 export const uiBlocks = {
-  title: 'Ui elements',
+  title: 'UI elements',
   blocks: blocksGenerator([
     {
       component: VDivider,

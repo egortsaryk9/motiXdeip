@@ -14,7 +14,6 @@
         <vex-section-title
           :title="$t('admin.layouts.settings')"
         />
-        {{ $layouts.getMappedData('user.details') }}
         <layouts-mappings
           v-if="Object.keys(settings).length"
           :value="settings"

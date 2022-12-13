@@ -18,13 +18,6 @@ const GETTERS = {
 };
 
 const ACTIONS = {
-  getList({ dispatch }, payload = {}) {
-    const {
-      filter
-    } = payload;
-
-    return dispatch('getList', filter);
-  },
 
   async getList({ commit }, filter = {}) {
     const res = await nonFungibleTokenService.getNftCollections(filter);
@@ -47,6 +40,7 @@ const ACTIONS = {
     dispatch('getOne', res.data._id);
     return res.data;
   }
+  
 };
 
 const MUTATIONS = {

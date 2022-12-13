@@ -1,11 +1,20 @@
 export default {
   users: {
     title: 'Members',
-    user: {
+    member: {
       name: 'Name',
-      created: 'Member since',
-      id: 'ID',
-      email: 'Email'
+    },
+    form: {
+      new: 'Add User',
+      create: 'Create User',
+      update: 'Edit User',
+      successCreate: 'User has been created successfully',
+      successUpdate: 'User has been updated successfully',
+      errorCreate: 'An error occurred while creating User, please try again later',
+      errorUpdate: 'An error occurred while updating User, please try again later'
+    },
+    details: {
+      title: 'User Details'
     }
   },
   collections: {
@@ -14,16 +23,16 @@ export default {
       name: 'Name',
     },
     form: {
-      new: 'New Collection',
+      new: 'Add Collection',
       create: 'Create NFT Collection',
       update: 'Edit NFT Collection',
       successCreate: 'NFT Collection has been created successfully',
       successUpdate: 'NFT Collection has been updated successfully',
       errorCreate: 'An error occurred while creating NFT Collection, please try again later',
-      errorUpdate: 'An error occurred while updated NFT Collection, please try again later'
+      errorUpdate: 'An error occurred while updating NFT Collection, please try again later'
     },
     details: {
-      title: 'NFT Collection details'
+      title: 'NFT Collection Details'
     },
     settings: {
       settings: 'Settings',

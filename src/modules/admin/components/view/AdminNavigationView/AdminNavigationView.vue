@@ -9,7 +9,7 @@
   import { routerView } from '@/casimir-framework/all';
 
 
-  import { AdminNavigation } from '@/modules/admin/components/view/AdminNavigation';
+  import { AdminNavigation } from '@/modules/admin/components/View/AdminNavigation';
 
   export default {
     name: 'AdminNavigationView',

@@ -1,11 +1,11 @@
 export * from './lib/usersModule';
 
-export { UsersDataProvider } from './lib/components/UsersDataProvider';
-export { UsersSelector } from './lib/components/UsersSelector';
-export { UsersList } from './lib/components/UsersList';
-export { UsersListStack } from './lib/components/UsersListStack';
-export { UserForm } from './lib/components/UserForm';
-export { UserDetails } from './lib/components/UserDetails';
-export { UserAvatar } from './lib/components/UserAvatar';
+export { UsersDataProvider } from './lib/components/DataProvider';
+export { UsersSelector } from './lib/components/Selector';
+export { UsersList } from './lib/components/List';
+export { UsersListStack } from './lib/components/ListStack';
+export { UserForm } from './lib/components/Form';
+export { UserDetails } from './lib/components/Details';
+export { UserAvatar } from './lib/components/Avatar';
 
 export * from './lib/mixins';

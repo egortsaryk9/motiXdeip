@@ -13,6 +13,7 @@ export default {
     attributes: 'Attributes',
     layouts: 'Layouts',
     collections: 'Collections',
+    users: 'Users'
   },
   assetCard: {
     created: 'Created',

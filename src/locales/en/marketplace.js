@@ -9,7 +9,7 @@ export default {
       noNftCollection: 'User can\'t submit assets without the collection'
     },
     formCreateTitle: 'Submit Creation',
-    formUpdateTitle: 'Update Creation',
+    formUpdateTitle: 'Edit Creation',
     successCreate: "The asset has been created successfully",
     successUpdate: "The asset has been updated successfully",
     errorCreate: "An error occurred, while creating the asset, please try again later",

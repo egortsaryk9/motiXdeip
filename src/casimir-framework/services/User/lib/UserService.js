@@ -13,7 +13,6 @@ import {
   genSha256Hash,
   makeSingletonInstance
 } from '@/casimir-framework/all';
-// import { APP_EVENT } from '@/casimir-framework/all';
 // import { walletSignTx } from '@casimir.one/platform-util';
 import { UserHttp } from './UserHttp';
 

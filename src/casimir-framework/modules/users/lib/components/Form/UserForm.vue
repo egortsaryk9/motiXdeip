@@ -1,5 +1,5 @@
 <template>
-  <validation-observer
+  <validation-observer 
     v-slot="{ handleSubmit, invalid }"
     ref="observer"
     tag="div"
@@ -21,7 +21,6 @@
 
         <div class="d-flex">
           <v-spacer />
-          <!-- <ve-stack flow="column" :gap="8"> -->
           <v-btn
             :disabled="loading || disabled"
             color="primary"
@@ -40,7 +39,6 @@
           >
             {{ submitLabelText }}
           </v-btn>
-          <!-- </ve-stack> -->
         </div>
       </ve-stack>
     </v-form>
@@ -54,19 +52,18 @@
   import { defineComponent } from '@/casimir-framework/all';
   import { ViewMode } from '@/casimir-framework/vars';
 
-
   /**
-   * NFT Collection Form component
+   * User Form component
    */
   export default defineComponent({
-    name: 'NftCollectionForm',
+    name: 'UserForm',
 
     components: {
       VeStack,
-      LayoutRenderer
+      LayoutRenderer,
     },
 
-    mixins: [attributedFormFactory('nftCollection', 'nftCollection')],
+    mixins: [attributedFormFactory('user', 'user')],
 
     props: {
       /**
@@ -77,7 +74,7 @@
       cancelLabel: {
         type: String,
         default() {
-          return this.$t('module.nftCollections.form.cancel');
+          return this.$t('module.users.form.cancel');
         }
       },
 
@@ -91,7 +88,7 @@
         default() {
           return null;
         }
-      }
+      },
     },
 
     computed: {
@@ -107,8 +104,8 @@
           return this.submitLabel;
         }
         return this.isEditMode
-          ? this.$t('module.nftCollections.form.update')
-          : this.$t('module.nftCollections.form.create');
+          ? this.$t('module.users.form.update')
+          : this.$t('module.users.form.create');
       }
     },
 
@@ -122,32 +119,36 @@
        */
       async onSubmit() {
         this.loading = true;
-        
-        if (!this.isEditMode) {
-          await this.createNftCollection();
-        } else {
-          await this.updateNftCollection();
-        }
 
+       if (!this.isEditMode) {
+          await this.createUser();
+        } else {
+          await this.updateUser();
+        }
+        
         this.loading = false;
       },
 
       /**
-       * Create NFT Collection
-       * 
+       * Create User
+       *
        * @event success
        * @event error
        */
-      async createNftCollection() {
+      async createUser() {
         try {
+          debugger;
+          const { attributes } = this.lazyFormData;
+          const email = this.$attributes.getMappedData('user.email', attributes)?.value;
+          if (!email) {
+            throw new Error("attribute mapping for 'user.email' is not defined, or 'email' value is not specified");
+          }
+          debugger;
           const payload = {
             initiator: this.$currentUser,
-            data: {
-              ownerId: this.$currentUser._id,
-              ...this.lazyFormData
-            }
+            data: { ...this.lazyFormData, email, pubKey: "tmp" }
           };
-          const { _id } = await this.$store.dispatch('nftCollections/create', payload);
+          const { _id } = await this.$store.dispatch('users/create', payload);
           this.emitSuccess(_id);
         } catch (err) {
           this.emitError(err);
@@ -155,18 +156,23 @@
       },
 
       /**
-       * Update NFT Collection
+       * Update User
        * 
        * @event success
        * @event error
        */
-      async updateNftCollection() {
+      async updateUser() {
         try {
+          const { attributes } = this.lazyFormData;
+          const email = this.$attributes.getMappedData('user.email', attributes)?.value;
+          if (!email) {
+            throw new Error("attribute mapping for 'user.email' is not defined, or 'email' value is not specified");
+          }
           const payload = {
             initiator: this.$currentUser,
-            data: this.lazyFormData
+            data: { ...this.lazyFormData, email, pubKey: "tmp" }
           };
-          const { _id } = await this.$store.dispatch('nftCollections/update', payload);
+          const { _id } = await this.$store.dispatch('users/update', payload);
           this.emitSuccess(_id);
         } catch (err) {
           this.emitError(err);
@@ -175,7 +181,7 @@
 
       /**
        * Triggers when submission is succeeded
-       *
+       * 
        * @param {string} _id
        * @event success
        */
@@ -185,16 +191,16 @@
 
       /**
        * Triggers when submission is failed
-       *
+       * 
        * @param {Error} err
        * @event error
        */
       emitError(err) {
         this.$emit('error', err);
       },
-
+      
       /**
-       * Triggers when 'Cancel' button is clicked
+       * Triggers when the 'Cancel' button is clicked
        * 
        * @event cancel
        */
@@ -204,7 +210,6 @@
 
       /**
        * Handle cancelation
-       *
        */
       handleCancelClick() {
         this.emitCancel();

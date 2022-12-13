@@ -2,14 +2,14 @@
   <vex-section>
     <ve-stack>
       <vex-section-title
-        title="Creation Details"
+        title="User Details"
       >
-        <template v-if="isEditAvailable" #append>
+        <template #append>
           <m-btn
             small
             kind="primary"
             outlined
-            :to="{ name: 'asset.edit', nftItemId: assetId }"
+            :to="{ name: 'admin.users.edit', userId: userId }"
           >
             <v-icon left>
               mdi-pencil
@@ -19,28 +19,27 @@
         </template>
       </vex-section-title>
 
-      <nft-item-details
-        :nft-item="nftItem"
+      <user-details 
+        :user="user"
         :schema="schema"
       />
+
     </ve-stack>
   </vex-section>
 </template>
 
-
 <script>
+
   import { VexSection, VexSectionTitle } from '@/casimir-framework/plugins/VuetifyExtended';
   import { VeStack } from '@/casimir-framework/vue-elements';
   import { MBtn } from '@/components';
-  import { NftItemDetails } from '@/casimir-framework/modules/nft-items';
-
+  import { UserDetails } from '@/casimir-framework/modules/users';
 
   export default {
-    name: 'AssetsDetailsPage',
+    name: 'AdminUserDetails',
 
     components: {
-      NftItemDetails,
-
+      UserDetails,
       MBtn,
       VexSection,
       VexSectionTitle,
@@ -48,7 +47,7 @@
     },
 
     props: {
-      assetId: {
+      userId: {
         type: String,
         default: null
       },
@@ -57,24 +56,24 @@
     computed: {
 
       schema() {
-        return this.$layouts.getMappedData('nftItem.details')?.value;
+        return this.$layouts.getMappedData('user.details')?.value;
       },
 
-      nftItem() {
-        return this.$store.getters['nftItems/one'](this.assetId);
+      user() {
+        return this.$store.getters['users/one'](this.userId);
       },
 
       isEditAvailable() {
-        return this.nftItem && this.nftItem.creatorId === this.$currentUser._id;
+        return this.user && this.user.creatorId === this.$currentUser._id;
       }
 
     },
 
     methods: {
 
-      async getNftItem() {
+      async getUser() {
         try {
-          await this.$store.dispatch('nftItems/getOne', this.assetId);
+          await this.$store.dispatch('users/getOne', this.userId);
         } catch (err) {
           console.error(err);
         }
@@ -82,7 +81,7 @@
     },
 
     async created() {
-      await this.getNftItem();
+      await this.getUser();
     },
 
   };

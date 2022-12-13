@@ -1,19 +1,23 @@
 import { SYSTEM_ROLE, ViewMode } from '@/casimir-framework/vars';
 
-import { AdminNftCollections } from '@/modules/admin/components/collections/AdminNftCollections';
-import { AdminNftCollectionsForm } from '@/modules/admin/components/collections/AdminNftCollectionsForm';
-import { AdminNftCollectionDetails } from '@/modules/admin/components/collections/AdminNftCollectionDetails';
-import { AdminNftCollectionsSettings } from '@/modules/admin/components/collections/AdminNftCollectionsSettings';
+import { AdminNavigationView } from '@/modules/admin/components/View/AdminNavigationView';
 
-import { AdminAttributes } from '@/modules/admin/components/attributes/AdminAttributes';
-import { AdminAttributesForm } from '@/modules/admin/components/attributes/AdminAttributesForm';
-import { AdminAttributesSettings } from '@/modules/admin/components/attributes/AdminAttributesSettings';
+import { AdminUsers } from '@/modules/admin/components/Users/AdminUsers';
+import { AdminUserForm } from '@/modules/admin/components/Users/AdminUserForm';
+import { AdminUserDetails } from '@/modules/admin/components/Users/AdminUserDetails';
 
-import { AdminLayouts } from '@/modules/admin/components/layouts/AdminLayouts';
-import { AdminLayoutsForm } from '@/modules/admin/components/layouts/AdminLayoutsForm';
-import { AdminLayoutsSettings } from '@/modules/admin/components/layouts/AdminLayoutsSettings';
+import { AdminNftCollections } from '@/modules/admin/components/Collections/AdminNftCollections';
+import { AdminNftCollectionsForm } from '@/modules/admin/components/Collections/AdminNftCollectionsForm';
+import { AdminNftCollectionDetails } from '@/modules/admin/components/Collections/AdminNftCollectionDetails';
+import { AdminNftCollectionsSettings } from '@/modules/admin/components/Collections/AdminNftCollectionsSettings';
 
-import { AdminNavigationView } from '@/modules/admin/components/view/AdminNavigationView';
+import { AdminAttributes } from '@/modules/admin/components/Attributes/AdminAttributes';
+import { AdminAttributesForm } from '@/modules/admin/components/Attributes/AdminAttributesForm';
+import { AdminAttributesSettings } from '@/modules/admin/components/Attributes/AdminAttributesSettings';
+
+import { AdminLayouts } from '@/modules/admin/components/Layouts/AdminLayouts';
+import { AdminLayoutsForm } from '@/modules/admin/components/Layouts/AdminLayoutsForm';
+import { AdminLayoutsSettings } from '@/modules/admin/components/Layouts/AdminLayoutsSettings';
 
 const formViewMeta = (
   auth = [SYSTEM_ROLE.ADMIN]
@@ -83,6 +87,47 @@ export const adminRouter = [
               mode: ViewMode.EDIT
             })
           },
+        ]
+      },
+      {
+        path: 'users',
+        component: { template: '<div><router-view name="dialog"/><router-view /></div>' },
+        meta: { auth: [SYSTEM_ROLE.ADMIN] },
+        children: [
+          {
+            name: 'admin.users',
+            path: '',
+            component: AdminUsers,
+            meta: { auth: [SYSTEM_ROLE.ADMIN] }
+          },
+          {
+            name: 'admin.users.create',
+            path: 'create',
+            component: AdminUserForm,
+            meta: { auth: [SYSTEM_ROLE.ADMIN] },
+            props: (route) => ({
+              mode: ViewMode.CREATE
+            }),
+          },
+          {
+            name: 'admin.users.edit',
+            path: ':userId/edit',
+            component: AdminUserForm,
+            meta: { auth: [SYSTEM_ROLE.ADMIN] },
+            props: (route) => ({
+              userId: route.params.userId,
+              mode: ViewMode.EDIT
+            }),
+          },
+          {
+            name: 'admin.users.details',
+            path: ':userId/details',
+            component: AdminUserDetails,
+            meta: { auth: [SYSTEM_ROLE.ADMIN], viewSetup: { sideBar: { isVisible: false } } },
+            props: (route) => ({
+              userId: route.params.userId,
+            })
+          }
         ]
       },
       {

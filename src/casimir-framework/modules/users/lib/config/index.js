@@ -3,6 +3,11 @@ export const userScope = {
   label: 'User',
   mappedKeys: {
     attributes: [
+      { 
+        key: 'email', 
+        label: 'Email', 
+        allowedTypes: ['text'] 
+      },
       {
         key: 'avatar',
         label: 'User avatar/photo',

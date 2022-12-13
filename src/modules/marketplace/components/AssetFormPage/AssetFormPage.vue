@@ -4,14 +4,11 @@
       <vex-section-title
         title="Lisbon, I love you"
       />
-        <!-- <asset-form
-          :nft-collection-id="activeNftCollection?._id"
-          :mode="mode"
-          @success="handleCreateSuccess"
-        /> -->
-
       <v-sheet>
-        <vex-section max-width="800" class="mx-auto pa-0">
+        <vex-section 
+          max-width="800" 
+          class="mx-auto pa-0"
+        >
           <ve-stack :gap="32">
             <vex-section-title :title="isEditMode 
               ? $t('marketplace.createAsset.formUpdateTitle')
@@ -37,9 +34,7 @@
 </template>
 
 <script>
-  // import { VexSection, VexSectionTitle } from '@/casimir-framework/plugins/VuetifyExtended';
-  // import { VeStack } from '@/casimir-framework/vue-elements';
-  // import AssetForm from './AssetForm';
+
   import { NftItemForm } from '@/casimir-framework/modules/nft-items';
   import { ViewMode } from '@/casimir-framework/vars';
   import { awaitForStore } from '@/casimir-framework/all';
@@ -52,7 +47,6 @@
     name: 'AssetForm',
 
     components: {
-      // AssetForm,
       NftItemForm,
       VexSection,
       VexSectionTitle,
@@ -60,28 +54,35 @@
     },
 
     props: {
-      ...filterObjectKeys(formMixin.props, ['mode']),
+
       assetId: {
         type: String,
         required: false
       },
+
+      ...filterObjectKeys(formMixin.props, ['mode']),
+      
     },
 
     computed: {
       isEditMode() { 
         return this.mode === ViewMode.EDIT; 
       },
+
+      schema() {
+        return this.$layouts.getMappedData('nftItem.form')?.value;
+      },
+      
       nftItem() {
         return this.isEditMode 
           ? this.$store.getters['nftItems/one'](this.assetId)
           : null;
       },
+
       nftCollection() {
         return this.$store.getters.activeNftCollection;
       },
-      schema() {
-        return this.$layouts.getMappedData('nftItem.form')?.value;
-      },
+
       isModerationRequired() {
         return this.$store.getters['isModerationRequired'];
       },
@@ -114,7 +115,7 @@
       },
 
       handleCancel() {
-        this.$router.back()
+        this.$router.back();
       }
 
     },

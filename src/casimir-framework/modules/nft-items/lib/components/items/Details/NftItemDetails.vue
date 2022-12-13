@@ -25,6 +25,7 @@
       VexBlock,
       LayoutRenderer
     },
+
     mixins: [
       attributedDetailsFactory('nftItem')
     ],
@@ -43,6 +44,7 @@
           ...this.schemaData
         };
       }
+      
     }
   });
 </script>

@@ -186,6 +186,7 @@ export const APP_CMD = createEnum({
   IMPORT_DAO: 56,
 
   CREATE_USER: 57,
+  UPDATE_USER: 58
 });
 
 export const APP_PROPOSAL = createEnum({
@@ -274,7 +275,8 @@ export const APP_EVENT = createEnum({
   USER_PROFILE_DELETED: 180,
   USER_AUTHORITY_ALTERED: 181,
 
-  USER_CREATED: 182
+  USER_CREATED: 182,
+  USER_UPDATED: 183
 });
 
 

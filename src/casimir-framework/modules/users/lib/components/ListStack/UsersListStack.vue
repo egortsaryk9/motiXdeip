@@ -45,7 +45,7 @@
   import { defineComponent } from '@/casimir-framework/all';
 
   import { userHelpersMixin } from '../../mixins';
-  import { UserAvatar } from '../UserAvatar';
+  import { UserAvatar } from '../Avatar';
 
   export default defineComponent({
     name: 'UsersListStack',

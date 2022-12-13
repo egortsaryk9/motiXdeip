@@ -5,6 +5,7 @@ import components from './components';
 import marketplace from './marketplace';
 import moderation from './moderation';
 import common from './common';
+import userProfile from './userProfile';
 
 export default {
   $vuetify: en,
@@ -13,5 +14,6 @@ export default {
   marketplace,
   components,
   moderation,
-  common
+  common,
+  userProfile
 };

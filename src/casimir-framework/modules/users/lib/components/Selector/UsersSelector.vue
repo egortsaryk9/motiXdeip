@@ -91,8 +91,8 @@
   import { VexAutocomplete } from '@/casimir-framework/plugins/VuetifyExtended';
   import { defineComponent } from '@/casimir-framework/all';
 
-  import { UsersDataProvider } from '../UsersDataProvider';
-  import { UserAvatar } from '../UserAvatar';
+  import { UsersDataProvider } from '../DataProvider';
+  import { UserAvatar } from '../Avatar';
   import { userHelpersMixin } from '../../mixins';
 
   export default defineComponent({

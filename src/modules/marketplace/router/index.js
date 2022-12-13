@@ -34,10 +34,10 @@ export const marketplaceRouter = [
         }),
       },
       {
-        name: 'asset.edit', // Test
+        name: 'asset.edit',
         path: 'asset/edit/:assetId',
         component: AssetFormPage,
-        meta: { auth: [SYSTEM_ROLE.ADMIN] },
+        meta: { auth: [SYSTEM_ROLE.ANY] },
         props: (route) => ({
           assetId: route.params.assetId,
           mode: ViewMode.EDIT

@@ -14,7 +14,7 @@ import { ScopesModule } from '@/casimir-framework/modules/scopes';
 import { AttributesModule } from '@/casimir-framework/modules/attributes';
 import { LayoutsModule } from '@/casimir-framework/modules/layouts';
 import { AuthModule } from '@/casimir-framework/modules/auth';
-// import { UsersModule } from '@casimir.one/users-module';
+import { UsersModule } from '@/casimir-framework/modules/users';
 // import { TeamsModule } from '@casimir.one/teams-module';
 import { NftCollectionsModule } from '@/casimir-framework/modules/nft-collections';
 import { NftItemsModule } from '@/casimir-framework/modules/nft-items';
@@ -51,6 +51,7 @@ const nftMarketplaceApp = new CreateApp(Vue, {
   router,
   store
 });
+
 
 // const usersModuleOptions = {
 //   attributesMappedKeys: [
@@ -92,7 +93,7 @@ nftMarketplaceApp
   .addModule(AttributesModule)
   .addModule(LayoutsModule, layoutsModuleOptions)
   .addModule(AuthModule)
-  // .addModule(UsersModule, usersModuleOptions)
+  .addModule(UsersModule, /* usersModuleOptions */)
   // .addModule(TeamsModule)
   .addModule(NftCollectionsModule, nftCollectionsModuleOptions)
   .addModule(NftItemsModule, nftItemsModuleOptions)

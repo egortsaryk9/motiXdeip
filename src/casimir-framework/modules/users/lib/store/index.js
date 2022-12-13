@@ -1,12 +1,10 @@
 import { UserService } from '@/casimir-framework/services/User';
-import { USER_PROFILE_STATUS } from '@/casimir-framework/vars';
 import {
   listGetter,
   oneGetter,
   setListMutation,
   setOneMutation
 } from '@/casimir-framework/all';
-import { hasValue } from '@/casimir-framework/all';
 
 const userService = UserService.getInstance();
 
@@ -21,44 +19,10 @@ const GETTERS = {
 
 const ACTIONS = {
 
-  getList({ dispatch }, payload = {}) {
-    const methods = {
-      users: 'getListByIds',
-      teamId: 'getListByTeam',
-      portalId: 'getListByPortal',
-      status: 'getListByStatus'
-    };
-
-    for (const key of Object.keys(methods)) {
-      if (hasValue(payload[key])) {
-        return dispatch(methods[key], payload);
-      }
-    }
-
-    return dispatch(methods.status, payload);
-  },
-
-  async getListByIds({ commit }, { users }) {
-    const res = await userService.getListByIds(users);
+  async getList({ commit }, filter = {}) {
+    const res = await userService.getList(filter);
     commit('setList', res.data.items);
   },
-
-  async getListByTeam({ commit }, { teamId }) {
-    const res = await userService.getListByTeam(teamId);
-    commit('setList', res.data.items);
-  },
-
-  async getListByPortal({ commit }, { portalId }) {
-    const res = await userService.getListByPortal(portalId);
-    commit('setList', res.data.items);
-  },
-
-  async getListByStatus({ commit }, { status = USER_PROFILE_STATUS.APPROVED }) {
-    const res = await userService.getList({ status });
-    commit('setList', res.data.items);
-  },
-
-  // one
 
   async getOne({ commit }, id) {
     const res = await userService.getOne(id);
@@ -66,21 +30,21 @@ const ACTIONS = {
   },
 
   async create({ dispatch, rootGetters }, payload) {
-    const { _id } = payload;
-    await userService.create(payload);
-    dispatch('getOne', _id);
+    const res = await userService.create(payload);
+    const { _id } = res.data;
     if (rootGetters['auth/_id'] === _id) {
       dispatch('currentUser/get', _id, { root: true });
     }
+    return res.data;
   },
 
   async update({ dispatch, rootGetters }, payload) {
-    const { _id } = payload;
-    await userService.update(payload);
-    dispatch('getOne', _id);
+    const res = await userService.update(payload);
+    const { _id } = res.data;
     if (rootGetters['auth/_id'] === _id) {
       dispatch('currentUser/get', _id, { root: true });
     }
+    return res.data;
   },
 
 };

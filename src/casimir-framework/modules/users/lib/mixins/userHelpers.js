@@ -7,6 +7,16 @@ export const userHelpersMixin = {
      * @param {Object} user
      * @returns {null | string}
      */
+    $$userEmail(user) {
+      if (!user || isEmpty(user)) return null;
+      const email = this.$attributes.getMappedData('user.email', user.attributes)?.value;
+      return email || null;
+    },
+    /**
+     *
+     * @param {Object} user
+     * @returns {null | string}
+     */
     $$userFullName(user) {
       if (!user || isEmpty(user)) return null;
 

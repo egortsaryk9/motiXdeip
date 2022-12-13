@@ -11,7 +11,10 @@
 
     <vex-section max-width="800" class="mx-auto pa-0">
       <ve-stack :gap="32">
-        <vex-section-title :title="title" />
+        <vex-section-title :title="!isEditMode 
+          ? $t('admin.collections.form.create')
+          : $t('admin.collections.form.update')" 
+        />
 
         <nft-collection-form
           :nft-collection="nftCollection"
@@ -19,6 +22,7 @@
           :mode="mode"
           @success="handleSuccess"
           @error="handleError"
+          @cancel="handleCancel"
         />
       </ve-stack>
     </vex-section>
@@ -44,6 +48,7 @@
     },
 
     props: {
+
       nftCollectionId: {
         type: String,
         required: false
@@ -53,12 +58,9 @@
     },
 
     computed: {
-      isEditMode() { return this.mode === ViewMode.EDIT; },
 
-      title() {
-        return !this.isEditMode
-          ? this.$t('admin.collections.form.create')
-          : this.$t('admin.collections.form.update');
+      isEditMode() { 
+        return this.mode === ViewMode.EDIT; 
       },
 
       schema() {
@@ -70,9 +72,11 @@
           ? this.$store.getters['nftCollections/one'](this.nftCollectionId)
           : null;
       }
+      
     },
 
     methods: {
+
       handleSuccess() {
         const messageKey = !this.isEditMode
           ? 'successCreate'
@@ -96,6 +100,11 @@
           name: 'admin.collections',
         });
       },
+
+      handleCancel() {
+        this.$router.back();
+      }
+
     }
   };
 </script>
