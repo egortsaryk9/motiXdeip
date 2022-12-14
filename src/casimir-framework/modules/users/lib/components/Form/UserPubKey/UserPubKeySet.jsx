@@ -9,7 +9,7 @@ import { isEqual, cloneDeep } from 'lodash';
 
 
 export default defineComponent({
-  name: 'UserEmailSet',
+  name: 'UserPubKeySet',
 
   model: {
     prop: 'value',
@@ -30,7 +30,7 @@ export default defineComponent({
   data() {
     return {
       lazyValue: undefined,
-      validationRules: 'required|email'
+      validationRules: 'required|pubKey'
     };
   },
 
@@ -82,7 +82,7 @@ export default defineComponent({
       default: ({ errors }) => {
         return <VTextField
           vModel={this.internalValue}
-          label={'Email'}
+          label={'ECDSA Public Key'}
           errorMessages={errors}
       />
       }
@@ -90,7 +90,7 @@ export default defineComponent({
 
     return (
       <ValidationProvider
-        name={'Email'}
+        name={'ECDSA Public Key'}
         rules={this.validationRules}
         scopedSlots={scopedSlots}
         tag="div"

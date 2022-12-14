@@ -10,3 +10,4 @@ export { dateBefore } from './dateBefore';
 export { dateAfterNow } from './dateAfterNow';
 export { dateBetween } from './dateBetween';
 export { dateAfter } from './dateAfter';
+export { pubKey } from './pubKey';

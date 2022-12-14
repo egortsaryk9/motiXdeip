@@ -16,8 +16,8 @@ export default {
       },
       number: '{_field_} must be valid number',
       equal: '{_field_} must be equal to field {label}',
-      email: '{_field_} is not valid'
-
+      email: '{_field_} is not valid',
+      pubKey: '{_field_} format is not valid'
     }
   }
 };

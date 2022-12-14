@@ -1,6 +1,7 @@
 import { blocksGenerator } from '@/casimir-framework/vue-layout-schema';
 import { AttributeScope } from '@/casimir-framework/vars';
 import { UserEmailRead, UserEmailSet } from '../components/Form/UserEmail';
+import { UserPubKeyRead, UserPubKeySet } from '../components/Form/UserPubKey';
 
 
 
@@ -58,8 +59,9 @@ export const userFieldsLayoutBuilder = {
       ...blocksGenerator([
         {
           component: UserEmailRead,
-          blockName: 'User Email',
-          icon: 'mdi-calendar',
+          model: 'email',
+          blockName: 'Email',
+          icon: 'mdi-email',
           blockType: 'simple',
           layoutType: 'details',
           scope: [AttributeScope.USER],
@@ -67,20 +69,43 @@ export const userFieldsLayoutBuilder = {
         },
         {
           component: UserEmailSet,
-          blockName: 'User Email',
-          icon: 'mdi-calendar',
           model: 'email',
+          blockName: 'Email',
+          icon: 'mdi-email',
           blockType: 'simple',
           layoutType: 'form',
           scope: [AttributeScope.USER],
           disabledProps: ['schemaData']
-        },        
+        },
+        {
+          component: UserPubKeyRead,
+          model: 'pubKey',
+          blockName: 'Public Key',
+          icon: 'mdi-account-key',
+          blockType: 'simple',
+          layoutType: 'details',
+          scope: [AttributeScope.USER],
+          disabledProps: ['schemaData']
+        },
+        {
+          component: UserPubKeySet,
+          model: 'pubKey',
+          blockName: 'Public Key',
+          icon: 'mdi-account-key',
+          blockType: 'simple',
+          layoutType: 'form',
+          scope: [AttributeScope.USER],
+          disabledProps: ['schemaData']
+        },
       ])
     ]
   },
   components: {
     UserEmailRead,
     UserEmailSet,
+
+    UserPubKeyRead,
+    UserPubKeySet
   }
 };
 

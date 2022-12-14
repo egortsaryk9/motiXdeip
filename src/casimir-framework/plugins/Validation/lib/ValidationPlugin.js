@@ -26,7 +26,8 @@ import {
   equal,
   dateBefore,
   dateAfter,
-  dateAfterNow
+  dateAfterNow,
+  pubKey
 } from './rules';
 
 const locales = require.context('./locales', true, /[A-Za-z0-9-_,\s]+\.js$/i);
@@ -68,6 +69,7 @@ const install = (Vue, options = {}) => {
   extend('dateAfter', dateAfter);
   extend('dateAfterNow', dateAfterNow);
   extend('size', size);
+  extend('pubKey', pubKey);
 };
 
 export const ValidationPlugin = {

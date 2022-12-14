@@ -140,7 +140,7 @@
         try {
           const payload = {
             initiator: this.$currentUser,
-            data: { ...this.lazyFormData, pubKey: "tmp" }
+            data: { ...this.lazyFormData }
           };
           const { _id } = await this.$store.dispatch('users/create', payload);
           this.emitSuccess(_id);
@@ -159,7 +159,7 @@
         try {
           const payload = {
             initiator: this.$currentUser,
-            data: { ...this.lazyFormData, pubKey: "tmp" }
+            data: { ...this.lazyFormData }
           };
           const { _id } = await this.$store.dispatch('users/update', payload);
           this.emitSuccess(_id);

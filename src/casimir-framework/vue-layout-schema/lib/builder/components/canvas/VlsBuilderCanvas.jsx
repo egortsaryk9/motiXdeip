@@ -440,7 +440,7 @@ export default {
           <VRow>
             <VCol>
               <div className="text-body-2">
-                Component <strong>{list}</strong> was removed and not allowed for current layout settings
+                Block <strong>{list}</strong> was removed and not allowed for current layout settings
               </div>
             </VCol>
             <VCol cols="auto">

@@ -2,7 +2,7 @@ import { defineComponent } from '@/casimir-framework/all';
 import { VeLineClamp } from '@/casimir-framework/vue-elements';
 
 export default defineComponent({
-  name: 'UserEmailRead',
+  name: 'UserPubKeyRead',
 
   props: {
     schemaData: {
@@ -16,9 +16,9 @@ export default defineComponent({
   },
 
   computed: {
-    userEmail() {
-      const { email } = this.schemaData.data;
-      return email;
+    userPubKey() {
+      const { pubKey } = this.schemaData.data;
+      return pubKey;
     }
   },
 
@@ -27,7 +27,7 @@ export default defineComponent({
     return (
       <div>
         <VeLineClamp { ...{ props: this.proxyProps.VeLineClamp || {} }}>
-          {this.userEmail}
+          {this.userPubKey}
         </VeLineClamp>
       </div>
       )
