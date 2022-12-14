@@ -22,7 +22,7 @@ export const FieldMixin = {
     },
 
     value: {
-      type: [String, Number, Array, Object, Boolean, File],
+      type: [String, Number, Array, Object, Boolean],
       default: undefined
     }
 

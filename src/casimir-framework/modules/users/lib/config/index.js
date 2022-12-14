@@ -65,7 +65,7 @@ export const userFieldsLayoutBuilder = {
           blockType: 'simple',
           layoutType: 'details',
           scope: [AttributeScope.USER],
-          disabledProps: ['schemaData']
+          disabledProps: ['schemaData', 'components', 'value']
         },
         {
           component: UserEmailSet,
@@ -75,7 +75,7 @@ export const userFieldsLayoutBuilder = {
           blockType: 'simple',
           layoutType: 'form',
           scope: [AttributeScope.USER],
-          disabledProps: ['schemaData']
+          disabledProps: ['schemaData', 'components', 'value']
         },
         {
           component: UserPubKeyRead,
@@ -85,7 +85,7 @@ export const userFieldsLayoutBuilder = {
           blockType: 'simple',
           layoutType: 'details',
           scope: [AttributeScope.USER],
-          disabledProps: ['schemaData']
+          disabledProps: ['schemaData', 'components', 'value']
         },
         {
           component: UserPubKeySet,
@@ -95,7 +95,7 @@ export const userFieldsLayoutBuilder = {
           blockType: 'simple',
           layoutType: 'form',
           scope: [AttributeScope.USER],
-          disabledProps: ['schemaData']
+          disabledProps: ['schemaData', 'components', 'value']
         },
       ])
     ]

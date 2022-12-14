@@ -77,7 +77,7 @@
             </v-icon>
           </vex-tooltip>
 
-          <vex-tooltip v-if="item.isRequired" top tooltip="Required field">
+          <vex-tooltip v-if="item.isRequired" top tooltip="If this field is being used in a form layout, the user must provide a value during submission">
             <v-icon small class="text--disabled">
               mdi-asterisk
             </v-icon>
