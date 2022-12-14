@@ -1,4 +1,5 @@
 import { AttributeTextRead, AttributeTextSet } from '../components/AttributeText';
+import { AttributeEmailRead, AttributeEmailSet } from '../components/AttributeEmail';
 import { AttributeTextareaRead, AttributeTextareaSet } from '../components/AttributeTextarea';
 // import { AttributeRichtextRead, AttributeRichtextSet } from '../components/AttributeRichtext';
 import { AttributeSelectRead, AttributeSelectSet } from '../components/AttributeSelect';
@@ -21,7 +22,6 @@ export const baseAttributes = [
     valueType: ['string'],
     label: 'Text field',
     icon: 'mdi-form-textbox',
-    validateRule: 'required',
 
     components: {
       read: {
@@ -40,11 +40,32 @@ export const baseAttributes = [
     }
   },
   {
+    type: 'email',
+    valueType: ['string'],
+    label: 'Email field',
+    icon: 'mdi-email',
+
+    components: {
+      read: {
+        component: AttributeEmailRead,
+        proxyProps: {
+          VeLineClamp: {
+            lines: {
+              type: Number
+            }
+          }
+        }
+      },
+      set: {
+        component: AttributeEmailSet
+      }
+    }
+  },
+  {
     type: 'textarea',
     valueType: ['string'],
     label: 'Textarea',
     icon: 'mdi-form-textarea',
-    validateRule: 'required',
 
     components: {
       read: { component: AttributeTextareaRead },

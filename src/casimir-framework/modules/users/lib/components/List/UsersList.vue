@@ -118,7 +118,6 @@
       },
 
       handleViewClick(user) {
-        debugger
         /**
          * Triggers when user clicks the view button
          *

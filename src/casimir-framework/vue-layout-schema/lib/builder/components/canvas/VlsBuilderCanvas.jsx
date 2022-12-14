@@ -351,7 +351,7 @@ export default {
         const blockType = this.getBlockType(node.id);
 
         if (blockType === 'undefined') {
-          this.cleanedBlocks.push(node.name || node.is || node.id);
+          this.cleanedBlocks.push(node.name || node.id || node.is);
           this.removeContainerNode(node.id);
         }
 
@@ -440,7 +440,7 @@ export default {
           <VRow>
             <VCol>
               <div className="text-body-2">
-                <strong>{list}</strong> was removed and not allowed for current layout settings
+                Attribute <strong>{list}</strong> was removed and not allowed for current layout settings
               </div>
             </VCol>
             <VCol cols="auto">

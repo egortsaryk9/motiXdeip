@@ -88,7 +88,7 @@
           <!-- </v-icon>-->
           <!-- </vex-tooltip>-->
 
-          <vex-tooltip v-if="item.isSystem" top tooltip="System field.">
+          <vex-tooltip v-if="item.isSystem" top tooltip="System field">
             <v-icon small class="text--disabled">
               mdi-shield-alert-outline
             </v-icon>

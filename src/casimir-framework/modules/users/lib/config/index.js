@@ -6,7 +6,7 @@ export const userScope = {
       { 
         key: 'email', 
         label: 'Email', 
-        allowedTypes: ['text'] 
+        allowedTypes: ['email'] 
       },
       {
         key: 'avatar',

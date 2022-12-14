@@ -137,13 +137,11 @@
        */
       async createUser() {
         try {
-          debugger;
           const { attributes } = this.lazyFormData;
           const email = this.$attributes.getMappedData('user.email', attributes)?.value;
           if (!email) {
             throw new Error("attribute mapping for 'user.email' is not defined, or 'email' value is not specified");
           }
-          debugger;
           const payload = {
             initiator: this.$currentUser,
             data: { ...this.lazyFormData, email, pubKey: "tmp" }

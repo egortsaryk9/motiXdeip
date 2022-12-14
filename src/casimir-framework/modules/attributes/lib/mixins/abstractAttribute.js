@@ -288,7 +288,7 @@ export const AttributeSetMixin = {
 
   data() {
     return {
-      validationRules: 'required'
+      validationRules: '' // ValidationProvider rules
     };
   },
 
@@ -324,15 +324,20 @@ export const AttributeSetMixin = {
     /**
      * @return {JSX.Element}
      */
-    genRequiredAttribute() {
+    genValidatedAttribute() {
       const scopedSlots = {
         default: ({ errors }) => this.genAttribute(errors)
       };
 
+      const rules = this.validationRules.split('|');
+      if (this.attributeInfo.isRequired && !rules.some(r => r === 'required')) {
+        rules.push('required');
+      } 
+
       return (
         <ValidationProvider
           name={this.attributeInfo.title}
-          rules={this.validationRules}
+          rules={rules.join('|') || ''}
           scopedSlots={scopedSlots}
           tag="div"
         />
@@ -341,9 +346,7 @@ export const AttributeSetMixin = {
   },
 
   render() {
-    return this.attributeInfo.isRequired
-      ? this.genRequiredAttribute()
-      : this.genAttribute();
+    return this.genValidatedAttribute();
   }
 };
 
