@@ -3,7 +3,7 @@ import { defineComponent } from '@/casimir-framework/all';
 import { AttributeReadMixin } from '../../mixins';
 
 /**
- * Component for read only text attribute
+ * Component for read only email attribute
  */
 export default defineComponent({
   name: 'AttributeEmailRead',

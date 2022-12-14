@@ -11,6 +11,15 @@ const GETTERS = {
   components: (state) => state.components
 };
 
+const ACTIONS = {
+  addBlocks({ commit }, payload) {
+    commit('addBlocks', payload);
+  },
+  addComponents({ commit }, payload) {
+    commit('addComponents', payload);
+  }
+};
+
 const MUTATIONS = {
   addBlocks(state, payload = {}) {
     const {
@@ -39,6 +48,7 @@ const MUTATIONS = {
 export const layoutsRegistry = {
   namespaced: true,
   state: STATE,
+  actions: ACTIONS,
   getters: GETTERS,
   mutations: MUTATIONS
 };

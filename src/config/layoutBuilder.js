@@ -13,7 +13,7 @@ import {
 export const layoutBuilderElements = {
   blocks: [
     {
-      title: 'Asset',
+      title: 'Creation',
       blocks: [
         ...blocksGenerator([
           {

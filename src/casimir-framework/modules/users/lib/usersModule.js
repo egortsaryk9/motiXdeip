@@ -1,7 +1,7 @@
 import { assert, setLocalesMessages } from '@/casimir-framework/all';
 import { usersStore } from './store';
 
-import { userScope, userAttributes } from './config';
+import { userScope, userAttributes, userFieldsLayoutBuilder } from './config';
 
 const locales = require.context('./locales', true, /[A-Za-z0-9-_,\s]+\.js$/i);
 const moduleName = 'UsersModule';
@@ -44,6 +44,9 @@ const install = (Vue, options = {}) => {
   for (const attribute of userAttributes) {
     store.dispatch('attributesRegistry/addAttribute', attribute);
   }
+
+  store.dispatch('layoutsRegistry/addComponents', userFieldsLayoutBuilder.components);
+  store.dispatch('layoutsRegistry/addBlocks', userFieldsLayoutBuilder.blocks);
 };
 
 export const UsersModule = {

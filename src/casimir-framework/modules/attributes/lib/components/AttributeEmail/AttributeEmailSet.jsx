@@ -7,7 +7,7 @@ import { defineComponent } from '@/casimir-framework/all';
 import { AttributeSetMixin } from '../../mixins';
 
 /**
- * Component for changing text field attribute
+ * Component for changing email field attribute
  */
 export default defineComponent({
   name: 'AttributeEmailSet',

@@ -15,7 +15,8 @@
           :key="forceUpdateKey"
           :schema="schema"
           :schema-data="schemaData"
-        />
+        >
+        </layout-renderer>
 
         <v-divider />
 
@@ -137,14 +138,9 @@
        */
       async createUser() {
         try {
-          const { attributes } = this.lazyFormData;
-          const email = this.$attributes.getMappedData('user.email', attributes)?.value;
-          if (!email) {
-            throw new Error("attribute mapping for 'user.email' is not defined, or 'email' value is not specified");
-          }
           const payload = {
             initiator: this.$currentUser,
-            data: { ...this.lazyFormData, email, pubKey: "tmp" }
+            data: { ...this.lazyFormData, pubKey: "tmp" }
           };
           const { _id } = await this.$store.dispatch('users/create', payload);
           this.emitSuccess(_id);
@@ -161,14 +157,9 @@
        */
       async updateUser() {
         try {
-          const { attributes } = this.lazyFormData;
-          const email = this.$attributes.getMappedData('user.email', attributes)?.value;
-          if (!email) {
-            throw new Error("attribute mapping for 'user.email' is not defined, or 'email' value is not specified");
-          }
           const payload = {
             initiator: this.$currentUser,
-            data: { ...this.lazyFormData, email, pubKey: "tmp" }
+            data: { ...this.lazyFormData, pubKey: "tmp" }
           };
           const { _id } = await this.$store.dispatch('users/update', payload);
           this.emitSuccess(_id);
