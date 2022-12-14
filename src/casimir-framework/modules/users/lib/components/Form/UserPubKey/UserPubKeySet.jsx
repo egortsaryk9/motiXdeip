@@ -5,75 +5,18 @@ import {
 // eslint-disable-next-line import/extensions,import/no-unresolved
 } from 'vuetify/lib/components';
 import { ValidationProvider } from '@/casimir-framework/plugins/Validation';
-import { isEqual, cloneDeep } from 'lodash';
+import { FieldSetMixin } from '@/casimir-framework/vue-layout-schema';
 
 
 export default defineComponent({
   name: 'UserPubKeySet',
 
-  model: {
-    prop: 'value',
-    event: 'input'
-  },
-
-  props: {
-    formData: {
-      type: Object,
-      default: () => ({})
-    },
-    value: {
-      type: String,
-      default: null
-    }
-  },
+  mixins: [FieldSetMixin],
 
   data() {
     return {
-      lazyValue: undefined,
       validationRules: 'required|pubKey'
     };
-  },
-
-  computed: {
-    internalValue: {
-      get() {
-        return this.lazyValue;
-      },
-      set(val) {
-        this.lazyValue = val;
-        this.$emit('input', val);
-      }
-    }
-  },
-
-  watch: {
-    value: {
-      handler(value) {
-        this.valueHandler(value);
-      },
-      immediate: true,
-      deep: true
-    },
-
-    lazyValue: {
-      handler(newVal) {
-        this.$set(this, 'internalValue', newVal);
-      },
-      deep: true
-    }
-  },
-
-  methods: {
-    /**
-     * Handle and set component value on model change
-     * @param {*} value
-     */
-    valueHandler(value) {
-      if (value && !isEqual(value, this.internalValue)) {
-        const upd = cloneDeep(value);
-        this.$set(this, 'internalValue', upd);
-      }
-    }
   },
 
   render() {

@@ -1,35 +1,29 @@
 import { defineComponent } from '@/casimir-framework/all';
 import { VeLineClamp } from '@/casimir-framework/vue-elements';
+import { FieldReadMixin } from '@/casimir-framework/vue-layout-schema';
+
 
 export default defineComponent({
   name: 'UserPubKeyRead',
 
-  props: {
-    schemaData: {
-      type: Object,
-      default: () => ({})
-    },
-    proxyProps: {
-      type: Object,
-      default: () => ({})
-    },
-  },
+  mixins: [FieldReadMixin],
 
   computed: {
-    userPubKey() {
-      const { pubKey } = this.schemaData.data;
-      return pubKey;
+    internalValue() {
+      return this.value || this.schemaData?.data?.pubKey;
     }
   },
 
   render() {
 
-    return (
-      <div>
-        <VeLineClamp { ...{ props: this.proxyProps.VeLineClamp || {} }}>
-          {this.userPubKey}
-        </VeLineClamp>
-      </div>
-      )
-    }
+    return this.internalValue 
+      ? (
+          <div>
+            <VeLineClamp { ...{ props: this.proxyProps.VeLineClamp || {} }}>
+              {this.internalValue}
+            </VeLineClamp>
+          </div>
+        )
+      : null;
+  }
 });

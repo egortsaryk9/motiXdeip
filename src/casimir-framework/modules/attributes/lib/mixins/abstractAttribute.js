@@ -6,6 +6,7 @@ import {
 import { isEqual, cloneDeep } from 'lodash';
 import { ValidationProvider } from '@/casimir-framework/plugins/Validation';
 import { VeStack } from '@/casimir-framework/vue-elements';
+import { FieldMixin, FieldModelMixin } from '@/casimir-framework/vue-layout-schema';
 
 /**
  * @param {string} fnName
@@ -19,31 +20,13 @@ Need specify ${fnName} method for ${label} attribute
 export const AttributeMixin = {
   name: 'AbstractAttributeMixin',
 
+  mixins: [FieldMixin],
+
   props: {
     attributeId: {
       type: String,
       required: true
     },
-
-    schemaData: {
-      type: Object,
-      default: () => ({})
-    },
-
-    proxyProps: {
-      type: Object,
-      default: () => ({})
-    },
-
-    components: {
-      type: Object,
-      default: () => ({})
-    },
-
-    value: {
-      type: [String, Number, Array, Object, Boolean, File],
-      default: undefined
-    }
   },
 
   computed: {
@@ -162,59 +145,7 @@ export const AttributeSchemaMixin = {
 
 export const AttributeModelMixin = {
   name: 'AttributeModelMixin',
-
-  model: {
-    prop: 'value',
-    event: 'input'
-  },
-
-  data() {
-    return {
-      lazyValue: undefined
-    };
-  },
-
-  computed: {
-    internalValue: {
-      get() {
-        return this.lazyValue;
-      },
-      set(val) {
-        this.lazyValue = val;
-        this.$emit('input', val);
-      }
-    }
-  },
-
-  watch: {
-    value: {
-      handler(value) {
-        this.valueHandler(value);
-      },
-      immediate: true,
-      deep: true
-    },
-
-    lazyValue: {
-      handler(newVal) {
-        this.$set(this, 'internalValue', newVal);
-      },
-      deep: true
-    }
-  },
-
-  methods: {
-    /**
-     * Handle and set component value on model change
-     * @param {*} value
-     */
-    valueHandler(value) {
-      if (value && !isEqual(value, this.internalValue)) {
-        const upd = cloneDeep(value);
-        this.$set(this, 'internalValue', upd);
-      }
-    }
-  }
+  mixins: [FieldModelMixin],
 };
 
 export const AttributeMultipleModelMixin = {

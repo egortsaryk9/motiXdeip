@@ -1,4 +1,2 @@
-import VlsParser from './VlsParser';
-
-export { VlsParser };
-export default VlsParser;
+export { VlsParser } from './components/parser';
+export * from './mixins';
