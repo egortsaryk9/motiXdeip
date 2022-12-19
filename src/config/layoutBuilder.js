@@ -18,6 +18,8 @@ export const layoutBuilderElements = {
         ...blocksGenerator([
           {
             component: AssetCreatedAt,
+            isSingle: true,
+            isMandatory: false,
             icon: 'mdi-calendar',
             blockType: 'simple',
             layoutType: 'details',
@@ -26,6 +28,8 @@ export const layoutBuilderElements = {
           },
           {
             component: AssetCollectionName,
+            isSingle: true,
+            isMandatory: false,
             icon: 'mdi-image-multiple',
             blockType: 'simple',
             layoutType: 'details',
@@ -34,6 +38,8 @@ export const layoutBuilderElements = {
           },
           {
             component: AssetStatus,
+            isSingle: true,
+            isMandatory: false,
             icon: 'mdi-credit-card-chip-outline',
             blockType: 'simple',
             layoutType: 'details',
@@ -42,6 +48,8 @@ export const layoutBuilderElements = {
           },
           {
             component: AssetAuthor,
+            isSingle: true,
+            isMandatory: false,
             icon: 'mdi-account',
             blockType: 'simple',
             layoutType: 'details',
@@ -50,6 +58,8 @@ export const layoutBuilderElements = {
           },
           {
             component: AssetFile,
+            isSingle: true,
+            isMandatory: false,
             icon: 'mdi-file',
             blockType: 'simple',
             layoutType: 'details',
@@ -58,6 +68,8 @@ export const layoutBuilderElements = {
           },
           {
             component: AssetQueueNumber,
+            isSingle: true,
+            isMandatory: false,
             icon: 'mdi-numeric',
             blockType: 'simple',
             layoutType: 'details',

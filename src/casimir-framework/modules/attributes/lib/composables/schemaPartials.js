@@ -21,6 +21,8 @@ import { defaultBreakpoints } from '@/casimir-framework/vue-elements/lib/util/br
 const contentBlocksData = [
   {
     is: 'span',
+    isSingle: false,
+    isMandatory: false,
     name: 'Text',
     icon: 'mdi-text',
     blockType: 'content',
@@ -34,17 +36,23 @@ const contentBlocksData = [
 const layoutBlocksData = [
   {
     component: VRow,
+    isSingle: false,
+    isMandatory: false,
     icon: 'mdi-view-grid-outline',
     children: [],
     blockType: 'row'
   },
   {
     component: VCol,
+    isSingle: false,
+    isMandatory: false,
     icon: 'mdi-view-grid-plus-outline',
     children: []
   },
   {
     component: VeStack,
+    isSingle: false,
+    isMandatory: false,
     icon: 'mdi-view-sequential-outline',
     children: [],
     propsValues: {
@@ -64,6 +72,8 @@ const layoutBlocksData = [
 const formBlocksData = [
   {
     component: VTextField,
+    isSingle: false,
+    isMandatory: false,
     icon: 'mdi-form-textbox',
     blockType: 'component',
     includeProps: ['hint', 'label', 'placeholder', 'prefix', 'suffix'],
@@ -71,6 +81,8 @@ const formBlocksData = [
   },
   {
     component: VTextarea,
+    isSingle: false,
+    isMandatory: false,
     icon: 'mdi-form-textarea',
     blockType: 'component',
     includeProps: ['hint', 'label', 'placeholder', 'prefix', 'suffix'],
@@ -78,6 +90,8 @@ const formBlocksData = [
   },
   {
     component: VSwitch,
+    isSingle: false,
+    isMandatory: false,
     icon: 'mdi-toggle-switch-off-outline',
     blockType: 'component',
     includeProps: ['hint', 'label'],
@@ -85,6 +99,8 @@ const formBlocksData = [
   },
   {
     component: VCheckbox,
+    isSingle: false,
+    isMandatory: false,
     icon: 'mdi-checkbox-marked-outline',
     blockType: 'component',
     includeProps: ['hint', 'label'],
@@ -92,6 +108,8 @@ const formBlocksData = [
   },
   {
     component: VSelect,
+    isSingle: false,
+    isMandatory: false,
     icon: 'mdi-form-dropdown',
     blockType: 'component',
     includeProps: ['hint', 'label', 'placeholder', 'prefix', 'suffix', 'items'],
@@ -99,6 +117,8 @@ const formBlocksData = [
   },
   {
     component: VexDateInput,
+    isSingle: false,
+    isMandatory: false,
     icon: 'mdi-calendar',
     blockType: 'component',
     includeProps: ['label'],
@@ -167,6 +187,8 @@ export const genReflectedFormBlocks = (schema) => {
 
       result.blocks.push({
         is: 'div',
+        isSingle: false,
+        isMandatory: false,
         text: `{{attribute.value.${model}}}`,
         icon,
         name: label,

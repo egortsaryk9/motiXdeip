@@ -60,6 +60,8 @@ export const userFieldsLayoutBuilder = {
         {
           component: UserEmailRead,
           model: 'email',
+          isSingle: true,
+          isMandatory: false,
           blockName: 'Email',
           icon: 'mdi-email',
           blockType: 'simple',
@@ -70,6 +72,8 @@ export const userFieldsLayoutBuilder = {
         {
           component: UserEmailSet,
           model: 'email',
+          isSingle: true,
+          isMandatory: true,
           blockName: 'Email',
           icon: 'mdi-email',
           blockType: 'simple',
@@ -80,6 +84,8 @@ export const userFieldsLayoutBuilder = {
         {
           component: UserPubKeyRead,
           model: 'pubKey',
+          isSingle: true,
+          isMandatory: false,
           blockName: 'Public Key',
           icon: 'mdi-account-key',
           blockType: 'simple',
@@ -90,6 +96,8 @@ export const userFieldsLayoutBuilder = {
         {
           component: UserPubKeySet,
           model: 'pubKey',
+          isSingle: true,
+          isMandatory: true,
           blockName: 'Public Key',
           icon: 'mdi-account-key',
           blockType: 'simple',

@@ -12,6 +12,8 @@ export const contentBlocks = {
     ...normalizeBlocksObject([
       {
         is: 'span',
+        isSingle: false,
+        isMandatory: false,
         name: 'Text',
         icon: 'mdi-text',
         blockType: 'content',
@@ -21,12 +23,16 @@ export const contentBlocks = {
     ...blocksGenerator([
       {
         component: VImg,
+        isSingle: false,
+        isMandatory: false,
         blockName: 'Image',
         icon: 'mdi-image-outline',
         blockType: 'component'
       },
       {
         component: VexVideoEmbed,
+        isSingle: false,
+        isMandatory: false,
         blockName: 'Video',
         icon: 'mdi-video-outline',
         excludeProps: ['params'],

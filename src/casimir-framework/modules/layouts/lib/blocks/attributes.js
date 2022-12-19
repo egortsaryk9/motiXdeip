@@ -44,6 +44,8 @@ export const attributesBlocksFactory = (opts) => {
 
         return {
           component: component.render,
+          isSingle: true,
+          isMandatory: false,
           data,
           blockName: attr.shortTitle || attr.title,
           id: attr._id,

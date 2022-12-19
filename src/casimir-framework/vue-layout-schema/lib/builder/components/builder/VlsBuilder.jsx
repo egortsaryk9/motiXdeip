@@ -16,6 +16,8 @@ import { VlsBuilderTree } from '../tree';
 import { VlsBuilderCanvas } from '../canvas';
 import { VlsBuilderSettings } from '../settings';
 
+import { deepFindParentByValue } from '@/casimir-framework/all';
+
 /**
  * Schema builder
  */
@@ -58,6 +60,17 @@ export default {
       activeControls: 'blocks',
       schema: this.value
     };
+  },
+
+  computed: {
+    hasMissedMandatoryBlocks() {
+      const mandatoryBlocks = this.blocks.reduce((arr, section) => {
+        return [...arr, ...section.blocks.filter(b => b.isMandatory)];
+      }, []);
+      return mandatoryBlocks.some((block) => {
+        return deepFindParentByValue(this.schema, block.id) == null;
+      });;
+    }
   },
 
   watch: {
@@ -141,6 +154,8 @@ export default {
               <VlsBuilderCanvas/>
 
               {this.$slots.append}
+
+              {this.hasMissedMandatoryBlocks ? (<div style={{'color': 'red'}}>The layout must include all mandatory fields that are marked with an asterisk (*)</div>) : null }
             </div>
           </div>
         </div>
@@ -167,7 +182,7 @@ export default {
             right: '24px',
             bottom: '24px'
           }}
-          disabled={this.disabled}
+          disabled={this.disabled || this.hasMissedMandatoryBlocks}
           loading={this.loading}
           onClick={this.handleSaveBtnClick}
         >

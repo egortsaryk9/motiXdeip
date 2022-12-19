@@ -56,6 +56,8 @@ export const RENDERER_SCHEMA_BLOCK_KEYS = [
 export const RENDERER_BLOCK_KEYS = [
   'id',
   'is',
+  'isSingle',
+  'isMandatory',
 
   'name',
   'scope',

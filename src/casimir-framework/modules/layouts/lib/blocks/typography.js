@@ -8,6 +8,8 @@ export const typographyBlocks = {
     ...createRange(6)
       .map((val, index) => ({
         is: `h${index + 1}`,
+        isSingle: false,
+        isMandatory: false,
         name: `Headline ${index + 1}`,
         icon: `mdi-format-header-${index + 1}`,
         data: {
@@ -18,6 +20,8 @@ export const typographyBlocks = {
       })),
     {
       is: 'div',
+      isSingle: false,
+      isMandatory: false,
       name: 'Subtitle 1',
       icon: 'mdi-format-title',
       data: {
@@ -28,6 +32,8 @@ export const typographyBlocks = {
     },
     {
       is: 'div',
+      isSingle: false,
+      isMandatory: false,
       name: 'Subtitle 2',
       icon: 'mdi-format-text',
       data: {
@@ -38,6 +44,8 @@ export const typographyBlocks = {
     },
     {
       is: 'div',
+      isSingle: false,
+      isMandatory: false,
       name: 'Body 1',
       icon: 'mdi-text-box-outline',
       data: {
@@ -48,6 +56,8 @@ export const typographyBlocks = {
     },
     {
       is: 'div',
+      isSingle: false,
+      isMandatory: false,
       name: 'Body 2',
       icon: 'mdi-text-box-plus-outline',
       data: {
@@ -58,6 +68,8 @@ export const typographyBlocks = {
     },
     {
       is: 'div',
+      isSingle: false,
+      isMandatory: false,
       name: 'Caption',
       icon: 'mdi-closed-caption-outline',
       data: {

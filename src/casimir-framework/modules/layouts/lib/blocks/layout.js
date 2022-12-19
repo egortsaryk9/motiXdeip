@@ -18,6 +18,8 @@ export const layoutBlocks = {
   blocks: blocksGenerator([
     {
       component: VexHeader,
+      isSingle: false,
+      isMandatory: false,
       icon: 'mdi-page-layout-header',
       children: [],
       excludeProps: ['returnDominant'],
@@ -28,17 +30,23 @@ export const layoutBlocks = {
     },
     {
       component: VexSection,
+      isSingle: false,
+      isMandatory: false,
       icon: 'mdi-page-layout-body',
       children: []
     },
     {
       component: VexSectionSplit,
+      isSingle: false,
+      isMandatory: false,
       icon: 'mdi-view-week-outline',
       blockType: 'row',
       children: []
     },
     {
       component: VSheet,
+      isSingle: false,
+      isMandatory: false,
       blockName: 'Container',
       icon: 'mdi-card-outline',
       children: [],
@@ -46,17 +54,23 @@ export const layoutBlocks = {
     },
     {
       component: VRow,
+      isSingle: false,
+      isMandatory: false,
       icon: 'mdi-view-grid-outline',
       children: [],
       blockType: 'row'
     },
     {
       component: VCol,
+      isSingle: false,
+      isMandatory: false,
       icon: 'mdi-view-grid-plus-outline',
       children: []
     },
     {
       component: VeStack,
+      isSingle: false,
+      isMandatory: false,
       propsValues: {
         ...defaultBreakpoints.reduce((acc, bp) => ({
           ...acc,

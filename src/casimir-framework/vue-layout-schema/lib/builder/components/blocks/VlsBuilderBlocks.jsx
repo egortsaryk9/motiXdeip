@@ -19,6 +19,7 @@ import { VexExpand } from '@/casimir-framework/plugins/VuetifyExtended';
 /* eslint-enable */
 
 import draggable from 'vuedraggable';
+import { deepFindParentByValue } from '@/casimir-framework/all';
 
 import { convertBlockForSchema } from '../../utils/helpers';
 
@@ -86,6 +87,10 @@ export default {
      * @returns {JSX.Element}
      */
     genSection(section) {
+      const blocks = section.blocks.filter((block) => {
+        return !block.isSingle || deepFindParentByValue(this.containerSchema, block.id) == null;
+      });
+      
       const expandActivatorSlots = {
         scopedSlots: {
           activator: ({ active }) => (
@@ -101,7 +106,10 @@ export default {
         <div>
           <VexExpand value={true} { ...expandActivatorSlots }>
             <VDivider />
-            {this.genDragOut(section.blocks)}
+            { blocks.length 
+                ? this.genDragOut(blocks) 
+                : <VSheet class="px-6 py-3 d-flex"><div>All fields are added</div></VSheet>
+            }
           </VexExpand>
           <VDivider />
         </div>
@@ -233,14 +241,19 @@ export default {
      * @returns {JSX.Element}
      */
     genBlock(block) {
+      const style = {
+        'font-size': '11px',
+        'color': block.isMandatory ? 'red' : undefined
+      };
+
       return (
         <VSheet
           class="vls-builder-blocks__block pa-4 text-center font-weight-medium pos-relative"
-          style="font-size:11px"
+          style={style}
           vRipple
         >
           <VIcon class="mb-1">{block.icon || 'mdi-card-outline'}</VIcon>
-          <div>{block.name}</div>
+          <div>{block.name} {block.isMandatory ? '*' : ''}</div>
           {block.blockType === 'attribute' ? this.genAttributeMenu(block) : null}
           {block.blockType === 'value' ? this.genValueMenu(block) : null}
         </VSheet>

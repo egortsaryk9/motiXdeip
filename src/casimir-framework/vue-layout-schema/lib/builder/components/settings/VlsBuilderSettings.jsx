@@ -38,6 +38,8 @@ const PERM_DISABLED = ['proxyProps'];
  * @property {string} icon
  * @property {string} id
  * @property {string} is
+ * @property {boolean} isSingle
+ * @property {boolean} isMandatory
  * @property {string} [layoutType]
  * @property {string} name
  * @property {Array.<string>} [scope]
