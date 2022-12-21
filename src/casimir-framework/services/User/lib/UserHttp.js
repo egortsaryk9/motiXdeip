@@ -22,7 +22,7 @@ export class UserHttp {
    * @param {Object} query.filter filter
    * @returns {Promise<Object>}
    */
-  async getListPaginated(query) {
+  async getList(query) {
     const querySerialized = serializeParams(query);
     return this.http.get(`/api/v3/users?${querySerialized}`);
   }

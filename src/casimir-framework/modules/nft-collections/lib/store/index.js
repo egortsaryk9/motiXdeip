@@ -22,11 +22,13 @@ const ACTIONS = {
   async getList({ commit }, filter = {}) {
     const res = await nonFungibleTokenService.getNftCollections(filter);
     commit('setList', res.data.items);
+    return res.data;
   },
 
   async getOne({ commit }, nftCollectionId) {
     const res = await nonFungibleTokenService.getNftCollection(nftCollectionId);
     commit('setOne', res.data);
+    return res.data;
   },
 
   async create({ dispatch }, payload) {

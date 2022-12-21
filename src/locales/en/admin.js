@@ -18,21 +18,21 @@ export default {
     }
   },
   collections: {
-    title: 'NFT Collections',
+    title: 'Collections',
     collection: {
       name: 'Name',
     },
     form: {
       new: 'Add Collection',
-      create: 'Create NFT Collection',
-      update: 'Edit NFT Collection',
-      successCreate: 'NFT Collection has been created successfully',
-      successUpdate: 'NFT Collection has been updated successfully',
-      errorCreate: 'An error occurred while creating NFT Collection, please try again later',
-      errorUpdate: 'An error occurred while updating NFT Collection, please try again later'
+      create: 'Create Collection',
+      update: 'Edit Collection',
+      successCreate: 'Collection has been created successfully',
+      successUpdate: 'Collection has been updated successfully',
+      errorCreate: 'An error occurred while creating Collection, please try again later',
+      errorUpdate: 'An error occurred while updating Collection, please try again later'
     },
     details: {
-      title: 'NFT Collection Details'
+      title: 'Collection Details'
     },
     settings: {
       settings: 'Settings',

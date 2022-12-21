@@ -8,24 +8,24 @@ export class NonFungibleTokenHttp {
   http = HttpService.getInstance();
 
   /**
-   * Get nft collection by id
-   * @param {string} nftCollectionId
+   * Get collection by id
+   * @param {string} collectionId
    * @returns {Promise<Object>}
    */
-  async getNftCollection(id) {
-    return this.http.get(`/api/v3/collections/${id}`);
+  async getNftCollection(collectionId) {
+    return this.http.get(`/api/v3/collections/${collectionId}`);
   }
 
   /**
-   * Get public nft collections list
+   * Get paginated collections list
    * @param {Object} filter
    * @param {Array} filter.attributes
    * @param {Array.<string>} filter.attributes
    * @returns {Promise<Object>}
    */
-  async getNftCollections(filter) {
-    const query = serializeParams({ filter });
-    return this.http.get(`/api/v3/collections?${query}`);
+  async getNftCollections(query) {
+    const querySerialized = serializeParams(query);
+    return this.http.get(`/api/v3/collections?${querySerialized}`);
   }
 
   /**

@@ -41,6 +41,27 @@ export class UserService {
   }
 
   /**
+   * Get user by _id or email
+   * @param {string} _id
+   * @return {Promise<Object>}
+   */
+  async getOne(userIdOrEmail) {
+    return this.userHttp.getOne(userIdOrEmail);
+  }
+
+  /**
+   * Get Users list paginated
+   * @param {Object} query
+   * @param {Object} query.sort 'asc', 'desc'
+   * @param {Number} query.page 0 or above
+   * @param {Number} query.pageSize from 1 to 100
+   * @param {Object} query.filter
+   */
+  async getList(query) {
+    return this.userHttp.getList(query);
+  }
+
+  /**
    * Create user information
    * @param {Object} payload
    * @param {Object} payload.initiator
@@ -112,27 +133,6 @@ export class UserService {
     });
 
     return this.userHttp.update(msg);
-  }
-
-  /**
-   * Get user by _id or email
-   * @param {string} _id
-   * @return {Promise<Object>}
-   */
-  async getOne(userIdOrEmail) {
-    return this.userHttp.getOne(userIdOrEmail);
-  }
-
-  /**
-   * Get Users list paginated
-   * @param {Object} query
-   * @param {Object} query.sort 'asc', 'desc'
-   * @param {Number} query.page 0 or above
-   * @param {Number} query.pageSize from 1 to 100
-   * @param {Object} query.filter
-   */
-  async getListPaginated(query) {
-    return this.userHttp.getListPaginated(query);
   }
 
   /** @type {() => UserService} */

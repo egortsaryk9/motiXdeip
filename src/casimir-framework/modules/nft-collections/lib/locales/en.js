@@ -7,9 +7,10 @@ export default {
         update: 'Update'
       },
       list: {
-        id: 'NFT Collection ID',
-        edit: 'Edit NFT Collection',
-        view: 'NFT Collections Details'
+        id: 'Collection ID',
+        edit: 'Edit Collection',
+        view: 'Collections Details',
+        noResults: 'No collections found'
       }
     }
   }

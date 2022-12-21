@@ -22,10 +22,11 @@ const ACTIONS = {
   async getOne({ commit }, id) {
     const res = await userService.getOne(id);
     commit('setOne', res.data);
+    return res.data;
   },
 
-  async getListPaginated({ commit }, query) {
-    const res = await userService.getListPaginated(query);
+  async getList({ commit }, query) {
+    const res = await userService.getList(query);
     commit('setList', res.data.items);
     return res.data;
   },

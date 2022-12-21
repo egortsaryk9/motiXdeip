@@ -62,7 +62,6 @@
     data() {
       return {
         loading: false,
-
         list: [],
         page: 0,
         infiniteScrollId: `users-list-${new Date().getTime()}`
@@ -92,7 +91,7 @@
 
     methods: {
       /**
-       * Get NFT items list
+       * Get users list
        * @param {Object} scrollState
        * @param {Function} scrollState.loaded
        * @param {Function} scrollState.complete
@@ -111,7 +110,7 @@
         try {
 
           this.loading = true;
-          const { items } = await this.$store.dispatch('users/getListPaginated', query);
+          const { items } = await this.$store.dispatch('users/getList', query);
           if (items.length) {
             this.list = this.list.concat(items);
             this.page++;
@@ -135,5 +134,6 @@
         this.infiniteScrollId = `users-list-${new Date().getTime()}`;
       }
     }
+
   });
 </script>

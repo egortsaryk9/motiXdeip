@@ -2,31 +2,42 @@
   <vex-section>
     <ve-stack :gap="24">
       <vex-section-title
-        :title="$t('admin.users.title')"
+        :title="$t('admin.collections.title')"
         class="align-center"
       >
-
         <template #append>
           <m-btn
             small
             kind="primary"
-            depressed
-            :to="{ name: 'admin.users.create' }"
+            outlined
+            class="mr-4"
+            :to="{ name: 'admin.collections.settings' }"
           >
             <v-icon left>
-              mdi-account-plus
+              mdi-tune-vertical
             </v-icon>
-            {{ $t('admin.users.form.new') }}
+            {{ $t('admin.collections.settings.settings') }}
+          </m-btn>
+          <m-btn
+            small
+            kind="primary"
+            depressed
+            :to="{ name: 'admin.collections.create' }"
+          >
+            <v-icon left>
+              mdi-folder-multiple-outline
+            </v-icon>
+            {{ $t('admin.collections.form.new') }}
           </m-btn>
         </template>
       </vex-section-title>
 
-      <users-list>
-        <template v-slot:default="{users, loading}">
+      <nft-collections-list>
+        <template v-slot:default="{nftCollections, loading}">
 
           <v-data-table
             :headers="tableHeaders"
-            :items="users"
+            :items="nftCollections"
             :loading="loading"
             disable-sort
             disable-pagination
@@ -36,10 +47,6 @@
 
             <template #item.id="{item}">
               <span>{{ item._id }}</span>
-            </template>
-
-            <template #item.email="{item}">
-              <span>{{ item.email }}</span>
             </template>
 
             <template #item.actions="{item}">
@@ -75,22 +82,22 @@
             </template>
           </v-data-table>
         </template>
-      </users-list>
+      </nft-collections-list>
     </ve-stack>
   </vex-section>
 </template>
 
 <script>
-  import { UsersList } from '@/casimir-framework/modules/users';
+  import { NftCollectionsList } from '@/casimir-framework/modules/nft-collections';
   import { MBtn } from '@/components/MBtn';
   import { VexSection, VexSectionTitle, VexTooltip } from '@/casimir-framework/plugins/VuetifyExtended';
   import { VeStack } from '@/casimir-framework/vue-elements';
 
 
   export default {
-    name: 'AdminUsersList',
+    name: 'AdminNftCollectionsList',
     components: {
-      UsersList,
+      NftCollectionsList,
       MBtn,
       VeStack,
       VexSection,
@@ -101,34 +108,31 @@
       return {
         tableHeaders: [
           {
-            text: this.$t('module.users.list.id'),
+            text: this.$t('module.nftCollections.list.id'),
+            value: 'actions',
             value: 'id',
-          },
-          {
-            text: this.$t('module.users.list.email'),
-            value: 'email',
           },
           {
             value: 'actions',
             width: '20%'
           }
         ]
-      }
+      };
     },
     methods: {
-      onEditClick(user) {
+      onEditClick(nftCollection) {
         this.$router.push({
-          name: 'admin.users.edit',
-          params: { userId: user._id }
+          name: 'admin.collections.edit',
+          params: { nftCollectionId: nftCollection._id }
         });
       },
-      onViewClick(user) {
+      onViewClick(nftCollection) {
         this.$router.push({
-          name: 'admin.users.details',
-          params: { userId: user._id }
+          name: 'admin.collections.details',
+          params: { nftCollectionId: nftCollection._id }
         });
       },
-      onRowClick(user) {
+      onRowClick(nftCollection) {
       }
     }
   };

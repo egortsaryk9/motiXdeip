@@ -6,7 +6,7 @@ import { AdminUsersList } from '@/modules/admin/components/Users/AdminUsersList'
 import { AdminUserForm } from '@/modules/admin/components/Users/AdminUserForm';
 import { AdminUserDetails } from '@/modules/admin/components/Users/AdminUserDetails';
 
-import { AdminNftCollections } from '@/modules/admin/components/Collections/AdminNftCollections';
+import { AdminNftCollectionsList } from '@/modules/admin/components/Collections/AdminNftCollectionsList';
 import { AdminNftCollectionsForm } from '@/modules/admin/components/Collections/AdminNftCollectionsForm';
 import { AdminNftCollectionDetails } from '@/modules/admin/components/Collections/AdminNftCollectionDetails';
 import { AdminNftCollectionsSettings } from '@/modules/admin/components/Collections/AdminNftCollectionsSettings';
@@ -46,7 +46,7 @@ export const adminRouter = [
           {
             name: 'admin.collections',
             path: '',
-            component: AdminNftCollections,
+            component: AdminNftCollectionsList,
             meta: { auth: [SYSTEM_ROLE.ADMIN] }
           },
           {
