@@ -24,7 +24,7 @@ export const layoutBuilderElements = {
             blockType: 'simple',
             layoutType: 'details',
             scope: [AttributeScope.NFT_ITEM],
-            disabledProps: ['schemaData']
+            disabledProps: ['schemaData','components', 'value']
           },
           {
             component: AssetCollectionName,
@@ -34,7 +34,7 @@ export const layoutBuilderElements = {
             blockType: 'simple',
             layoutType: 'details',
             scope: [AttributeScope.NFT_ITEM],
-            disabledProps: ['schemaData']
+            disabledProps: ['schemaData','components', 'value']
           },
           {
             component: AssetStatus,
@@ -44,7 +44,7 @@ export const layoutBuilderElements = {
             blockType: 'simple',
             layoutType: 'details',
             scope: [AttributeScope.NFT_ITEM],
-            disabledProps: ['schemaData']
+            disabledProps: ['schemaData','components', 'value']
           },
           {
             component: AssetAuthor,
@@ -54,7 +54,7 @@ export const layoutBuilderElements = {
             blockType: 'simple',
             layoutType: 'details',
             scope: [AttributeScope.NFT_ITEM],
-            disabledProps: ['schemaData']
+            disabledProps: ['schemaData','components', 'value']
           },
           {
             component: AssetFile,
@@ -64,7 +64,7 @@ export const layoutBuilderElements = {
             blockType: 'simple',
             layoutType: 'details',
             scope: [AttributeScope.NFT_ITEM],
-            disabledProps: ['schemaData']
+            disabledProps: ['schemaData', 'components', 'value']
           },
           {
             component: AssetQueueNumber,
@@ -74,7 +74,7 @@ export const layoutBuilderElements = {
             blockType: 'simple',
             layoutType: 'details',
             scope: [AttributeScope.NFT_ITEM],
-            disabledProps: ['schemaData']
+            disabledProps: ['schemaData','components', 'value']
           },
         ])
       ]
