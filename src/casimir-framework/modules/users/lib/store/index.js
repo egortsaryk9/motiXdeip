@@ -19,14 +19,15 @@ const GETTERS = {
 
 const ACTIONS = {
 
-  async getList({ commit }, filter = {}) {
-    const res = await userService.getList(filter);
-    commit('setList', res.data.items);
-  },
-
   async getOne({ commit }, id) {
     const res = await userService.getOne(id);
     commit('setOne', res.data);
+  },
+
+  async getListPaginated({ commit }, query) {
+    const res = await userService.getListPaginated(query);
+    commit('setList', res.data.items);
+    return res.data;
   },
 
   async create({ dispatch, rootGetters }, payload) {

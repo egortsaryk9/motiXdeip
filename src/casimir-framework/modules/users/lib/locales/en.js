@@ -8,7 +8,8 @@ export default {
       },
       list: {
         id: 'ID',
-        email: 'Email'
+        email: 'Email',
+        noResults: 'No users found'
       }
     }
   }

@@ -49,16 +49,7 @@ export class AuthService {
 
     return this.http.signUp(msg);
   }
-
-  /**
-   * Check if user exists by _id or email
-   * @param {string} usernameOrEmail
-   * @return {Promise<Object>}
-   */
-  async isExist(usernameOrEmail) {
-    return this.http.isExist(usernameOrEmail).then(({ data: { exists } }) => exists);
-  }
-
+  
   /**
    * @param {string} seed
    * @return {Promise<Object>}

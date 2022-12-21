@@ -24,15 +24,6 @@ export class AuthHttp {
     return this.http.post('/auth/v3/sign-up/', req.getHttpBody());
   }
 
-  /**
-   * Check if user exists by _id or email
-   * @param {string} usernameOrEmail
-   * @return {Promise<Object>}
-   */
-  async isExist(usernameOrEmail) {
-    return this.http.get(`/auth/v2/exist/${usernameOrEmail}`);
-  }
-
   /** @type {() => AuthHttp} */
   static getInstance = makeSingletonInstance(() => new AuthHttp());
 }

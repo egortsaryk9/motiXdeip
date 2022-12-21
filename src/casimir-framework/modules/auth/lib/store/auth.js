@@ -34,8 +34,8 @@ const ACTIONS = {
   },
 
   async signIn({ dispatch, commit }, { email, password }) {
-    const exists = await authService.isExist(email);
-    if (!exists) {
+    const res = await userService.getOne(email);
+    if (!res.data._id) {
       throw new Error('Wrong email or password. Please try again.');
     }
 
@@ -63,9 +63,8 @@ const ACTIONS = {
  
   async signUp(_, payload) {
     const { email, password } = payload;
-
-    const exists = await authService.isExist(email);
-    if (exists) {
+    const res = await userService.getOne(email);
+    if (res.data._id) {
       throw new Error('User with such email exists');
     }
 

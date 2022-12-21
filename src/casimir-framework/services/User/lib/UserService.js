@@ -115,51 +115,24 @@ export class UserService {
   }
 
   /**
-   * Get users by ids
-   * @param {string[]} ids
-   * @return {Promise<Object>}
-   */
-  async getListByIds(ids) {
-    return this.userHttp.getListByIds(ids);
-  }
-
-  /**
-   * Get users by team id
-   * @param {string} teamId
-   * @return {Promise<Object>}
-   */
-  async getListByTeam(teamId) {
-    return this.userHttp.getListByTeam(teamId);
-  }
-
-  /**
-   * Get users by portal id
-   * @param {string} portalId
-   * @return {Promise<Object>}
-   */
-  async getListByPortal(portalId) {
-    return this.userHttp.getListByPortal(portalId);
-  }
-
-  /**
-   * Get users by several parameters
-   * @param {Object} query
-   * @return {Promise<Object>}
-   */
-  async getList(query = {}) {
-    return this.userHttp.getList(query);
-  }
-
-  /**
    * Get user by _id or email
    * @param {string} _id
    * @return {Promise<Object>}
    */
-  async getOne(_id) {
-    if (_id.includes('@')) {
-      return this.userHttp.getOneByEmail(_id);
-    }
-    return this.userHttp.getOne(_id);
+  async getOne(userIdOrEmail) {
+    return this.userHttp.getOne(userIdOrEmail);
+  }
+
+  /**
+   * Get Users list paginated
+   * @param {Object} query
+   * @param {Object} query.sort 'asc', 'desc'
+   * @param {Number} query.page 0 or above
+   * @param {Number} query.pageSize from 1 to 100
+   * @param {Object} query.filter
+   */
+  async getListPaginated(query) {
+    return this.userHttp.getListPaginated(query);
   }
 
   /** @type {() => UserService} */

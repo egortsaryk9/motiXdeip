@@ -2,7 +2,7 @@ import { SYSTEM_ROLE, ViewMode } from '@/casimir-framework/vars';
 
 import { AdminNavigationView } from '@/modules/admin/components/View/AdminNavigationView';
 
-import { AdminUsers } from '@/modules/admin/components/Users/AdminUsers';
+import { AdminUsersList } from '@/modules/admin/components/Users/AdminUsersList';
 import { AdminUserForm } from '@/modules/admin/components/Users/AdminUserForm';
 import { AdminUserDetails } from '@/modules/admin/components/Users/AdminUserDetails';
 
@@ -97,7 +97,7 @@ export const adminRouter = [
           {
             name: 'admin.users',
             path: '',
-            component: AdminUsers,
+            component: AdminUsersList,
             meta: { auth: [SYSTEM_ROLE.ADMIN] }
           },
           {

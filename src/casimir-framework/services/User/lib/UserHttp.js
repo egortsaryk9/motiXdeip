@@ -5,6 +5,29 @@ export class UserHttp {
   http = HttpService.getInstance();
 
   /**
+   * Get user by given userId
+   * @param {string} _id
+   * @return {Promise<Object>}
+   */
+  async getOne(usernameOrEmail) {
+    return this.http.get(`/api/v3/users/${usernameOrEmail}`);
+  }
+
+  /**
+   * Get Users list paginated
+   * @param {Object} query
+   * @param {Object} query.sort 'asc', 'desc' by fields
+   * @param {Number} query.page 0 or above
+   * @param {Number} query.pageSize from 1 to 100
+   * @param {Object} query.filter filter
+   * @returns {Promise<Object>}
+   */
+  async getListPaginated(query) {
+    const querySerialized = serializeParams(query);
+    return this.http.get(`/api/v3/users?${querySerialized}`);
+  }
+
+  /**
    * Create User
    * @param {Object} req
    * @returns {Promise<Object>}
@@ -24,62 +47,6 @@ export class UserHttp {
     return this.http.put(`/api/v3/users`, req.getHttpBody(), { 
       headers: req.getHttpHeaders() 
     });
-  }
-
-  /**
-   * Get users by several ids
-   * @param {string[]} usernames
-   * @return {Promise<Object>}
-   */
-  async getListByIds(usernames) {
-    const query = serializeParams({ usernames });
-    return this.http.get(`/api/v2/users?${query}`);
-  }
-
-  /**
- * Get users by team id
- * @param {string} teamId
- * @return {Promise<Object>}
- */
-  async getListByTeam(teamId) {
-    return this.http.get(`/api/v2/users/team/${teamId}`);
-  }
-
-  /**
- * Get users by portal id
- * @param {string} portalId
- * @return {Promise<Object>}
- */
-  async getListByPortal(portalId) {
-    return this.http.get(`/api/v2/users/portal/${portalId}`);
-  }
-
-  /**
- * Get users by several parameters
- * @param {Object} params
- * @return {Promise<Object>}
- */
-  async getList(params) {
-    const query = serializeParams(params);
-    return this.http.get(`/api/v2/users/listing?${query}`);
-  }
-
-  /**
- * Get user by given _id
- * @param {string} _id
- * @return {Promise<Object>}
- */
-  async getOne(_id) {
-    return this.http.get(`/api/v2/user/name/${_id}`);
-  }
-
-  /**
- * Get user by given email
- * @param {string} email
- * @return {Promise<Object>}
- */
-  async getOneByEmail(email) {
-    return this.http.get(`/api/v2/user/email/${email}`);
   }
 
   /** @type {() => UserHttp} */
