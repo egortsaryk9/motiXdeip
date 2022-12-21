@@ -14,7 +14,6 @@
 <script>
   import { defineComponent } from '@/casimir-framework/all';
   import { getBindableProps } from '@/casimir-framework/plugins/VuetifyExtended/lib/composables/props';
-  import { VexTooltip } from '@/casimir-framework/plugins/VuetifyExtended';
   import UsersDataProvider from '../DataProvider';
 
   /**
@@ -25,7 +24,6 @@
 
     components: {
       UsersDataProvider,
-      VexTooltip
     },
 
     props: {

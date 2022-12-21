@@ -1,34 +1,27 @@
 <template>
   <ve-stack class="mt-4">
-    <div class="d-flex justify-end">
-  
-    </div>
-
-    <nft-items-infinite-scroll
-      v-slot="{list}"
-      :filter="filter"
-      :sort="sort"
-      class="py-6"
-    >
-      <ve-auto-grid
-        cols="1"
-      >
-        <nft-item-moderation-card
-          v-for="asset in list"
-          :key="asset._id"
-          :nft-item="asset"
-          title-attribute-key="nftItem.title"
-          :success-approve-message="$t('moderation.pendingAssets.approveSuccess')"
-          :success-decline-message="$t('moderation.pendingAssets.declineSuccess')"
-        />
-      </ve-auto-grid>
-    </nft-items-infinite-scroll>
+    <nft-items-list>
+      <template v-slot:default="{nftItems}">
+        <ve-auto-grid
+          cols="1"
+        >
+          <nft-item-moderation-card
+            v-for="asset in nftItems"
+            :key="asset._id"
+            :nft-item="asset"
+            title-attribute-key="nftItem.title"
+            :success-approve-message="$t('moderation.pendingAssets.approveSuccess')"
+            :success-decline-message="$t('moderation.pendingAssets.declineSuccess')"
+          />
+        </ve-auto-grid>
+      </template>
+    </nft-items-list>
   </ve-stack>
 </template>
 
 <script>
   import { NftItemMetadataDraftStatus } from '@/casimir-framework/vars';
-  import { NftItemsInfiniteScroll, NftItemModerationCard } from '@/casimir-framework/modules/nft-items';
+  import { NftItemsList, NftItemModerationCard } from '@/casimir-framework/modules/nft-items';
   import { VeAutoGrid, VeStack } from '@/casimir-framework/vue-elements';
 
   export default {
@@ -36,7 +29,7 @@
 
     components: {
       NftItemModerationCard,
-      NftItemsInfiniteScroll,
+      NftItemsList,
       VeAutoGrid,
       VeStack
     },

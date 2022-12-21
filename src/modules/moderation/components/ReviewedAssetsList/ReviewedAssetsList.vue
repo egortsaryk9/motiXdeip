@@ -10,29 +10,28 @@
       />
     </div>
 
-    <nft-items-infinite-scroll
-      v-slot="{list}"
-      :filter="filter"
-      :sort="sort"
-    >
-      <ve-auto-grid
-        cols="1"
-      >
-        <asset-card
-          v-for="asset in list"
-          :key="asset._id"
-          :asset="asset"
-          add-assets-details-modal
-        />
-      </ve-auto-grid>
-    </nft-items-infinite-scroll>
+    <nft-items-list>
+      <template v-slot:default="{nftItems}">
+        <ve-auto-grid
+          cols="1"
+        >
+          <asset-card
+            v-for="asset in nftItems"
+            :key="asset._id"
+            :asset="asset"
+            add-assets-details-modal
+          />
+        </ve-auto-grid>
+      </template>
+    </nft-items-list>
+
   </ve-stack>
 </template>
 
 <script>
   import { VeStack, VeAutoGrid } from '@/casimir-framework/vue-elements';
   import { NftItemMetadataDraftStatus } from '@/casimir-framework/vars';
-  import { NftItemsInfiniteScroll } from '@/casimir-framework/modules/nft-items';
+  import { NftItemsList } from '@/casimir-framework/modules/nft-items';
 
   import { AssetCard } from '@/components';
 
@@ -43,7 +42,7 @@
       VeStack,
       VeAutoGrid,
       AssetCard,
-      NftItemsInfiniteScroll
+      NftItemsList
     },
 
     data() {

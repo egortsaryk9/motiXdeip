@@ -20,8 +20,8 @@ const GETTERS = {
 };
 
 const ACTIONS = {
-  async getListPaginated({ commit }, query) {
-    const res = await nonFungibleTokenService.getNftItemsListPaginated(query);
+  async getList({ commit }, query) {
+    const res = await nonFungibleTokenService.getNftItems(query);
     commit('setList', res.data.items);
     return res.data;
   },

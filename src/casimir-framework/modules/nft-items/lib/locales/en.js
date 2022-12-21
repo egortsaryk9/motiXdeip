@@ -16,15 +16,11 @@ export default {
         update: 'Update',
         create: 'Create'
       },
-      contentList: {
-        type: 'Type',
-        title: 'Title'
+      list: {
+        noResults: 'No items found'
       },
       details: {
         download: 'Download'
-      },
-      nftItemsInfiniteScroll: {
-        noResults: 'No results found'
       },
       moderation: {
         declineDialog: {

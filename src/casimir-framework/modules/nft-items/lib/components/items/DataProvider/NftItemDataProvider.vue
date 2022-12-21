@@ -1,117 +1,138 @@
 <template>
-  <component :is="tag">
-    <slot v-bind="slotProps" />
-  </component>
+  <div>
+    <component :is="tag">
+      <slot v-bind="slotProps" />
+    </component>
+    <infinite-loading :identifier="infiniteScrollId" @infinite="getList">
+      <template #spinner>
+        <v-progress-circular
+          indeterminate
+          class="my-8"
+        />
+      </template>
+
+      <template #no-results class="my-8">
+        {{ $t('module.nftItems.list.noResults') }}
+      </template>
+    </infinite-loading>
+  </div>
 </template>
 
 <script>
   import { defineComponent } from '@/casimir-framework/all';
+  import InfiniteLoading from 'vue-infinite-loading';
 
   /**
    * NFT items data provider
    */
   export default defineComponent({
     name: 'NftItemDataProvider',
+    components: {
+      InfiniteLoading
+    },
     props: {
       /**
        * Tag name
-       * @example 'div'
        */
       tag: {
         type: String,
         default: 'div'
       },
-      /**
-       * NFT collection id
-       */
-      nftCollectionId: {
-        type: String,
-        required: true
+
+      /** Page size */
+      pageSize: {
+        type: Number,
+        default: 10
       },
-      /**
-       * Filter for items
-       */
-      filterItems: {
+
+      /** Filter */
+      filter: {
         type: Object,
-        default: () => ({})
+        default: undefined
+      },
+
+      /** Sort */
+      sort: {
+        type: Object,
+        default: undefined
       }
     },
 
     data() {
       return {
         loading: false,
-        ready: false,
-        disabled: false
+        list: [],
+        page: 0,
+        infiniteScrollId: `items-list-${new Date().getTime()}`
       };
     },
 
     computed: {
       /**
-       * Get computed filter for items
-       */
-      getterFilter() {
-        const filter = { ...this.filterItems };
-
-        if (this.nftCollectionId) {
-          filter.nftCollectionId = this.nftCollectionId;
-        }
-
-        return filter;
-      },
-      /**
-       * Get computed NFT items list
-       */
-      nftItems() {
-        return this.$store.getters['nftItems/list'](this.getterFilter);
-      },
-      /**
-       * Get computed slot properties
+       * Get computed binding slot properties
        */
       slotProps() {
         return {
-          nftItems: this.nftItems,
-          loading: this.loading,
-          ready: this.ready,
-          disabled: this.disabled
+          nftItems: this.list,
+          loading: this.loading
         };
       }
     },
 
-    created() {
-      this.getNftItems();
+    watch: {
+      filter() {
+        this.resetInfiniteScroll();
+      },
+      sort() {
+        this.resetInfiniteScroll();
+      }
     },
 
     methods: {
-      handleReady() {
-        this.ready = true;
-        /**
-         * Triggers when the nftItems list is ready
-         *
-         * @property {Array.<Object>} nftItems
-         */
-        this.$emit('ready', this.nftItems);
-      },
       /**
-       * Get NFT items by NFT collection id
+       * Get users list
+       * @param {Object} scrollState
+       * @param {Function} scrollState.loaded
+       * @param {Function} scrollState.complete
+       * @param {Function} scrollState.error
+       * @param {Function} scrollState.reset
        */
-      async getNftItems() {
-        this.loading = true;
-
+      async getList(scrollState) {
         const query = {
-          page: 0,
-          pageSize: 1000, // todo: add pagination
-          filter: { nftCollectionId: this.nftCollectionId }
+          page: this.page,
+          pageSize: this.pageSize
         };
 
+        if (this.filter) query.filter = this.filter;
+        if (this.sort) query.sort = this.sort;
+
         try {
-          await this.$store.dispatch('nftItems/getListPaginated', query);
-          this.handleReady();
+
+          this.loading = true;
+          const { items } = await this.$store.dispatch('nftItems/getList', query);
+          if (items.length) {
+            this.list = this.list.concat(items);
+            this.page++;
+
+            scrollState.loaded();
+          } else {
+            scrollState.complete();
+          }
+
+          this.loading = false;
         } catch (error) {
           console.error(error);
+          this.loading = false;
         }
+      },
 
-        this.loading = false;
+      /** Reset infinite scroll */
+      resetInfiniteScroll() {
+        this.page = 0;
+        this.list = [];
+        this.infiniteScrollId = `items-list-${new Date().getTime()}`;
       }
     }
+
   });
 </script>

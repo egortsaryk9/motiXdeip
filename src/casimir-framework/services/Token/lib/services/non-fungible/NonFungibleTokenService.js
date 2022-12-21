@@ -143,8 +143,8 @@ export class NonFungibleTokenService {
    * @param {Number} query.pageSize from 1 to 100
    * @param {Object} query.filter
    */
-  async getNftItemsListPaginated(query) {
-    return this.nonFungibleTokenHttp.getNftItemsListPaginated(query);
+  async getNftItems(query) {
+    return this.nonFungibleTokenHttp.getNftItems(query);
   }
 
   /**

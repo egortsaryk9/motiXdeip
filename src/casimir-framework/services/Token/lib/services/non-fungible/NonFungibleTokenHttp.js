@@ -59,7 +59,7 @@ export class NonFungibleTokenHttp {
    * @param {Object} query.filter filter
    * @returns {Promise<Object>}
    */
-  async getNftItemsListPaginated(query) {
+  async getNftItems(query) {
     const querySerialized = serializeParams(query);
     return this.http.get(`/api/v3/items?${querySerialized}`);
   }
