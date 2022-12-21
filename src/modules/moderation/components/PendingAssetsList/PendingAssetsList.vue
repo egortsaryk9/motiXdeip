@@ -1,6 +1,9 @@
 <template>
   <ve-stack class="mt-4">
-    <nft-items-list>
+    <nft-items-list 
+     :filter="filter"
+     :sort="sort"
+    >
       <template v-slot:default="{nftItems}">
         <ve-auto-grid
           cols="1"
