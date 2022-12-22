@@ -16,7 +16,7 @@ const install = (Vue, options = {}) => {
     store.registerModule('attributesRegistry', attributesRegistry);
 
     store.registerModule('attributes', attributesStore);
-    store.dispatch('attributes/getList');
+    store.dispatch('attributes/getList', { page: 0, pageSize: 99 }); // should be removed
     store.dispatch('attributes/getMappings');
 
     for (const attribute of attributes) {

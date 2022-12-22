@@ -9,7 +9,7 @@ import {
   collectionOne,
 } from '@/casimir-framework/all';
 
-const TENANT = "6561845613164402145092105428472817005070";
+
 const attributesService = AttributesService.getInstance();
 
 const STATE = {
@@ -38,40 +38,46 @@ const GETTERS = {
 };
 
 const ACTIONS = {
-  async getList({ commit }) {
-    const res = await attributesService.getList();
+  async getList({ commit }, query) {
+    const res = await attributesService.getList(query);
     commit('setList', res.data.items);
+    return res.data;
   },
   
   async getOne({ commit }, attributeId) {
     const res = await attributesService.getOne(attributeId);
     commit('setOne', res.data);
+    return res.data;
   },
 
   async create({ dispatch }, attribute) {
     await attributesService.create(attribute);
     dispatch('getList');
+    return res.data;
   },
 
   async update({ dispatch }, attribute) {
     await attributesService.update(attribute);
     dispatch('getList');
+    return res.data;
   },
 
   async remove({ commit }, attributeId) {
     await attributesService.delete(attributeId);
     commit('remove', attributeId);
+    return res.data;
   },
 
   async getMappings({ commit }) {
-    // const res = await attributesService.getMappings(window.env.TENANT);
-    const res = await attributesService.getMappings(TENANT);
+    const res = await attributesService.getMappings(window.env.TENANT);
     commit('setMappings', res.data);
+    return res.data;
   },
 
   async updateMappings({ dispatch }, payload) {
     await attributesService.updateMappings(payload);
     dispatch('getMappings');
+    return res.data;
   }
 };
 

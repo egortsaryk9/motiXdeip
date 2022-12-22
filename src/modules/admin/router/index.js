@@ -11,7 +11,7 @@ import { AdminNftCollectionsForm } from '@/modules/admin/components/Collections/
 import { AdminNftCollectionDetails } from '@/modules/admin/components/Collections/AdminNftCollectionDetails';
 import { AdminNftCollectionsSettings } from '@/modules/admin/components/Collections/AdminNftCollectionsSettings';
 
-import { AdminAttributes } from '@/modules/admin/components/Attributes/AdminAttributes';
+import { AdminAttributesList } from '@/modules/admin/components/Attributes/AdminAttributesList';
 import { AdminAttributesForm } from '@/modules/admin/components/Attributes/AdminAttributesForm';
 import { AdminAttributesSettings } from '@/modules/admin/components/Attributes/AdminAttributesSettings';
 
@@ -137,7 +137,7 @@ export const adminRouter = [
           {
             name: 'admin.attributes',
             path: '',
-            component: AdminAttributes,
+            component: AdminAttributesList,
             meta: { auth: [SYSTEM_ROLE.ADMIN] }
           },
           {

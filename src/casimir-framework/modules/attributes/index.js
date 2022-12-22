@@ -7,5 +7,7 @@ export { default as AttributeRead } from './lib/components/AttributeRead';
 export { default as AttributesMappings } from './lib/components/AttributesMappings';
 
 export { AttributesList } from './lib/components/AttributesList';
+export { AttributesDataProvider } from './lib/components/DataProvider';
+
 export * from './lib/composables/attributes';
 export * from './lib/mixins';

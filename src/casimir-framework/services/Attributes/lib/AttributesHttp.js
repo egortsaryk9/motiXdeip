@@ -1,4 +1,4 @@
-import { HttpService } from '@/casimir-framework/services/Http';
+import { HttpService, serializeParams } from '@/casimir-framework/services/Http';
 import { makeSingletonInstance } from '@/casimir-framework/all';
 
 /**
@@ -8,11 +8,17 @@ export class AttributesHttp {
   http = HttpService.getInstance();
 
   /**
-   * Get attributes list
-   * @return {Promise<Object>}
+   * Get Users list paginated
+   * @param {Object} query
+   * @param {Object} query.sort 'asc', 'desc' by fields
+   * @param {Number} query.page 0 or above
+   * @param {Number} query.pageSize from 1 to 100
+   * @param {Object} query.filter filter
+   * @returns {Promise<Object>}
    */
-  async getList() {
-    return this.http.get('/api/v2/attributes');
+  async getList(query) {
+    const querySerialized = serializeParams(query);
+    return this.http.get(`/api/v3/attributes?${querySerialized}`);
   }
 
   /**

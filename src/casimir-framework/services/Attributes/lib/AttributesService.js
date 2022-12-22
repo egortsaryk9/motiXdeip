@@ -18,8 +18,8 @@ export class AttributesService {
    * Get all attributes list
    * @return {Promise<Object>}
    */
-  async getList() {
-    return this.attributesHttp.getList();
+  async getList(query) {
+    return this.attributesHttp.getList(query);
   }
 
   /**
