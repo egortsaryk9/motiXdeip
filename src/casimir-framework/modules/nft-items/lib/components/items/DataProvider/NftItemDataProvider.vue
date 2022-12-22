@@ -1,8 +1,6 @@
 <template>
-  <div>
-    <component :is="tag">
-      <slot v-bind="slotProps" />
-    </component>
+  <component :is="tag">
+    <slot v-bind="slotProps" />
     <infinite-loading :identifier="infiniteScrollId" @infinite="getList">
       <template #spinner>
         <v-progress-circular
@@ -15,7 +13,7 @@
         {{ $t('module.nftItems.list.noResults') }}
       </template>
     </infinite-loading>
-  </div>
+  </component>
 </template>
 
 <script>
