@@ -26,17 +26,8 @@ export class AttributesHttp {
    * @param {string} id
    * @return {Promise<Object>}
    */
-  async getOne(id) {
-    return this.http.get(`/api/v2/attribute/${id}`);
-  }
-
-  /**
-   * Get attributes list by scope
-   * @param {string} scope
-   * @return {Promise<Object>}
-   */
-  async getListByScope(scope) {
-    return this.http.get(`/api/v2/attributes/scope/${scope}`);
+  async getOne(attributeId) {
+    return this.http.get(`/api/v3/attributes/${attributeId}`);
   }
 
   /**
@@ -45,7 +36,7 @@ export class AttributesHttp {
    * @return {Promise<Object>}
    */
   async create(req) {
-    return this.http.post('/api/v2/attribute', req.getHttpBody());
+    return this.http.post('/api/v3/attributes', req.getHttpBody());
   }
 
   /**
@@ -54,7 +45,7 @@ export class AttributesHttp {
    * @return {Promise<Object>}
    */
   async update(req) {
-    return this.http.put('/api/v2/attribute', req.getHttpBody());
+    return this.http.put('/api/v3/attributes', req.getHttpBody());
   }
 
   /**
@@ -63,7 +54,7 @@ export class AttributesHttp {
    * @return {Promise<Object>}
    */
   async delete(req) {
-    return this.http.put('/api/v2/attribute/delete', req.getHttpBody());
+    return this.http.put('/api/v3/attributes/delete', req.getHttpBody());
   }
 
   /**

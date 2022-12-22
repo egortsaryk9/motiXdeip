@@ -23,15 +23,6 @@ export class AttributesService {
   }
 
   /**
-   * Get attributes by scope
-   * @param {string} scope
-   * @return {Promise<Object>}
-   */
-  async getListByScope(scope) {
-    return this.attributesHttp.getListByScope(scope);
-  }
-
-  /**
    * Get attribute info
    * @param {string} id
    * @return {Promise<Object>}

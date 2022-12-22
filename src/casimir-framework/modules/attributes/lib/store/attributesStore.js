@@ -51,19 +51,19 @@ const ACTIONS = {
   },
 
   async create({ dispatch }, attribute) {
-    await attributesService.create(attribute);
+    const res = await attributesService.create(attribute);
     dispatch('getList');
     return res.data;
   },
 
   async update({ dispatch }, attribute) {
-    await attributesService.update(attribute);
+    const res = await attributesService.update(attribute);
     dispatch('getList');
     return res.data;
   },
 
   async remove({ commit }, attributeId) {
-    await attributesService.delete(attributeId);
+    const res = await attributesService.delete(attributeId);
     commit('remove', attributeId);
     return res.data;
   },
@@ -75,7 +75,7 @@ const ACTIONS = {
   },
 
   async updateMappings({ dispatch }, payload) {
-    await attributesService.updateMappings(payload);
+    const res = await attributesService.updateMappings(payload);
     dispatch('getMappings');
     return res.data;
   }

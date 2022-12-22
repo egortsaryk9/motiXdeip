@@ -101,7 +101,7 @@ export class NonFungibleTokenHttp {
    * @returns {Promise<Object>}
    */
   async deleteNftItem(req) {
-    return this.http.delete('/api/v3/items', req.getHttpBody(), {
+    return this.http.put('/api/v3/items/delete', req.getHttpBody(), {
       headers: req.getHttpHeaders()
     });
   }
