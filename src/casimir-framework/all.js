@@ -30,6 +30,8 @@ import { ripemd160 } from '@noble/hashes/ripemd160';
 import where from 'filter-where';
 import { isEqual } from 'lodash';
 import RecursiveIterator from 'recursive-iterator';
+import InfiniteLoading from 'vue-infinite-loading';
+
 
 /**
  * @param {boolean} condition
@@ -722,6 +724,124 @@ const formMixin = formFactory();
 
 export { formFactory, formMixin };
 
+
+/**
+ * Create list mixin
+ * @param {string} [prop=value]
+ * @param {string} [event=input]
+ * @param {Function} [storeDataListCall]
+ * @param {Object} [scrollId]
+ * @returns {Object} Vue mixin object
+ */
+const dataProviderFactory = (
+  storeDataListCall,
+  scrollId = `data-list-${new Date().getTime()}`,
+) => ({
+
+  name: 'DataProviderFactory',
+  components: {
+    InfiniteLoading
+  },
+  props: {
+    /**
+     * Tag name
+     */
+    tag: {
+      type: String,
+      default: 'div'
+    },
+
+    /** Page size */
+    pageSize: {
+      type: Number,
+      default: 10
+    },
+
+    /** Filter */
+    filter: {
+      type: Object,
+      default: undefined
+    },
+
+    /** Sort */
+    sort: {
+      type: Object,
+      default: undefined
+    }
+  },
+
+  data() {
+    return {
+      loading: false,
+      list: [],
+      page: 0,
+      infiniteScrollId: `${scrollId}-${new Date().getTime()}`
+    };
+  },
+
+  watch: {
+    filter() {
+      this.resetInfiniteScroll();
+    },
+    sort() {
+      this.resetInfiniteScroll();
+    }
+  },
+
+  methods: {
+    /**
+     * Get data list
+     * @param {Object} scrollState
+     * @param {Function} scrollState.loaded
+     * @param {Function} scrollState.complete
+     * @param {Function} scrollState.error
+     * @param {Function} scrollState.reset
+     */
+    async getList(scrollState) {
+      const query = {
+        page: this.page,
+        pageSize: this.pageSize
+      };
+
+      if (this.filter) query.filter = this.filter;
+      if (this.sort) query.sort = this.sort;
+
+      try {
+
+        this.loading = true;
+        const { items } = await this.$store.dispatch(storeDataListCall, query);
+        if (items.length) {
+          this.list = this.list.concat(items);
+          this.page++;
+
+          scrollState.loaded();
+        } else {
+          scrollState.complete();
+        }
+
+        this.loading = false;
+      } catch (error) {
+        console.error(error);
+        this.loading = false;
+      }
+    },
+
+    /** Reset infinite scroll */
+    resetInfiniteScroll() {
+      this.page = 0;
+      this.list = [];
+      this.infiniteScrollId = `${scrollId}-${new Date().getTime()}`;
+    }
+  }
+
+});
+
+/**
+ * Creates data list mixin
+ */
+const dataProviderMixin = dataProviderFactory();
+
+export { dataProviderFactory, dataProviderMixin };
 
 /**
  * @param {Object} obj
