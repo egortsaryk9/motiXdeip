@@ -1,4 +1,4 @@
-import { HttpService } from '@/casimir-framework/services/Http';
+import { HttpService, serializeParams } from '@/casimir-framework/services/Http';
 import { makeSingletonInstance } from '@/casimir-framework/all';
 
 /**
@@ -13,24 +13,16 @@ export class LayoutHttp {
    * @returns {Promise<Object>}
    */
   async getLayout(layoutId) {
-    return this.http.get(`/api/v2/layout/${layoutId}`);
+    return this.http.get(`/api/v3/layout/${layoutId}`);
   }
 
   /**
    * Get layouts
    * @returns {Promise<Object>}
    */
-  async getLayouts() {
-    return this.http.get('/api/v2/layouts');
-  }
-
-  /**
-   * Get layouts by scope
-   * @param {string} scope
-   * @returns {Promise<Object>}
-   */
-  async getLayoutsByScope(scope) {
-    return this.http.get(`/api/v2/layouts/scope/${scope}`);
+  async getLayouts(query) {
+    const querySerialized = serializeParams(query);
+    return this.http.get(`/api/v3/layouts?${querySerialized}`);
   }
 
   /**
@@ -39,7 +31,7 @@ export class LayoutHttp {
    * @returns {Promise<Object>}
    */
   async createLayout(req) {
-    return this.http.post('/api/v2/layout', req.getHttpBody());
+    return this.http.post('/api/v3/layouts', req.getHttpBody());
   }
 
   /**
@@ -47,7 +39,7 @@ export class LayoutHttp {
    * @param {Object} req
    */
   async updateLayout(req) {
-    return this.http.put('/api/v2/layout', req.getHttpBody());
+    return this.http.put('/api/v3/layouts', req.getHttpBody());
   }
 
   /**
@@ -56,7 +48,7 @@ export class LayoutHttp {
    * @returns {Promise<Object>}
    */
   async deleteLayout(req) {
-    return this.http.put('/api/v2/layout/delete', req.getHttpBody());
+    return this.http.put('/api/v3/layouts/delete', req.getHttpBody());
   }
 
   /**

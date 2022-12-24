@@ -10,7 +10,7 @@ import {
   collectionOne
 } from '@/casimir-framework/all';
 
-const TENANT = "6561845613164402145092105428472817005070";
+
 const layoutService = LayoutService.getInstance();
 
 const STATE = {
@@ -27,60 +27,49 @@ const GETTERS = {
 };
 
 const ACTIONS = {
-  getList({ commit }, force) {
-    return layoutService.getList()
-      .then((res) => {
-        if (force) {
-          commit('clearList');
-        }
-        commit('setList', res.data.items);
-      });
+
+  async getList({ commit }, query) {
+    const res = await layoutService.getList(query);
+    commit('setList', res.data.items);
+    return res.data;
   },
 
-  getOne({ commit }, _id) {
-    return layoutService.getOne(_id)
-      .then((res) => {
-        commit('setOne', res.data);
-      });
+  async getOne({ commit }, _id) {
+    const res = await layoutService.getOne(_id);
+    commit('setOne', res.data);
+    return res.data;
   },
 
-  create({ dispatch }, payload) {
-    return layoutService.create(payload)
-      .then(() => {
-        dispatch('getList');
-      });
+  async create({ dispatch }, payload) {
+    const res = await layoutService.create(payload);
+    dispatch('getList');
+    return res.data;
   },
 
-  update({ dispatch }, payload) {
+  async update({ dispatch }, payload) {
     const { _id } = payload;
-    return layoutService.update(payload)
-      .then(() => {
-        dispatch('getOne', _id);
-      });
+    const res = await layoutService.update(payload)
+    dispatch('getOne', _id);
+    return res.data;
   },
 
-  remove({ commit }, payload) {
+  async remove({ commit }, payload) {
     const { _id } = payload;
-
-    return layoutService.remove(_id)
-      .then(() => {
-        commit('removeFromList', _id);
-      });
+    const res = await layoutService.remove(_id);
+    commit('removeFromList', _id);
+    return res.data;
   },
 
-  getMappings({ commit }) {
-    // return layoutService.getMappings(this._vm.$env.TENANT)
-    return layoutService.getMappings(TENANT)
-      .then((res) => {
-        commit('setSettings', res.data);
-      });
+  async getMappings({ commit }) {
+    const res = await layoutService.getMappings(this._vm.$env.TENANT);
+    commit('setSettings', res.data);
+    return res.data;
   },
 
-  updateMappings({ dispatch }, payload) {
-    return layoutService.updateMappings(payload)
-      .then(() => {
-        dispatch('getMappings');
-      });
+  async updateMappings({ dispatch }, payload) {
+    const res = await layoutService.updateMappings(payload);
+    dispatch('getMappings');
+    return res.data;
   }
 };
 

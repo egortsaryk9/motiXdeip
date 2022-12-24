@@ -113,7 +113,8 @@ export const getAttributeFileSrc = (opts = {}) => {
   const url = [
     serverUrl,
     'api',
-    'attribute',
+    'v3',
+    'attributes',
     'file',
     scope,
     scopeFormatted,

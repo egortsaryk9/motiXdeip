@@ -75,7 +75,7 @@ export const LayoutsDataProvider = {
     loadData() {
       this.loading = true;
 
-      this.$store.dispatch('layouts/getList')
+      this.$store.dispatch('layouts/getList', { page: 0, pageSize: 99 }) // TODO: add infinite loading
         .then(() => {
           this.loading = false;
           this.ready = true;

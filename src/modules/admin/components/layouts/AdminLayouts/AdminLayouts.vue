@@ -1,5 +1,5 @@
 <template>
-  <layouts-management
+  <layouts-list
     @click-remove="onClickRemove"
     @click-edit="onClickEdit"
     @click-create="onClickCreate"
@@ -9,13 +9,13 @@
 </template>
 
 <script>
-  import { LayoutsManagement } from '@/casimir-framework/modules/layouts';
+  import { LayoutsList } from '@/casimir-framework/modules/layouts';
 
   export default {
     name: 'AdminLayouts',
 
     components: {
-      LayoutsManagement
+      LayoutsList
     },
 
     methods: {

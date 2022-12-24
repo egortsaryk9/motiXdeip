@@ -24,17 +24,8 @@ export class LayoutService {
    * Get layouts
    * @returns {Promise<Object>}
    */
-  async getList() {
-    return this.layoutHttp.getLayouts();
-  }
-
-  /**
-   * Get layouts by scope
-   * @param {string} scope
-   * @returns {Promise<Object>}
-   */
-  async getListByScope(scope) {
-    return this.layoutHttp.getLayoutsByScope(scope);
+  async getList(query) {
+    return this.layoutHttp.getLayouts(query);
   }
 
   /**
